@@ -1,0 +1,17 @@
+.nav-bar,
+a:link,
+a:visited,
+a:hover,
+a:visited.red,
+a:link.red,
+a:hover.red,
+.dropbtn {
+    font-size: 2.6vh
+}
+
+.nav-bar-center,
+.nav-bar-right,
+.topLanguage {
+    position: relative;
+    top: 1.3vh;
+}
