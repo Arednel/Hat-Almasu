@@ -1,7 +1,13 @@
-<form method="./booking/bookingLogicNewf.php" enctype="multipart/form-data" class="formInputs">
+<form method="POST" action="/BookingLogic" enctype="multipart/form-data" class="formInputs">
     <a href="/">← Назад</a>
 
+    @csrf
+
     <input type="text" name="fullName" placeholder=" ФИО" required />
+    @error('fullName')
+        <p>{{ $message }}</p>
+    @enderror
+
     <input type="number" name="idOfTest" min="1" max="9999999" placeholder=" ID теста" required />
     <input type="number" name="course" min="1" max="5" placeholder=" Курс" required />
     <input type="text" name="faculty" placeholder=" Институт (Факультет)" required />
