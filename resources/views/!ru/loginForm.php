@@ -9,7 +9,7 @@
 
 <body>
 
-    <form action="login.php" method="post">
+    <form action="loginLogi" method="post">
         <h2>Авторизация</h2>
 
         <?php if (isset($_GET['error'])) { ?>

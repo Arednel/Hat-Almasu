@@ -15,13 +15,11 @@
     }
 @endphp
 
-@include('./Booking/BookingLogic')
-
 <body>
     <div class="main-body">
         <div class="modal-content">
             <img src="{{ asset('images/3.jpg') }}" class="formImage">
-            @include('./Booking/BookingForm')
+            @include('./BookingForm')
         </div>
     </div>
 </body>

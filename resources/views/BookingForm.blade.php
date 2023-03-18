@@ -1,4 +1,4 @@
-<form method="POST" action="/BookingLogic" enctype="multipart/form-data" class="formInputs">
+<form method="POST" action="/NewRequest" enctype="multipart/form-data" class="formInputs">
     <a href="/">← Назад</a>
 
     @csrf

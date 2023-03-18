@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Session;
 
-class BookingInsertController extends Controller
+class BookingController extends Controller
 {
     public function insert(Request $request)
     {
@@ -28,7 +28,8 @@ class BookingInsertController extends Controller
             [
                 'fullName' => 'required',
                 'idOfTest' => [
-                    'required', Rule::unique('requests', 'idOfTest')
+                    'required'
+                    //, Rule::unique('requests', 'idOfTest')
                 ],
                 'course' => 'required',
                 'faculty' => 'required',

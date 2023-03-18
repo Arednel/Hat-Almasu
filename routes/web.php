@@ -4,7 +4,7 @@ use App\Models\Posts;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\BookingInsertController;
+use App\Http\Controllers\BookingController;
 
 /*
 |--------------------------------------------------------------------------
@@ -23,14 +23,12 @@ Route::get('/', function () {
         'Index'
     );
 });
-
 //Main Page
 Route::get('/Index', function () {
     return view(
         'Index'
     );
 });
-
 //Main Page
 Route::get('/index', function () {
     return view(
@@ -51,8 +49,15 @@ Route::get('/Booking', function () {
         'Booking'
     );
 });
+//Creating new request
+Route::post('/NewRequest', [BookingController::class, 'insert']);
 
-Route::post('/BookingLogic', [BookingInsertController::class, 'insert']);
+//
+Route::get('/Login', function () {
+    return view(
+        'Login'
+    );
+});
 
 //Checking request status
 Route::get('/VerifyRequest', function () {
