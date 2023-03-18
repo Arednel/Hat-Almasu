@@ -9,12 +9,6 @@
     <link rel="stylesheet" href="{{ asset('css/index.css') }}">
 </head>
 
-@php
-    if (session_status() === PHP_SESSION_NONE) {
-        session_start();
-    }
-@endphp
-
 @include('./NavBarAndFooter/navBar')
 @include('./NavBarAndFooter/footer')
 
