@@ -9,12 +9,14 @@
 
 <body>
 
-    <form action="LoginLogic" method="post">
+    <form method="POST" action="LoginLogic" method="post">
         <h2>Авторизация</h2>
+
+        @csrf
 
         @php
             if (isset($_GET['error'])) {
-                echo '<p class="message"> echo ' . $_GET['error'] . '</p>';
+                echo '<p class="message">' . $_GET['error'] . '</p>';
             }
         @endphp
 

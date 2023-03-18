@@ -1,10 +1,8 @@
 <?php
 
-use App\Models\Posts;
-use Illuminate\Http\Request;
-use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\BookingController;
+use App\Http\Controllers\LoginController;
 
 /*
 |--------------------------------------------------------------------------
@@ -23,13 +21,11 @@ Route::get('/', function () {
         'Index'
     );
 });
-//Main Page
 Route::get('/Index', function () {
     return view(
         'Index'
     );
 });
-//Main Page
 Route::get('/index', function () {
     return view(
         'Index'
@@ -49,13 +45,28 @@ Route::get('/Booking', function () {
         'Booking'
     );
 });
-//Creating new request
 Route::post('/NewRequest', [BookingController::class, 'insert']);
 
-//
+//Login
 Route::get('/Login', function () {
     return view(
         'Login'
+    );
+});
+Route::get('/login', function () {
+    return view(
+        'Login'
+    );
+});
+Route::post('/LoginLogic', [LoginController::class, 'login']);
+Route::get('/Logout', [LoginController::class, 'Logout']);
+Route::get('/logout', [LoginController::class, 'Logout']);
+
+//Login
+Route::get('/Login', function () {
+    return view(
+        'requests',
+        [RequestsController::class, 'new']
     );
 });
 
