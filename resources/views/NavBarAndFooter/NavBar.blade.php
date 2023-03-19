@@ -21,9 +21,9 @@
             <div class="DropDown">
                 <button class="dropbtn">Заявки</button>
                 <div class="DropDown-content">
-                    <a href="/Requests/New">Новые</a>
-                    <a href="/Requests/Approved">Одобренные</a>
-                    <a href="/Requests/Rejected">Отклонённые</a>
+                    <a href="/Requests/New/0">Новые</a>
+                    <a href="/Requests/Approved/0">Одобренные</a>
+                    <a href="/Requests/Rejected/0">Отклонённые</a>
                 </div>
             </div>&nbsp<a href="/Logout"> Выйти </a>
         @endif

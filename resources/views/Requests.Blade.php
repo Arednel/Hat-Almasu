@@ -9,18 +9,12 @@
     <link rel="stylesheet" href="{{ asset('css/betterTable.css') }}">
 </head>
 
-<?php
-// require '../pageSwitching/pageSwitchingGet.php';
-?>
-
-@include('./NavBarAndFooter/navBar')
-@include('./NavBarAndFooter/footer')
+@include('/NavBarAndFooter/navBar')
+@include('/NavBarAndFooter/footer')
 
 <body>
     <div class="main-body">
-        <?php
-        // require '../pageSwitching/pageSwitchingDiv.php';
-        ?>
+        @include ('./pageSwitchingDiv');
         <table class="tableE">
             <thead class="tableE-head">
                 <tr>
@@ -30,11 +24,9 @@
                     <th class="columnE">Почта / Телефон</th>
                     <th class="columnE">Причина </th>
                     <th class="columnE">Подтверждающий документ</th>
-                    @php
-                        if (in_array(Session::get('userPrivilege'), ['Admin', 'Support'])) {
-                            echo '<th class="columnE">Решение</th>';
-                        }
-                    @endphp
+                    @if (in_array(Session::get('userPrivilege'), ['Admin', 'Support']))
+                        <th class="columnE">Решение</th>
+                    @endif
                 </tr>
             </thead>
             <tbody class="tableE-body">
@@ -60,17 +52,21 @@
 
                     <tr>
                         <td class="columnE">
-                            <div class="columnText">{{ $record->requestID }}
+                            <div class="columnText">
+                                {{ $record->requestID }}
                             </div>
                         </td>
                         <td class="columnE">
-                            <div class="columnText">{{ $record->fullName }}
+                            <div class="columnText">
+                                {{ $record->fullName }}
                             </div>
                         </td>
                         <td class="columnE">
-                            <div class="columnText">{{ $record->idOfTest }} / {{ $record->faculty }} /
+                            <div class="columnText">
+                                {{ $record->idOfTest }} / {{ $record->faculty }} /
                                 {{ $record->speciality }} /
-                                {{ $record->course }} / {{ $record->department }} / {{ $record->subject }}</div>
+                                {{ $record->course }} / {{ $record->department }} / {{ $record->subject }}
+                            </div>
                         </td>
                         <td class="columnE">
                             <div class="columnText">
@@ -109,24 +105,21 @@
                         @endif
                     </tr>
                 @endforeach
-
             </tbody>
         </table>
-        <?php
-        // require '../pageSwitching/pageSwitchingDiv.php';
-        ?>
-        <form action="excelExport.php" method="POST" class="excel-download-form">
-            <input type="hidden" name="statusType" value=<?php echo Session::get('statusType'); ?> />
-            {{-- <input type="hidden" name="offSet" value="<?php //echo $offSet;
-            ?>" />
-            <input type="hidden" name="perPage" value="<?php //echo $perPage;
-            ?>" /> --}}
+        @include ('./pageSwitchingDiv');
+        {{-- <form action="excelExport.php" method="POST" class="excel-download-form">
+            <input type="hidden" name="statusType" value=@php echo Session::get('statusType'); @endphp />
+            <input type="hidden" name="offSet" value="@php //echo $offSet;
+            @endphp" />
+            <input type="hidden" name="perPage" value="@php //echo $perPage;
+            @endphp" />
             <input type="submit" value="Скачать эту страницу" class="button-blue">
         </form>
         <form action="excelExport.php" method="POST" class="excel-download-form">
-            <input type="hidden" name="statusType" value=<?php echo Session::get('statusType'); ?> />
+            <input type="hidden" name="statusType" value=@php echo Session::get('statusType'); @endphp />
             <input type="submit" value="Скачать все страницы" class="button-blue">
-        </form>
+        </form> --}}
     </div>
 </body>
 

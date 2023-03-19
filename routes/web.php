@@ -37,9 +37,9 @@ Route::get('/Logout', [LoginController::class, 'Logout']);
 Route::get('/logout', [LoginController::class, 'Logout']);
 
 //Requests view: New, Approved and Rejected requests
-Route::get('/Requests/New', [RequestsController::class, 'new']);
-Route::get('/Requests/Approved', [RequestsController::class, 'approved']);
-Route::get('/Requests/Rejected', [RequestsController::class, 'rejected']);
+Route::get('/Requests/New/{currentPage}', [RequestsController::class, 'new']);
+Route::get('/Requests/Approved/{currentPage}', [RequestsController::class, 'approved']);
+Route::get('/Requests/Rejected/{currentPage}', [RequestsController::class, 'rejected']);
 
 //Checking request status
 Route::view('/VerifyRequest', 'VerifyRequest');
