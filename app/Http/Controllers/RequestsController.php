@@ -7,55 +7,84 @@ use Illuminate\Support\Facades\Session;
 
 class RequestsController extends Controller
 {
-    private function allRequests($statusType, $requestsTitle, $currentPage, $requestTypeOne, $requestTypeTwo)
+    private function requests($statusType, $requestsTitle, $currentPage, $requestStatusOne, $requestStatusTwo)
     {
-        $perPage = 100;
+        if (in_array(Session::get('userPrivilege'), ['Admin', 'Support', 'Viewer'])) {
+            $perPage = 100;
 
-        Session::put('statusType', $statusType);
-        Session::put('requestsTitle', $requestsTitle);
+            Session::put('statusType', $statusType);
+            Session::put('requestsTitle', $requestsTitle);
 
-        $offSet = $currentPage * $perPage;
-        $pageStart = $offSet + 1;
-        $pageEnd = $pageStart + $perPage - 1;
+            $offSet = $currentPage * $perPage;
+            $pageStart = $offSet + 1;
+            $pageEnd = $pageStart + $perPage - 1;
 
-        $result = DB::table('requests')->where('isApproved', $requestTypeOne)
-            ->orWhere('isApproved', $requestTypeTwo)
-            ->orderBy('requestID')
-            ->limit($perPage)
-            ->offset($offSet)
-            ->select(array(
-                'requestID',
-                'fullName', 'idOfTest', 'faculty',
-                'speciality', 'course', 'department', 'subject',
-                'mail', 'phoneNumber', 'reason', 'isApproved'
-            ))
-            ->get();
+            $result = DB::table('requests')
+                ->where('requestStatus', $requestStatusOne)
+                ->orWhere('requestStatus', $requestStatusTwo)
+                ->orderBy('requestID')
+                ->limit($perPage)
+                ->offset($offSet)
+                ->select(array(
+                    'requestID',
+                    'fullName', 'idOfTest', 'faculty',
+                    'speciality', 'course', 'department', 'subject',
+                    'mail', 'phoneNumber', 'reason', 'requestStatus'
+                ))
+                ->get();
 
-        return view('Requests', ['result' => $result, 'currentPage' => $currentPage, 'pageStart' => $pageStart, 'pageEnd' => $pageEnd,]);
+            return view('Requests', ['result' => $result, 'currentPage' => $currentPage, 'pageStart' => $pageStart, 'pageEnd' => $pageEnd,]);
+        } else {
+            return redirect('/Index?error=У вас недостаточный уровень доступа!');
+        }
     }
 
     public function new(int $currentPage)
     {
-        if (in_array(Session::get('userPrivilege'), ['Admin', 'Support', 'Viewer'])) {
-            return $this->allRequests('new', 'Новые заявки', $currentPage, 0, 0);
-        } else {
-            return redirect('/Index?error=У вас недостаточный уровень доступа!');
-        }
+        return $this->requests('new', 'Новые заявки', $currentPage, 0, 0);
     }
 
     public function approved(int $currentPage)
     {
-        if (in_array(Session::get('userPrivilege'), ['Admin', 'Support', 'Viewer'])) {
-            return $this->allRequests('approved', 'Одобренные заявки', $currentPage, 1, 2);
+        return $this->requests('approved', 'Одобренные заявки', $currentPage, 1, 2);
+    }
+
+    public function rejected(int $currentPage)
+    {
+        return $this->requests('rejected', 'Отклонённые заявки', $currentPage, 3, 3);
+    }
+
+    public function changeStatus(int $requestID, int $requestStatus)
+    {
+        if (in_array(Session::get('userPrivilege'), ['Admin', 'Support'])) {
+            $databaseRequestStatus = DB::table('requests')
+                ->where('requestID', $requestID)
+                ->select('requestStatus')
+                ->first();
+
+            if ($databaseRequestStatus->requestStatus == 2) {
+                return redirect('/Index?error=Нельзя изменить статус заявки, так как студент уже выбрал дату пересдачи');
+            }
+
+            DB::table('requests')
+                ->where('requestID', $requestID)
+                ->update(['requestStatus' => $requestStatus]);
+
+            return redirect()->back();
         } else {
             return redirect('/Index?error=У вас недостаточный уровень доступа!');
         }
     }
 
-    public function rejected(int $currentPage)
+    public function image(int $requestID)
     {
         if (in_array(Session::get('userPrivilege'), ['Admin', 'Support', 'Viewer'])) {
-            return $this->allRequests('rejected', 'Отклонённые заявки', $currentPage, 5, 5);
+            $image = DB::table('requests')
+                ->where('requestID', $requestID)
+                ->select('confirmationFile')
+                ->first();
+
+            return view('RequestImage', ['image' => $image]);
         } else {
             return redirect('/Index?error=У вас недостаточный уровень доступа!');
         }

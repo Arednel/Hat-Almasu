@@ -2,6 +2,7 @@
     @php
         $currentDir = dirname(url()->current());
     @endphp
+
     @if ($currentPage > 0)
         <button type="button" class="button-blue"
             onclick="window.location='{{ $currentDir }}/{{ $currentPage - 1 }}'">&#8249

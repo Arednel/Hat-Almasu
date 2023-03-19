@@ -9,8 +9,8 @@
     <link rel="stylesheet" href="{{ asset('css/index.css') }}">
 </head>
 
-@include('./NavBarAndFooter/navBar')
-@include('./NavBarAndFooter/footer')
+@include('/NavBarAndFooter/navBar')
+@include('/NavBarAndFooter/footer')
 
 <body>
     <div class="main-body">
@@ -28,16 +28,16 @@
                 }
             @endphp
 
-            <h1>Сайт для подачи заявок на пересдачу</h1>
+            <h1>Hat Almasu</h1>
             <h2>Сайт разработан для подачи онлайн-заявок
-                <br>на пересдачу для обучающихся.
+                <br>на пересдачу студентами.
             </h2>
             <br>
             <img src="{{ asset('images/1.jpg') }}" class="imgOne">
         </div>
 
         <div class="secondDiv">
-            <h3><b>Что такое Retake.kaznpu.kz?</b></h3>
+            <h3><b>Что такое Hat Almasu?</b></h3>
             <div class="secondDivLeft">
                 <img src="{{ asset('images/2.jpg') }}" class="imgTwo">
                 <br>

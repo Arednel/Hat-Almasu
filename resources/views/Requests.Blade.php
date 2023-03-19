@@ -3,7 +3,7 @@
 <html>
 
 <head>
-    <title>@php echo Session::get('requestsTitle') @endphp</title>
+    <title>{{ Session::get('requestsTitle') }}</title>
     <link rel="stylesheet" href="{{ asset('css/main.css') }}">
     <link rel="stylesheet" href="{{ asset('css/employeeFandT.css') }}">
     <link rel="stylesheet" href="{{ asset('css/betterTable.css') }}">
@@ -14,7 +14,9 @@
 
 <body>
     <div class="main-body">
-        @include ('./pageSwitchingDiv');
+
+        @include ('/pageSwitchingDiv');
+
         <table class="tableE">
             <thead class="tableE-head">
                 <tr>
@@ -80,34 +82,38 @@
                             </div>
                         </td>
                         <td class="columnE">
-                            <input onclick="goToImage('{{ $record->requestID }} ')" type="button"
-                                value="Перейти к файлу" class="calendar-button{{ $classGrey }} '">
+                            <button type="button" target="_blank"
+                                onclick="window.open('{{ url('/Requests/Image') }}/{{ $record->requestID }}')"
+                                class="calendar-button{{ $classGrey }}">
+                                Перейти к файлу
+                            </button>
                         </td>
                         @if (in_array(Session::get('userPrivilege'), ['Admin', 'Support']))
-                            @if (Session::get('statusType') == 'new')
-                                <td class="columnE">
-                                    <input onclick="setisApproved({{ $record->requestID }} , 1)" type="button"
-                                        value="✓" class="calendar-button{{ $classGrey }}-green-to-hover">
-                                    <input onclick="setisApproved({{ $record->requestID }}, 0)" type="button"
-                                        value="X" class="calendar-button{{ $classGrey }}-red-to-hover">
-                                @elseif (Session::get('statusType') == 'approved')
-                                <td class="columnE">
-                                    <input onclick="setisApproved({{ $record->requestID }}, 1)" type="button"
-                                        value="✓" class="calendar-button{{ $classGrey }}-green-to-hover">
-                                    <input onclick="setisApproved({{ $record->requestID }}, 0)" type="button"
-                                        value="X" class="calendar-button{{ $classGrey }}-red-to-hover">
-                                @elseif (Session::get('statusType') == 'rejected')
-                                <td class="columnE">
-                                    <input onclick="setisApproved({{ $record->requestID }}, 1)" type="button"
-                                        value="✓" class="calendar-button{{ $classGrey }}-green-to-hover">
-                            @endif
+                            <td class="columnE">
+                                @if (in_array(Session::get('statusType'), ['new', 'rejected']))
+                                    <button type="button" target="_blank"
+                                        onclick="window.location=('{{ url('/Requests/ChangeStatus') }}/{{ $record->requestID }}/1')"
+                                        class="calendar-button{{ $classGrey }}-green-to-hover">
+                                        ✓
+                                    </button>
+                                @endif
+                                @if (in_array(Session::get('statusType'), ['new', 'approved']))
+                                    <button type="button" target="_blank"
+                                        onclick="window.location=('{{ url('/Requests/ChangeStatus') }}/{{ $record->requestID }}/3')"
+                                        class="calendar-button{{ $classGrey }}-red-to-hover">
+                                        X
+                                    </button>
+                                @endif
                             </td>
                         @endif
                     </tr>
                 @endforeach
+
             </tbody>
         </table>
-        @include ('./pageSwitchingDiv');
+
+        @include ('/pageSwitchingDiv');
+
         {{-- <form action="excelExport.php" method="POST" class="excel-download-form">
             <input type="hidden" name="statusType" value=@php echo Session::get('statusType'); @endphp />
             <input type="hidden" name="offSet" value="@php //echo $offSet;
@@ -124,9 +130,5 @@
 </body>
 
 <script src="{{ asset('scripts/sort.js') }}"></script>
-<script src="{{ asset('scripts/goToImage.js') }}"></script>
-@if (in_array(Session::get('userPrivilege'), ['Admin', 'Support']))
-    <script src="{{ asset('scripts/setisApproved.js') }}"></script>
-@endif
 
 </html>

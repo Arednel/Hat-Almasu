@@ -26,7 +26,7 @@ return new class extends Migration
             $table->string('phoneNumber', 150);
             $table->string('reason', 20);
             $table->binary('confirmationFile');
-            $table->tinyInteger('isApproved');
+            $table->tinyInteger('requestStatus');
         });
     }
 

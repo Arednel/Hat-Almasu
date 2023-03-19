@@ -11,6 +11,7 @@
     padding: 0;
 }
 
-input:hover {
+.calendar-button:hover,
+.calendar-button-grey:hover {
     background-color: #21abc4 !important;
 }

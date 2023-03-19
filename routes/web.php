@@ -33,13 +33,19 @@ Route::post('/NewRequest', [BookingController::class, 'insert']);
 Route::view('/Login', 'Login');
 Route::view('/login', 'Login');
 Route::post('/LoginLogic', [LoginController::class, 'login']);
-Route::get('/Logout', [LoginController::class, 'Logout']);
-Route::get('/logout', [LoginController::class, 'Logout']);
+Route::get('/Logout', [LoginController::class, 'logout']);
+Route::get('/logout', [LoginController::class, 'logout']);
 
-//Requests view: New, Approved and Rejected requests
+//Requests view data: New, Approved and Rejected
 Route::get('/Requests/New/{currentPage}', [RequestsController::class, 'new']);
 Route::get('/Requests/Approved/{currentPage}', [RequestsController::class, 'approved']);
 Route::get('/Requests/Rejected/{currentPage}', [RequestsController::class, 'rejected']);
+
+//Request view image
+Route::get('/Requests/Image/{requestID}', [RequestsController::class, 'image']);
+
+//Request change status
+Route::get('/Requests/ChangeStatus/{requestID}/{requestStatus}', [RequestsController::class, 'changeStatus']);
 
 //Checking request status
 Route::view('/VerifyRequest', 'VerifyRequest');

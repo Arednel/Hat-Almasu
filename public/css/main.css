@@ -247,6 +247,7 @@ a:hover {
     border: 0;
     font-size: 3vh;
     cursor: pointer;
+    border-radius: 1vh;
 }
 
 .calendar-button-grey,

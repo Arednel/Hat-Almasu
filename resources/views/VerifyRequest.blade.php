@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="{{ asset('css/manageForm.css') }}">
 </head>
 
-@include ('./VerifyRequest/VerifyRequestLogic');
+@include ('/VerifyRequest/VerifyRequestLogic');
 
 <style>
     .formInputs {
@@ -28,7 +28,7 @@
         <div class="modal-content">
             <img src="{{ asset('images/3.jpg') }}" class="formImage">
 
-            @include ('./VerifyRequest/VerifyRequestForm');
+            @include ('/VerifyRequest/VerifyRequestForm');
         </div>
     </div>
 </body>
