@@ -2,38 +2,32 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Requests;
+use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
 
 class RequestsController extends Controller
 {
-    private function requests($statusType, $requestsTitle, $currentPage, $requestStatusOne, $requestStatusTwo)
+    private $perPagePrivate = 100;
+
+    private function requests($statusType, $requestsTitle, $currentPage)
     {
         if (in_array(Session::get('userPrivilege'), ['Admin', 'Support', 'Viewer'])) {
-            $perPage = 100;
-
-            Session::put('statusType', $statusType);
-            Session::put('requestsTitle', $requestsTitle);
+            $perPage = $this->perPagePrivate;
 
             $offSet = $currentPage * $perPage;
             $pageStart = $offSet + 1;
             $pageEnd = $pageStart + $perPage - 1;
 
-            $result = DB::table('requests')
-                ->where('requestStatus', $requestStatusOne)
-                ->orWhere('requestStatus', $requestStatusTwo)
-                ->orderBy('requestID')
-                ->limit($perPage)
-                ->offset($offSet)
-                ->select(array(
-                    'requestID',
-                    'fullName', 'idOfTest', 'faculty',
-                    'speciality', 'course', 'department', 'subject',
-                    'mail', 'phoneNumber', 'reason', 'requestStatus'
-                ))
-                ->get();
+            $result = Requests::{$statusType . 'Page'}($perPage, $currentPage);
 
-            return view('Requests', ['result' => $result, 'currentPage' => $currentPage, 'pageStart' => $pageStart, 'pageEnd' => $pageEnd,]);
+            return view('Requests', [
+                'result' => $result, 'currentPage' => $currentPage,
+                'pageStart' => $pageStart, 'pageEnd' => $pageEnd,
+                'statusType' => $statusType, 'requestsTitle' => $requestsTitle,
+            ]);
         } else {
             return redirect('/Index?error=У вас недостаточный уровень доступа!');
         }
@@ -41,52 +35,112 @@ class RequestsController extends Controller
 
     public function new(int $currentPage)
     {
-        return $this->requests('new', 'Новые заявки', $currentPage, 0, 0);
+        return $this->requests('new', 'Новые заявки', $currentPage);
     }
 
     public function approved(int $currentPage)
     {
-        return $this->requests('approved', 'Одобренные заявки', $currentPage, 1, 2);
+        return $this->requests('approved', 'Одобренные заявки', $currentPage);
     }
 
     public function rejected(int $currentPage)
     {
-        return $this->requests('rejected', 'Отклонённые заявки', $currentPage, 3, 3);
+        return $this->requests('rejected', 'Отклонённые заявки', $currentPage);
     }
 
     public function changeStatus(int $requestID, int $requestStatus)
     {
         if (in_array(Session::get('userPrivilege'), ['Admin', 'Support'])) {
-            $databaseRequestStatus = DB::table('requests')
-                ->where('requestID', $requestID)
-                ->select('requestStatus')
-                ->first();
-
-            if ($databaseRequestStatus->requestStatus == 2) {
-                return redirect('/Index?error=Нельзя изменить статус заявки, так как студент уже выбрал дату пересдачи');
-            }
-
-            DB::table('requests')
-                ->where('requestID', $requestID)
-                ->update(['requestStatus' => $requestStatus]);
-
-            return redirect()->back();
+            return Requests::updateTo($requestID, $requestStatus);
         } else {
             return redirect('/Index?error=У вас недостаточный уровень доступа!');
         }
     }
 
+    public function insert(Request $request)
+    {
+        //Limitation of request amount (one request per 3 minutes)
+        if (null !== Session::get('lastRequestTime')) {
+            $currentFullTime = date('d-m-Y h:i:s');
+            $to_time = strtotime(Session::get('lastRequestTime'));
+            $from_time = strtotime($currentFullTime);
+            $diffirenceBetweenTime = round(abs($to_time - $from_time) / 60, 2);
+            if ($diffirenceBetweenTime < 3) {
+                return redirect('Index?error=Подождите 3 минуты, перед подачей следующей заявки');
+            }
+        }
+
+        //Data validation
+        $request->validate(
+            [
+                'fullName' => 'required',
+                'idOfTest' => [
+                    'required'
+                    //, Rule::unique('requests', 'idOfTest')
+                ],
+                'course' => 'required',
+                'faculty' => 'required',
+                'department' => 'required',
+                'speciality' => 'required',
+                'subject' => 'required',
+                'mail' => ['required', 'email'],
+                'phoneNumber' => 'required',
+                'reason' => 'required',
+                'confirmationFile' => 'required'
+            ]
+        );
+
+        $fullName = $request->input('fullName');
+        $idOfTest = $request->input('idOfTest');
+        $faculty = $request->input('faculty');
+        $course = $request->input('course');
+        $department = $request->input('department');
+        $speciality = $request->input('speciality');
+        $subject = $request->input('subject');
+        $mail = $request->input('mail');
+        $phoneNumber = $request->input('phoneNumber');
+        $reason = $request->input('reason');
+        $image = $request->file('confirmationFile');
+
+        //Image save and checking size (Currently 10MB)
+        $uploadedFile = $image->getRealPath();
+        if (filesize($uploadedFile) > 1048576) {
+            return redirect('Index?error=Файл слишком большой');
+        }
+        clearstatcache();
+        $bin_string = file_get_contents($image->getRealPath());
+        $confirmationFile = base64_encode($bin_string);
+
+        $data = array(
+            'fullName' => $fullName, "idOfTest" => $idOfTest, "faculty" => $faculty, "course" => $course,
+            "department" => $department, "speciality" => $speciality, "subject" => $subject, "mail" => $mail, "phoneNumber" => $phoneNumber,
+            "reason" => $reason, "confirmationFile" => $confirmationFile
+        );
+
+        Requests::insert($data);
+
+        $requestID = DB::getPdo()->lastInsertId();
+
+        Session::put('lastRequestTime', date('d-m-Y h:i:s'));
+
+        return redirect('Index?message=Вы успешно подали заявку, ваш номер заявки: ' . $requestID . '   Сохраните этот номер!');
+    }
+
     public function image(int $requestID)
     {
         if (in_array(Session::get('userPrivilege'), ['Admin', 'Support', 'Viewer'])) {
-            $image = DB::table('requests')
-                ->where('requestID', $requestID)
-                ->select('confirmationFile')
-                ->first();
-
-            return view('RequestImage', ['image' => $image]);
+            return view('RequestImage', ['image' => Requests::image($requestID)]);
         } else {
             return redirect('/Index?error=У вас недостаточный уровень доступа!');
         }
+    }
+
+    public function excelExportAll(string $statusType)
+    {
+    }
+
+    public function excelExport(string $statusType, int $currentPage)
+    {
+        return Requests::$statusType();
     }
 }

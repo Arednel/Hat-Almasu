@@ -1,7 +1,6 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\BookingController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\RequestsController;
 
@@ -26,8 +25,8 @@ Route::view('/Info', 'Info');
 Route::view('/info', 'Info');
 
 //Creating new request
-Route::view('/Booking', 'Booking');
-Route::post('/NewRequest', [BookingController::class, 'insert']);
+Route::view('/RequestNew', 'RequestNew');
+Route::post('/RequestNew', [RequestsController::class, 'insert']);
 
 //Login
 Route::view('/Login', 'Login');
@@ -47,7 +46,11 @@ Route::get('/Requests/Image/{requestID}', [RequestsController::class, 'image']);
 //Request change status
 Route::get('/Requests/ChangeStatus/{requestID}/{requestStatus}', [RequestsController::class, 'changeStatus']);
 
-//Checking request status
+//Request excel export
+Route::get('/Requests/excelExportAll/{statusType}', [RequestsController::class, 'excelExportAll']);
+Route::get('/Requests/excelExport/{statusType}/{currentPage}', [RequestsController::class, 'excelExport']);
+
+//Request check status (as student)
 Route::view('/VerifyRequest', 'VerifyRequest');
 
 //Examples

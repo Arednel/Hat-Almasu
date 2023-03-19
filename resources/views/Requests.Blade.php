@@ -3,7 +3,7 @@
 <html>
 
 <head>
-    <title>{{ Session::get('requestsTitle') }}</title>
+    <title>{{ $requestsTitle }}</title>
     <link rel="stylesheet" href="{{ asset('css/main.css') }}">
     <link rel="stylesheet" href="{{ asset('css/employeeFandT.css') }}">
     <link rel="stylesheet" href="{{ asset('css/betterTable.css') }}">
@@ -83,23 +83,23 @@
                         </td>
                         <td class="columnE">
                             <button type="button" target="_blank"
-                                onclick="window.open('{{ url('/Requests/Image') }}/{{ $record->requestID }}')"
+                                onclick="window.open('/Requests/Image/{{ $record->requestID }}')"
                                 class="calendar-button{{ $classGrey }}">
                                 Перейти к файлу
                             </button>
                         </td>
                         @if (in_array(Session::get('userPrivilege'), ['Admin', 'Support']))
                             <td class="columnE">
-                                @if (in_array(Session::get('statusType'), ['new', 'rejected']))
+                                @if (in_array($statusType, ['new', 'rejected']))
                                     <button type="button" target="_blank"
-                                        onclick="window.location=('{{ url('/Requests/ChangeStatus') }}/{{ $record->requestID }}/1')"
+                                        onclick="window.location=('/Requests/ChangeStatus/{{ $record->requestID }}/1')"
                                         class="calendar-button{{ $classGrey }}-green-to-hover">
                                         ✓
                                     </button>
                                 @endif
-                                @if (in_array(Session::get('statusType'), ['new', 'approved']))
+                                @if (in_array($statusType, ['new', 'approved']))
                                     <button type="button" target="_blank"
-                                        onclick="window.location=('{{ url('/Requests/ChangeStatus') }}/{{ $record->requestID }}/3')"
+                                        onclick="window.location=('/Requests/ChangeStatus/{{ $record->requestID }}/3')"
                                         class="calendar-button{{ $classGrey }}-red-to-hover">
                                         X
                                     </button>
@@ -114,18 +114,17 @@
 
         @include ('/pageSwitchingDiv');
 
-        {{-- <form action="excelExport.php" method="POST" class="excel-download-form">
-            <input type="hidden" name="statusType" value=@php echo Session::get('statusType'); @endphp />
-            <input type="hidden" name="offSet" value="@php //echo $offSet;
-            @endphp" />
-            <input type="hidden" name="perPage" value="@php //echo $perPage;
-            @endphp" />
-            <input type="submit" value="Скачать эту страницу" class="button-blue">
-        </form>
-        <form action="excelExport.php" method="POST" class="excel-download-form">
-            <input type="hidden" name="statusType" value=@php echo Session::get('statusType'); @endphp />
-            <input type="submit" value="Скачать все страницы" class="button-blue">
-        </form> --}}
+        <button type="button" target="_blank"
+            onclick="window.location=('/Requests/excelExport/{{ $statusType }}/{{ $currentPage }}')"
+            class="button-blue-excel">
+            Скачать эту страницу
+        </button>
+        <br>
+        <button type="button" target="_blank"
+            onclick="window.location=('/Requests/excelExportAll/{{ $statusType }}')" class="button-blue-excel">
+            Скачать все страницы
+        </button>
+        <br>
     </div>
 </body>
 

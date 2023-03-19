@@ -4,7 +4,7 @@
     <a href="/"><img src="{{ asset('images/logo.png') }}" class="topLogo"></a>
     <div class="nav-bar-center">
         <a href="/VerifyRequest">Статус заявки</a>&nbsp
-        <a href="/Booking" class="red">Подать заявку</a>
+        <a href="/RequestNew" class="red">Подать заявку</a>
 
         @if (Session::get('userID'))
             <link rel="stylesheet" href="{{ asset('css/adminS.css') }}">

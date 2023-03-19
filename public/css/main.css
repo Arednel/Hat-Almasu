@@ -160,7 +160,8 @@ a:hover {
 
 /* .table-add-new */
 
-.button-blue {
+.button-blue,
+.button-blue-excel {
     background: #0c1f8b;
     padding: 2vh 3vh;
     color: #fff;
@@ -171,9 +172,17 @@ a:hover {
     cursor: pointer;
 }
 
-.button-blue:hover {
+.button-blue:hover,
+.button-blue-excel:hover {
     color: black;
     opacity: .90;
+}
+
+.button-blue-excel {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 15%;
 }
 
 /* Sort image */
@@ -303,16 +312,6 @@ a:hover {
 .page-switching {
     text-align: center;
     margin: 1vh;
-}
-
-.excel-download-form {
-    display: block;
-    text-align: center;
-    margin: 1.5vh;
-}
-
-#applyCSS .excel-download-form {
-    padding: 2vh 30vh
 }
 
 @media (max-device-width: 850px) {

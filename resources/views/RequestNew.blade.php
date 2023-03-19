@@ -14,7 +14,7 @@
         <div class="modal-content">
             <img src="{{ asset('images/3.jpg') }}" class="formImage">
 
-            <form method="POST" action="/NewRequest" enctype="multipart/form-data" class="formInputs">
+            <form method="POST" action="/RequestNew" enctype="multipart/form-data" class="formInputs">
                 <a href="/">← Назад</a>
 
                 @csrf
@@ -51,7 +51,7 @@
 
                 <input type="submit" value="Отправить" class="button-blue">
             </form>
-            
+
         </div>
     </div>
 </body>
