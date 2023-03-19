@@ -4,8 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Models\Requests;
 use Illuminate\Http\Request;
+use App\Exports\RequestsExport;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\DB;
+use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Support\Facades\Session;
 
 class RequestsController extends Controller
@@ -137,10 +139,67 @@ class RequestsController extends Controller
 
     public function excelExportAll(string $statusType)
     {
+        $data = [[
+            "ID заявки", "ID теста", "Институт", "ФИО", "Специальность",
+            "Курс", "Отделение", "Дисциплина", "Email", "Телефон", "Причина"
+        ]];
+
+        $result = Requests::{$statusType . 'All'}();
+
+        foreach ($result as $item) {
+            array_push($data, [
+                $item->requestID,
+                $item->idOfTest,
+                $item->faculty,
+                $item->fullName,
+                $item->speciality,
+                $item->course,
+                $item->department,
+                $item->subject,
+                $item->mail,
+                $item->phoneNumber,
+                $item->reason,
+            ]);
+        }
+
+        $export = new RequestsExport([$data]);
+
+        $filename = date('Y-m-d') . '_Requests_' . ucfirst($statusType) . '_All';
+
+        return Excel::download($export, $filename . '.xlsx');
     }
 
     public function excelExport(string $statusType, int $currentPage)
     {
-        return Requests::$statusType();
+        $perPage = $this->perPagePrivate;
+
+        $data = [[
+            "ID заявки", "ID теста", "Институт", "ФИО", "Специальность",
+            "Курс", "Отделение", "Дисциплина", "Email", "Телефон", "Причина"
+        ]];
+
+        $result = Requests::{$statusType . 'Page'}($perPage, $currentPage);
+
+        foreach ($result as $item) {
+            array_push($data, [
+                $item->requestID,
+                $item->idOfTest,
+                $item->faculty,
+                $item->fullName,
+                $item->speciality,
+                $item->course,
+                $item->department,
+                $item->subject,
+                $item->mail,
+                $item->phoneNumber,
+                $item->reason,
+            ]);
+        }
+
+        $export = new RequestsExport([$data]);
+
+        $filename = date('Y-m-d') . '_Requests_' . ucfirst($statusType) . '_Page_' . $currentPage + 1;
+
+        return Excel::download($export, $filename . '.xlsx');
     }
 }
