@@ -82,6 +82,7 @@
                 </form>
                 <br>
                 <form method="POST" action="/Manage/DateDelete">
+
                     @csrf
 
                     <label>Дата</label>
@@ -91,7 +92,7 @@
                         @endforeach
                     </select>
 
-                    <input type="submit" value="Удалить дату" class="button-blue">
+                    <input type="submit" value="Удалить" class="button-blue">
                 </form>
             </div>
         </div>

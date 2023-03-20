@@ -1,9 +1,11 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\LoginController;
-use App\Http\Controllers\RequestsController;
 use App\Http\Controllers\DatesController;
+use App\Http\Controllers\LoginController;
+use App\Http\Controllers\RoomsController;
+use App\Http\Controllers\UsersController;
+use App\Http\Controllers\RequestsController;
 
 /*
 |--------------------------------------------------------------------------
@@ -55,6 +57,18 @@ Route::get('/Requests/ExcelExport/{statusType}/{currentPage}', [RequestsControll
 Route::get('/Manage/Dates/{currentPage}', [DatesController::class, 'page']);
 Route::post('/Manage/DateInsert', [DatesController::class, 'insert']);
 Route::post('/Manage/DateDelete', [DatesController::class, 'delete']);
+
+//Manage available rooms
+Route::get('/Manage/Rooms/{currentPage}', [RoomsController::class, 'page']);
+Route::post('/Manage/RoomInsert', [RoomsController::class, 'insert']);
+Route::post('/Manage/RoomUpdate', [RoomsController::class, 'update']);
+Route::post('/Manage/RoomDelete', [RoomsController::class, 'delete']);
+
+//Manage available users
+Route::get('/Manage/Users/{currentPage}', [UsersController::class, 'page']);
+Route::post('/Manage/UserInsert', [UsersController::class, 'insert']);
+Route::post('/Manage/UserUpdate', [UsersController::class, 'update']);
+Route::post('/Manage/UserDelete', [UsersController::class, 'delete']);
 
 //Request check status (as student)
 Route::view('/VerifyRequest', 'VerifyRequest');

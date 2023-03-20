@@ -2,12 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Dates;
+use App\Models\Rooms;
 use Illuminate\Http\Request;
-use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Session;
 
-class DatesController extends Controller
+class RoomsController extends Controller
 {
     private $perPagePrivate = 100;
 
@@ -23,9 +22,9 @@ class DatesController extends Controller
         $pageStart = $offSet + 1;
         $pageEnd = $pageStart + $perPage - 1;
 
-        $result = Dates::page($perPage, $currentPage);
+        $result = Rooms::page($perPage, $currentPage);
 
-        return view('ManageDates', [
+        return view('ManageRooms', [
             'result' => $result, 'currentPage' => $currentPage,
             'pageStart' => $pageStart, 'pageEnd' => $pageEnd,
         ]);
@@ -39,31 +38,45 @@ class DatesController extends Controller
 
         $request->validate(
             [
-                'date' => [
-                    'required', 'date', Rule::unique('availabledates', 'date')
-                ],
-                'startHour' => 'required',
-                'endHour' => 'required',
+                'roomName' => 'required',
+                'roomSpace' => 'required',
             ]
         );
 
-        $date = $request->input('date');
-        $startHour = $request->input('startHour');
-        $endHour = $request->input('endHour');
-        if ($startHour > $endHour) {
-            $startHour = $endHour - 1;
-        }
-        if ($request->input('isOnline') != null) {
-            $isOnline = $request->input('isOnline');
-        } else {
-            $isOnline = false;
-        }
+        $roomName = $request->input('roomName');
+        $roomSpace = $request->input('roomSpace');
 
         $data = array(
-            'date' => $date, 'startHour' => $startHour, 'endHour' => $endHour, 'isOnline' => $isOnline
+            'roomName' => $roomName, 'roomSpace' => $roomSpace
         );
 
-        Dates::insert($data);
+        Rooms::insert($data);
+
+        return redirect()->back();
+    }
+
+    public function update(Request $request)
+    {
+        if (!(in_array(Session::get('userPrivilege'), ['Admin']))) {
+            return redirect('/Index?error=У вас недостаточный уровень доступа!');
+        }
+
+        $request->validate(
+            [
+                'roomID' => 'required'
+            ]
+        );
+
+        $roomID = $request->input('roomID');
+        $roomName = $request->input('roomName');
+        $roomSpace = $request->input('roomSpace');
+
+        if ($roomName != null) {
+            Rooms::updateRoomName($roomID, $roomName);
+        }
+        if ($roomSpace != null) {
+            Rooms::updateRoomSpace($roomID, $roomSpace);
+        }
 
         return redirect()->back();
     }
@@ -76,13 +89,11 @@ class DatesController extends Controller
 
         $request->validate(
             [
-                'date' => [
-                    'required', 'date'
-                ]
+                'roomID' => 'required'
             ]
         );
 
-        Dates::delete($request->input('date'));
+        Rooms::delete($request->input('roomID'));
 
         return redirect()->back();
     }
