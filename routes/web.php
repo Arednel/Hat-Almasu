@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\RequestsController;
+use App\Http\Controllers\DatesController;
 
 /*
 |--------------------------------------------------------------------------
@@ -47,8 +48,13 @@ Route::get('/Requests/Image/{requestID}', [RequestsController::class, 'image']);
 Route::get('/Requests/ChangeStatus/{requestID}/{requestStatus}', [RequestsController::class, 'changeStatus']);
 
 //Request excel export
-Route::get('/Requests/excelExportAll/{statusType}', [RequestsController::class, 'excelExportAll']);
-Route::get('/Requests/excelExport/{statusType}/{currentPage}', [RequestsController::class, 'excelExport']);
+Route::get('/Requests/ExcelExportAll/{statusType}', [RequestsController::class, 'excelExportAll']);
+Route::get('/Requests/ExcelExport/{statusType}/{currentPage}', [RequestsController::class, 'excelExport']);
+
+//Manage available dates
+Route::get('/Manage/Dates/{currentPage}', [DatesController::class, 'page']);
+Route::post('/Manage/DateInsert', [DatesController::class, 'insert']);
+Route::post('/Manage/DateDelete', [DatesController::class, 'delete']);
 
 //Request check status (as student)
 Route::view('/VerifyRequest', 'VerifyRequest');

@@ -5,7 +5,7 @@
     }
 </style>
 
-<p>version 0.4.0 / 2023.03.20</p>
-<p>Excel export update</p>
+<p>version 0.4.2 / 2023.03.20</p>
+<p>Manage dates update</p>
 <p>Made by Evtifeev Artyom Vladislavovich / Arednel</p>
 <p>2023 &#169 Test Center</p>

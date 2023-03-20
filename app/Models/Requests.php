@@ -19,7 +19,6 @@ class Requests
             ))
             ->get();
 
-
         return $result;
     }
 
@@ -39,7 +38,6 @@ class Requests
                 'mail', 'phoneNumber', 'reason', 'requestStatus'
             ))
             ->get();
-
 
         return $result;
     }
@@ -79,7 +77,6 @@ class Requests
             ))
             ->get();
 
-
         return $result;
     }
 
@@ -116,7 +113,6 @@ class Requests
             ))
             ->get();
 
-
         return $result;
     }
 
@@ -139,8 +135,6 @@ class Requests
         DB::table('requests')
             ->where('requestID', $requestID)
             ->update(['requestStatus' => $requestStatus]);
-
-        return redirect()->back();
     }
 
     public static function image(int $requestID)

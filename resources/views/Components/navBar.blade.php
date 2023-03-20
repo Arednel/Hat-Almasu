@@ -12,9 +12,9 @@
             <div class="DropDown">
                 <button class="dropbtn">Управление</button>
                 <div class="DropDown-content">
-                    <a href="/manageDates">Доступными датами</a>
-                    <a href="/manageRooms">Доступными аудиториями</a>
-                    <a href="/manageUsers">Пользователями</a>
+                    <a href="/Manage/Dates/0">Доступными датами</a>
+                    <a href="/Manage/Rooms/0">Доступными аудиториями</a>
+                    <a href="/Manage/Users/0">Пользователями</a>
                 </div>
             </div>
             &nbsp<a href="/occupancyDate">Заполненность</a>&nbsp

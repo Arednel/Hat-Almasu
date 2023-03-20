@@ -9,8 +9,8 @@
     <link rel="stylesheet" href="{{ asset('css/index.css') }}">
 </head>
 
-@include('/NavBarAndFooter/navBar')
-@include('/NavBarAndFooter/footer')
+@include('/Components/navBar')
+@include('/Components/footer')
 
 <body>
     <div class="main-body">

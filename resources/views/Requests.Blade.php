@@ -9,13 +9,13 @@
     <link rel="stylesheet" href="{{ asset('css/betterTable.css') }}">
 </head>
 
-@include('/NavBarAndFooter/navBar')
-@include('/NavBarAndFooter/footer')
+@include('/Components/navBar')
+@include('/Components/footer')
 
 <body>
     <div class="main-body">
 
-        @include ('/pageSwitchingDiv');
+        @include ('/Components/pageSwitchingDiv');
 
         <table class="tableE">
             <thead class="tableE-head">
@@ -112,16 +112,16 @@
             </tbody>
         </table>
 
-        @include ('/pageSwitchingDiv');
+        @include ('/Components/pageSwitchingDiv');
 
         <button type="button" target="_blank"
-            onclick="window.location=('/Requests/excelExport/{{ $statusType }}/{{ $currentPage }}')"
+            onclick="window.location=('/Requests/ExcelExport/{{ $statusType }}/{{ $currentPage }}')"
             class="button-blue-excel">
             Скачать эту страницу
         </button>
         <br>
         <button type="button" target="_blank"
-            onclick="window.location=('/Requests/excelExportAll/{{ $statusType }}')" class="button-blue-excel">
+            onclick="window.location=('/Requests/ExcelExportAll/{{ $statusType }}')" class="button-blue-excel">
             Скачать все страницы
         </button>
         <br>

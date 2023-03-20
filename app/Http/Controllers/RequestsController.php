@@ -16,23 +16,23 @@ class RequestsController extends Controller
 
     private function requests($statusType, $requestsTitle, $currentPage)
     {
-        if (in_array(Session::get('userPrivilege'), ['Admin', 'Support', 'Viewer'])) {
-            $perPage = $this->perPagePrivate;
-
-            $offSet = $currentPage * $perPage;
-            $pageStart = $offSet + 1;
-            $pageEnd = $pageStart + $perPage - 1;
-
-            $result = Requests::{$statusType . 'Page'}($perPage, $currentPage);
-
-            return view('Requests', [
-                'result' => $result, 'currentPage' => $currentPage,
-                'pageStart' => $pageStart, 'pageEnd' => $pageEnd,
-                'statusType' => $statusType, 'requestsTitle' => $requestsTitle,
-            ]);
-        } else {
+        if (!(in_array(Session::get('userPrivilege'), ['Admin', 'Support', 'Viewer']))) {
             return redirect('/Index?error=У вас недостаточный уровень доступа!');
         }
+
+        $perPage = $this->perPagePrivate;
+
+        $offSet = $currentPage * $perPage;
+        $pageStart = $offSet + 1;
+        $pageEnd = $pageStart + $perPage - 1;
+
+        $result = Requests::{$statusType . 'Page'}($perPage, $currentPage);
+
+        return view('Requests', [
+            'result' => $result, 'currentPage' => $currentPage,
+            'pageStart' => $pageStart, 'pageEnd' => $pageEnd,
+            'statusType' => $statusType, 'requestsTitle' => $requestsTitle,
+        ]);
     }
 
     public function new(int $currentPage)
@@ -52,11 +52,13 @@ class RequestsController extends Controller
 
     public function changeStatus(int $requestID, int $requestStatus)
     {
-        if (in_array(Session::get('userPrivilege'), ['Admin', 'Support'])) {
-            return Requests::updateTo($requestID, $requestStatus);
-        } else {
+        if (!(in_array(Session::get('userPrivilege'), ['Admin', 'Support']))) {
             return redirect('/Index?error=У вас недостаточный уровень доступа!');
         }
+
+        Requests::updateTo($requestID, $requestStatus);
+
+        return redirect()->back();
     }
 
     public function insert(Request $request)
@@ -130,15 +132,19 @@ class RequestsController extends Controller
 
     public function image(int $requestID)
     {
-        if (in_array(Session::get('userPrivilege'), ['Admin', 'Support', 'Viewer'])) {
-            return view('RequestImage', ['image' => Requests::image($requestID)]);
-        } else {
+        if (!(in_array(Session::get('userPrivilege'), ['Admin', 'Support', 'Viewer']))) {
             return redirect('/Index?error=У вас недостаточный уровень доступа!');
         }
+
+        return view('RequestImage', ['image' => Requests::image($requestID)]);
     }
 
     public function excelExportAll(string $statusType)
     {
+        if (!(in_array(Session::get('userPrivilege'), ['Admin', 'Support', 'Viewer']))) {
+            return redirect('/Index?error=У вас недостаточный уровень доступа!');
+        }
+
         $data = [[
             "ID заявки", "ID теста", "Институт", "ФИО", "Специальность",
             "Курс", "Отделение", "Дисциплина", "Email", "Телефон", "Причина"
@@ -171,6 +177,10 @@ class RequestsController extends Controller
 
     public function excelExport(string $statusType, int $currentPage)
     {
+        if (!(in_array(Session::get('userPrivilege'), ['Admin', 'Support', 'Viewer']))) {
+            return redirect('/Index?error=У вас недостаточный уровень доступа!');
+        }
+
         $perPage = $this->perPagePrivate;
 
         $data = [[
