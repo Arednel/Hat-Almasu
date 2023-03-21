@@ -5,7 +5,7 @@
     }
 </style>
 
-<p>version 0.5.0 / 2023.03.20</p>
-<p>Manage rooms and users update</p>
+<p>version 0.5.3 / 2023.03.21</p>
+<p>Working on choosing retake date update</p>
 <p>Made by Evtifeev Artyom Vladislavovich / Arednel</p>
 <p>2023 &#169 Test Center</p>

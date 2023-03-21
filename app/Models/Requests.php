@@ -137,6 +137,13 @@ class Requests
             ->update(['requestStatus' => $requestStatus]);
     }
 
+    public static function updateToChosen(int $requestID)
+    {
+        DB::table('requests')
+            ->where('requestID', $requestID)
+            ->update(['requestStatus' => 2]);
+    }
+
     public static function image(int $requestID)
     {
         $image = DB::table('requests')
@@ -145,5 +152,17 @@ class Requests
             ->first();
 
         return $image;
+    }
+
+    public static function requestIDMailStatus(int $requestID)
+    {
+        $requestData = DB::table('requests')
+            ->where('requestID', $requestID)
+            ->select(array(
+                'requestID', 'mail', 'requestStatus'
+            ))
+            ->first();
+
+        return $requestData;
     }
 }

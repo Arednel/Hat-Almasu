@@ -16,6 +16,7 @@ return new class extends Migration
         Schema::create('bookingrecords', function (Blueprint $table) {
             $table->date('bookingdate');
             $table->bigInteger('requestID')->primary();
+            $table->boolean('isOnline')->default(0);
             $table->tinyInteger('startHour');
             $table->integer('roomID');
         });

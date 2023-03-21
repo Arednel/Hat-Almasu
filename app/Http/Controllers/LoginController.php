@@ -30,16 +30,16 @@ class LoginController extends Controller
         $inputedPassword = validateData($request->input('userPassword'));
 
         //Validation from Database
-        if ($dbPassword = DB::table('users')->where('name', $userName)->value('password')) {
+        if ($dbPassword = DB::table('users')->where('userName', $userName)->value('userPassword')) {
             if ($inputedPassword == $dbPassword) {
-                $row = DB::table('users')->where('name', $userName)
-                    ->select(array('id', 'privilege'))
+                $result = DB::table('users')->where('userName', $userName)
+                    ->select(array('userID', 'userPrivilege'))
                     ->get()
                     ->first();
 
                 Session::put('userName', $userName);
-                Session::put('userID', $row->id);
-                Session::put('userPrivilege', $row->privilege);
+                Session::put('userID', $result->userID);
+                Session::put('userPrivilege', $result->userPrivilege);
 
                 return redirect('Index?message=Вы успешно авторизовались как: ' . $userName);
             } else {

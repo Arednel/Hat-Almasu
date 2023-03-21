@@ -2,13 +2,18 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Dates;
 use App\Models\Requests;
+
 use Illuminate\Http\Request;
-use App\Exports\RequestsExport;
-use Illuminate\Validation\Rule;
-use Illuminate\Support\Facades\DB;
-use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\DB;
+
+use App\Exports\RequestsExport;
+use Maatwebsite\Excel\Facades\Excel;
+
+use Illuminate\Validation\Rule;
+
 
 class RequestsController extends Controller
 {
@@ -211,5 +216,45 @@ class RequestsController extends Controller
         $filename = date('Y-m-d') . '_Requests_' . ucfirst($statusType) . '_Page_' . $currentPage + 1;
 
         return Excel::download($export, $filename . '.xlsx');
+    }
+
+    public function checkStatus(Request $requestDataFromUser)
+    {
+        $requestDataFromUser->validate(
+            [
+                'mail' => ['required', 'email'],
+                'requestID' => 'required'
+            ]
+        );
+
+        $requestData = Requests::requestIDMailStatus($requestDataFromUser->requestID);
+
+        if ($requestData == null) {
+            return redirect('/Index?error=Заявки не существует');
+        }
+
+        if (
+            $requestData->requestID == $requestDataFromUser->requestID
+            &&
+            $requestData->mail == $requestDataFromUser->mail
+        ) {
+            switch ($requestData->requestStatus) {
+                case 0:
+                    return redirect('/Index?messageokay=Заявка рассматривается');
+                case 1:
+                    $availabledates = Dates::all();
+
+                    return view('VerifyRequest', [
+                        'requestID' => $requestData->requestID, 'mail' => $requestData->mail,
+                        'availabledates' => $availabledates
+                    ]);
+                case 2:
+                    return redirect('/Index?messageokay=Вы уже выбрали время');
+                case 3:
+                    return redirect('/Index?messageokay=Заявка была отклонена');
+            }
+        } else {
+            return redirect('/Index?error=Указаны неверные данные');
+        }
     }
 }

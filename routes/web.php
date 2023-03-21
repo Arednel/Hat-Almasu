@@ -5,6 +5,7 @@ use App\Http\Controllers\DatesController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\RoomsController;
 use App\Http\Controllers\UsersController;
+use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\RequestsController;
 
 /*
@@ -72,6 +73,8 @@ Route::post('/Manage/UserDelete', [UsersController::class, 'delete']);
 
 //Request check status (as student)
 Route::view('/VerifyRequest', 'VerifyRequest');
+Route::post('/VerifyRequest', [RequestsController::class, 'checkStatus']);
+Route::post('/Register', [RegisterController::class, 'chooseDate']);
 
 //Examples
 // Route::get('/SomeRoute', function () {

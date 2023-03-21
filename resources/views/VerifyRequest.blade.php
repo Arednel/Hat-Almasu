@@ -9,8 +9,6 @@
     <link rel="stylesheet" href="{{ asset('css/manageForm.css') }}">
 </head>
 
-@include ('/VerifyRequest/VerifyRequestLogic');
-
 <style>
     .formInputs {
         grid-column: 1 / 3;
@@ -28,7 +26,38 @@
         <div class="modal-content">
             <img src="{{ asset('images/3.jpg') }}" class="formImage">
 
-            @include ('/VerifyRequest/VerifyRequestForm');
+            @isset($availabledates)
+                <form method="POST" action="/Register">
+
+                    <a href="/">← Назад</a>
+
+                    @csrf
+
+                    <label>Выберите дату для пересдачи:</label>
+                    <select name="date">
+                        @foreach ($availabledates as $record)
+                            <option value="{{ $record->date }}">{{ $record->date }}</option>
+                        @endforeach
+                    </select>
+                    <input type="hidden" name="mail" value="{{ $mail }}">
+                    <input type="hidden" name="requestID" value="{{ $requestID }}">
+
+                    <input type="submit" value="Выбрать" class="button-blue">
+                </form>
+            @else
+                <form method="POST" action="/VerifyRequest">
+
+                    @csrf
+
+                    <a href="/">← Назад</a>
+
+                    <input type="email" name="mail" value="" placeholder=" Почта, указанная в заявке" required />
+                    <input type="number" name="requestID" value="" placeholder=" Номер заявки" required />
+                    <br>
+                    <input type="submit" value="Подтвердить" class="button-blue">
+                </form>
+            @endisset
+
         </div>
     </div>
 </body>
