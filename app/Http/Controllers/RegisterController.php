@@ -3,14 +3,15 @@
 namespace App\Http\Controllers;
 
 use App\Models\Dates;
+use App\Models\Rooms;
 use App\Models\Booking;
-use App\Models\Requests;
 
+use App\Models\Requests;
 use Illuminate\Http\Request;
 
 class RegisterController extends Controller
 {
-    public function chooseDate(Request $requestDataFromUser)
+    private function requestCheck($requestDataFromUser)
     {
         $requestDataFromUser->validate(
             [
@@ -34,25 +35,7 @@ class RegisterController extends Controller
                 case 0:
                     return redirect('/Index?messageokay=Заявка рассматривается');
                 case 1:
-                    $isOnline = Dates::isOnline($requestDataFromUser->date);
-
-                    if ($isOnline->isOnline) {
-                        $data = array(
-                            'bookingdate' => $requestDataFromUser->date,
-                            'requestID' => $requestDataFromUser->requestID,
-                            'isOnline' => true
-                        );
-
-                        Booking::insert($data);
-                        Requests::updateToChosen($requestDataFromUser->requestID);
-
-                        return redirect('/Index?message=Вы успешно выбрали дату пересдачи');
-                    } else {
-                        return view('Register', [
-                            'requestID' => $requestDataFromUser->requestID, 'mail' => $requestDataFromUser->mail,
-                            'chosenDate' => $requestDataFromUser->date
-                        ]);
-                    }
+                    return $requestData;
                 case 2:
                     return redirect('/Index?messageokay=Вы уже выбрали время');
                 case 3:
@@ -61,5 +44,96 @@ class RegisterController extends Controller
         } else {
             return redirect('/Index?error=Указаны неверные данные');
         }
+    }
+
+    public function chooseDate(Request $requestDataFromUser)
+    {
+        $requestData = $this->requestCheck($requestDataFromUser);
+
+        if ($requestData instanceof \Illuminate\Http\RedirectResponse) {
+            return $requestData;
+        }
+
+        $availabledates = Dates::allFromTommorow();
+
+        return view('Register', [
+            'requestID' => $requestData->requestID, 'mail' => $requestData->mail,
+            'availabledates' => $availabledates
+        ]);
+    }
+
+    public function chooseRoom(Request $requestDataFromUser)
+    {
+        $requestData = $this->requestCheck($requestDataFromUser);
+
+        if ($requestData instanceof \Illuminate\Http\RedirectResponse) {
+            return $requestData;
+        }
+
+        $isOnline = Dates::isOnline($requestDataFromUser->date);
+
+        if ($isOnline->isOnline) {
+            $data = array(
+                'bookingdate' => $requestDataFromUser->date,
+                'requestID' => $requestDataFromUser->requestID,
+                'isOnline' => true
+            );
+
+            Booking::insert($data);
+            Requests::updateTo($requestDataFromUser->requestID, 2);
+
+            return redirect('/Index?message=Вы успешно выбрали дату пересдачи');
+        } else {
+            $rooms = Rooms::all();
+
+            return view('Register', [
+                'requestID' => $requestDataFromUser->requestID, 'mail' => $requestDataFromUser->mail,
+                'chosenDate' => $requestDataFromUser->date, 'rooms' => $rooms
+            ]);
+        }
+    }
+
+    public function chooseHour(Request $requestDataFromUser)
+    {
+        $requestData = $this->requestCheck($requestDataFromUser);
+
+        if ($requestData instanceof \Illuminate\Http\RedirectResponse) {
+            return $requestData;
+        }
+
+        $hours = Dates::hours($requestDataFromUser->chosenDate);
+
+        $amountOfHours = $hours->endHour - $hours->startHour;
+
+        return view('Register', [
+            'requestID' => $requestDataFromUser->requestID, 'mail' => $requestDataFromUser->mail,
+            'chosenDate' => $requestDataFromUser->chosenDate, 'roomID' =>  $requestDataFromUser->roomID,
+            'startHour' =>  $hours->startHour, 'hours' =>  $amountOfHours
+        ]);
+    }
+
+    public function complete(Request $requestDataFromUser)
+    {
+        $requestData = $this->requestCheck($requestDataFromUser);
+
+        if ($requestData instanceof \Illuminate\Http\RedirectResponse) {
+            return $requestData;
+        }
+
+        $data = array(
+            'bookingdate' => $requestDataFromUser->chosenDate,
+            'requestID' => $requestDataFromUser->requestID,
+            'isOnline' => false,
+            'startHour' => $requestDataFromUser->startHour,
+            'roomID' => $requestDataFromUser->roomID,
+        );
+
+        Booking::insert($data);
+        Requests::updateTo($requestDataFromUser->requestID, 2);
+
+        $roomName = Rooms::get($requestDataFromUser->roomID);
+        return redirect('/Index?message=Вы успешно выбрали время пересдачи ' . $requestDataFromUser->chosenDate
+            . ', в аудитории: ' . $roomName->roomName . ', С ' . $requestDataFromUser->startHour . ':00' .
+            ' до ' . (($requestDataFromUser->startHour) + 1) . ':00');
     }
 }

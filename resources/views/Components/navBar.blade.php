@@ -3,7 +3,7 @@
 <div class="nav-bar">
     <a href="/"><img src="{{ asset('images/logo.png') }}" class="topLogo"></a>
     <div class="nav-bar-center">
-        <a href="/VerifyRequest">Статус заявки</a>&nbsp
+        <a href="/Register">Статус заявки</a>&nbsp
         <a href="/RequestNew" class="red">Подать заявку</a>
 
         @if (Session::get('userID'))

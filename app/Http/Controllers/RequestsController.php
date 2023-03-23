@@ -61,6 +61,12 @@ class RequestsController extends Controller
             return redirect('/Index?error=У вас недостаточный уровень доступа!');
         }
 
+        $dbRequestStatus = Requests::requestStatus($requestID);
+
+        if ($dbRequestStatus->requestStatus == 2) {
+            return redirect('/Index?error=Нельзя изменить статус заявки, так как студент уже выбрал дату пересдачи');
+        }
+
         Requests::updateTo($requestID, $requestStatus);
 
         return redirect()->back();
@@ -216,45 +222,5 @@ class RequestsController extends Controller
         $filename = date('Y-m-d') . '_Requests_' . ucfirst($statusType) . '_Page_' . $currentPage + 1;
 
         return Excel::download($export, $filename . '.xlsx');
-    }
-
-    public function checkStatus(Request $requestDataFromUser)
-    {
-        $requestDataFromUser->validate(
-            [
-                'mail' => ['required', 'email'],
-                'requestID' => 'required'
-            ]
-        );
-
-        $requestData = Requests::requestIDMailStatus($requestDataFromUser->requestID);
-
-        if ($requestData == null) {
-            return redirect('/Index?error=Заявки не существует');
-        }
-
-        if (
-            $requestData->requestID == $requestDataFromUser->requestID
-            &&
-            $requestData->mail == $requestDataFromUser->mail
-        ) {
-            switch ($requestData->requestStatus) {
-                case 0:
-                    return redirect('/Index?messageokay=Заявка рассматривается');
-                case 1:
-                    $availabledates = Dates::all();
-
-                    return view('VerifyRequest', [
-                        'requestID' => $requestData->requestID, 'mail' => $requestData->mail,
-                        'availabledates' => $availabledates
-                    ]);
-                case 2:
-                    return redirect('/Index?messageokay=Вы уже выбрали время');
-                case 3:
-                    return redirect('/Index?messageokay=Заявка была отклонена');
-            }
-        } else {
-            return redirect('/Index?error=Указаны неверные данные');
-        }
     }
 }

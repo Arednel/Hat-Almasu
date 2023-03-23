@@ -6,6 +6,22 @@ use Illuminate\Support\Facades\DB;
 
 class Rooms
 {
+    public static function all()
+    {
+        $result = DB::table('rooms')->get();
+
+        return $result;
+    }
+
+    public static function get($roomID)
+    {
+        $result = DB::table('rooms')
+            ->where('roomID', $roomID)
+            ->first();
+
+        return $result;
+    }
+
     public static function page(int $perPage, int $currentPage)
     {
         $offSet = $currentPage * $perPage;
@@ -17,6 +33,7 @@ class Rooms
 
         return $result;
     }
+
     public static function insert($data)
     {
         DB::table('rooms')->insert($data);

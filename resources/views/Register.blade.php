@@ -1,121 +1,121 @@
 <!DOCTYPE html>
-
 <html>
 
 <head>
-    <title>Выбор времени</title>
+    <title>Статус заявки</title>
 
     <link rel="stylesheet" href="{{ asset('css/main.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/manageForm.css') }}">
 </head>
 
-
-@include('/Components/navBar')
-@include('/Components/footer')
-
 <style>
-    .table-body td {
-        padding: 0;
+    .formInputs {
+        grid-column: 1 / 3;
     }
 
-    .calendar-button-green:hover {
-        background-color: #21abc4 !important;
-    }
-
-    tr:hover {
-        background-color: white !important;
-    }
-
-    @media (max-device-width: 850px) {
-        .table td {
-            line-height: 1.1;
-        }
-
-        .calendar-button-green,
-        .calendar-button-red {
-            padding-top: 8vh;
-            padding-bottom: 8vh;
-        }
+    a:link,
+    a:visited {
+        padding-bottom: 0;
+        height: 6vh;
     }
 </style>
 
 <body>
     <div class="main-body">
-        <table class="table">
-            <thead class="table-head">
-                <tr>
-                    <th class="column" colspan="100%">{{ $chosenDate }}
-                        / Выберите время</th>
-                </tr>
-            </thead>
-            <thead class="table-head">
-                <tr>
-                    <th class="column">Время / Аудитория </th>
-                    <th class="column">Количество свободных мест</th>
-                    <th class="column-short">Нажмите, чтобы выбрать</th>
-                </tr>
-            </thead>
-            <tbody class="table-body">
-                <?php
-                // $hoursArray = [];
-                
-                // $query = "SELECT startHour, endHour FROM availabledates WHERE `date` = '$chosenDate'";
-                // $result1 = mysqli_query($conn, $query);
-                // $record = mysqli_fetch_assoc($result1);
-                
-                // $startHour = $record['startHour'];
-                // $endHour = $startHour + 1;
-                // while ($startHour < $record['endHour']) {
-                //     $query = 'SELECT roomID, roomName, roomSpace FROM rooms';
-                //     $result2 = mysqli_query($conn, $query);
-                
-                //     while ($rooms = mysqli_fetch_assoc($result2)) {
-                //         $roomSpace = $rooms['roomSpace'];
-                //         $roomID = $rooms['roomID'];
-                //         //$roomID==1 это онлайн
-                //         if (!($roomID == 1)) {
-                //             $bookingDate = $_SESSION['chosenDate'];
-                //             $query = 'SELECT roomID FROM bookingrecords WHERE bookingdate = ' . $bookingDate . " AND startHour = $startHour AND roomID = $roomID";
-                //             $result3 = mysqli_query($conn, $query);
-                
-                //             while ($roomSpaces = mysqli_fetch_assoc($result3)) {
-                //                 $roomSpace--;
-                //             }
-                //             echo '<tr>
-                //                                              <td class="column">
-                //                                                  C ' .
-                //                 $startHour .
-                //                 ':00 до ' .
-                //                 $endHour .
-                //                 ':00 / ' .
-                //                 $rooms['roomName'] .
-                //                 '
-                //                                              </td>
-                //                                              <td class="column">
-                //                                                  Свободно ' .
-                //                 $roomSpace .
-                //                 '
-                //                                              </td>';
-                //             if ($roomSpace > 0) {
-                //                 echo '<td class="column-short">
-                //                                                  <input onclick="registerLogic(' .
-                //                     $startHour .
-                //                     ', ' .
-                //                     $roomID .
-                //                     ')" type="button" value="Выбрать" class="calendar-button-green">
-                //                                              </td>';
-                //             } else {
-                //                 echo '<td class="column-short">
-                //                                             <input onclick="" type="button" value="Занято" class="calendar-button-red">
-                //                                              </td>';
-                //             }
-                //         }
-                //     }
-                //     $startHour++;
-                //     $endHour++;
-                // }
-                ?>
-            </tbody>
-        </table>
+        <div class="modal-content">
+            <img src="{{ asset('images/3.jpg') }}" class="formImage">
+
+            @if (isset($availabledates))
+                <form method="POST" action="/Register/Room">
+                    <a href="/">← На главную</a>
+
+                    @csrf
+
+                    <label>Выберите дату для пересдачи:</label>
+                    <select name="date">
+                        @foreach ($availabledates as $record)
+                            <option value="{{ $record->date }}">{{ $record->date }}
+                                @if ($record->isOnline == true)
+                                    (Онлайн)
+                                @else
+                                    (Оффлайн, c {{ $record->startHour }} до {{ $record->endHour }})
+                                @endif
+                            </option>
+                        @endforeach
+                    </select>
+                    <input type="hidden" name="mail" value="{{ $mail }}">
+                    <input type="hidden" name="requestID" value="{{ $requestID }}">
+
+                    <input type="submit" value="Выбрать" class="button-blue">
+                </form>
+            @elseif(isset($rooms))
+                <form method="POST" action="/Register/Hour">
+                    <a href="/">← На главную</a>
+
+                    @csrf
+
+                    <label>Выберите аудиторию для пересдачи:</label>
+                    <select name="roomID">
+                        @foreach ($rooms as $record)
+                            <option value="{{ $record->roomID }}">{{ $record->roomName }}</option>
+                        @endforeach
+                    </select>
+                    <input type="hidden" name="mail" value="{{ $mail }}">
+                    <input type="hidden" name="requestID" value="{{ $requestID }}">
+                    <input type="hidden" name="chosenDate" value="{{ $chosenDate }}">
+
+                    <input type="submit" value="Выбрать" class="button-blue">
+                </form>
+            @elseif(isset($roomID))
+                <form method="POST" action="/Register/Complete">
+                    <a href="/">← На главную</a>
+
+                    @csrf
+
+                    <label>Выберите время для пересдачи:</label>
+                    <select name="startHour">
+                        @for ($i = $hours, $currentHour = $startHour; $i > 0; $i--, $currentHour++)
+                            @php
+                                $bookingRecordsAmount = DB::table('bookingrecords')
+                                    ->where('bookingDate', $chosenDate)
+                                    ->where('roomID', $roomID)
+                                    ->where('startHour', $currentHour)
+                                    ->count();
+                                
+                                $roomSpace = DB::table('rooms')
+                                    ->where('roomID', $roomID)
+                                    ->select('roomSpace')
+                                    ->first();
+                                
+                                $leftSpace = $roomSpace->roomSpace - $bookingRecordsAmount;
+                            @endphp
+                            <option value="{{ $currentHour }}">C {{ $currentHour }}:00 до {{ $currentHour + 1 }}:00
+                                (Осталось
+                                {{ $leftSpace }} мест)</option>
+                        @endfor
+                    </select>
+                    <input type="hidden" name="mail" value="{{ $mail }}">
+                    <input type="hidden" name="requestID" value="{{ $requestID }}">
+                    <input type="hidden" name="chosenDate" value="{{ $chosenDate }}">
+                    <input type="hidden" name="roomID" value="{{ $roomID }}">
+
+                    <input type="submit" value="Выбрать" class="button-blue">
+                </form>
+            @else
+                <form method="POST" action="/Register/Date">
+                    <a href="/">← На главную</a>
+
+                    @csrf
+
+                    <input type="email" name="mail" value="" placeholder=" Почта, указанная в заявке"
+                        required />
+                    <input type="number" name="requestID" value="" placeholder=" Номер заявки" required />
+                    <br>
+                    <input type="submit" value="Подтвердить" class="button-blue">
+                </form>
+            @endif
+
+        </div>
     </div>
 </body>
 

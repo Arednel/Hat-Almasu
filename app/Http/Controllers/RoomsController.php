@@ -10,6 +10,13 @@ class RoomsController extends Controller
 {
     private $perPagePrivate = 100;
 
+    public function all()
+    {
+        $rooms = Rooms::all();
+
+        return $rooms;
+    }
+
     public function page(int $currentPage)
     {
         if (!(in_array(Session::get('userPrivilege'), ['Admin']))) {

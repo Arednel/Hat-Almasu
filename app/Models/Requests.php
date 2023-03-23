@@ -123,25 +123,19 @@ class Requests
 
     public static function updateTo(int $requestID, string $requestStatus)
     {
-        $databaseRequestStatus = DB::table('requests')
-            ->where('requestID', $requestID)
-            ->select('requestStatus')
-            ->first();
-
-        if ($databaseRequestStatus->requestStatus == 2) {
-            return redirect('/Index?error=Нельзя изменить статус заявки, так как студент уже выбрал дату пересдачи');
-        }
-
         DB::table('requests')
             ->where('requestID', $requestID)
             ->update(['requestStatus' => $requestStatus]);
     }
 
-    public static function updateToChosen(int $requestID)
+    public static function requestStatus(int $requestID)
     {
-        DB::table('requests')
+        $requestStatus = DB::table('requests')
             ->where('requestID', $requestID)
-            ->update(['requestStatus' => 2]);
+            ->select('requestStatus')
+            ->first();
+
+        return $requestStatus;
     }
 
     public static function image(int $requestID)

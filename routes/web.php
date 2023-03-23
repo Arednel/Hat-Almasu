@@ -72,9 +72,11 @@ Route::post('/Manage/UserUpdate', [UsersController::class, 'update']);
 Route::post('/Manage/UserDelete', [UsersController::class, 'delete']);
 
 //Request check status (as student)
-Route::view('/VerifyRequest', 'VerifyRequest');
-Route::post('/VerifyRequest', [RequestsController::class, 'checkStatus']);
-Route::post('/Register', [RegisterController::class, 'chooseDate']);
+Route::view('/Register', 'Register');
+Route::post('/Register/Date', [RegisterController::class, 'chooseDate']);
+Route::post('/Register/Room', [RegisterController::class, 'chooseRoom']);
+Route::post('/Register/Hour', [RegisterController::class, 'chooseHour']);
+Route::post('/Register/Complete', [RegisterController::class, 'complete']);
 
 //Examples
 // Route::get('/SomeRoute', function () {

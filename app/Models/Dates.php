@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Composer\Semver\Interval;
 use Illuminate\Support\Facades\DB;
 
 class Dates
@@ -46,11 +47,30 @@ class Dates
         return $result;
     }
 
+    public static function allFromTommorow()
+    {
+        $result = DB::table('availabledates')
+            ->where('date', '>', now())
+            ->get();
+
+        return $result;
+    }
+
     public static function isOnline($date)
     {
         $result = DB::table('availabledates')
             ->where('date', $date)
             ->select('isOnline')
+            ->first();
+
+        return $result;
+    }
+
+    public static function hours($date)
+    {
+        $result = DB::table('availabledates')
+            ->where('date', $date)
+            ->select('startHour', 'endHour')
             ->first();
 
         return $result;
