@@ -17,7 +17,7 @@
                     <a href="/Manage/Users/0">Пользователями</a>
                 </div>
             </div>
-            &nbsp<a href="/occupancyDate">Заполненность</a>&nbsp
+            &nbsp<a href="/Occupancy/Date">Заполненность</a>&nbsp
             <div class="DropDown">
                 <button class="dropbtn">Заявки</button>
                 <div class="DropDown-content">

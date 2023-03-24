@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-use Composer\Semver\Interval;
 use Illuminate\Support\Facades\DB;
 
 class Dates

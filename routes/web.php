@@ -7,6 +7,7 @@ use App\Http\Controllers\RoomsController;
 use App\Http\Controllers\UsersController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\RequestsController;
+use App\Http\Controllers\OccupancyController;
 
 /*
 |--------------------------------------------------------------------------
@@ -77,6 +78,12 @@ Route::post('/Register/Date', [RegisterController::class, 'chooseDate']);
 Route::post('/Register/Room', [RegisterController::class, 'chooseRoom']);
 Route::post('/Register/Hour', [RegisterController::class, 'chooseHour']);
 Route::post('/Register/Complete', [RegisterController::class, 'complete']);
+
+//Occupancy view
+Route::get('/Occupancy/Date', [OccupancyController::class, 'chooseDate']);
+Route::post('/Occupancy/Room', [OccupancyController::class, 'chooseRoom']);
+Route::post('/Occupancy/Hour', [OccupancyController::class, 'chooseHour']);
+Route::post('/Occupancy/View', [OccupancyController::class, 'view']);
 
 //Examples
 // Route::get('/SomeRoute', function () {

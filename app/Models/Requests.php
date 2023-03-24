@@ -6,6 +6,21 @@ use Illuminate\Support\Facades\DB;
 
 class Requests
 {
+    public static function one(int $requestID)
+    {
+        $result = DB::table('requests')
+            ->where('requestID', $requestID)
+            ->select(array(
+                'requestID',
+                'fullName', 'idOfTest', 'faculty',
+                'speciality', 'course', 'department', 'subject',
+                'mail', 'phoneNumber', 'reason'
+            ))
+            ->first();
+
+        return $result;
+    }
+
     public static function newAll()
     {
         $result = DB::table('requests')
