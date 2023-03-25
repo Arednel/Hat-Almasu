@@ -33,8 +33,8 @@
         <div class="DropDown">
             <button class="dropbtn">Язык/Ru</button>
             <div class="DropDown-content">
-                {{-- <a href="/kz/">Казахский</a>
-                <a href="/ru/">Русский</a> --}}
+                <a href="/Language/kz">Казахский</a>
+                <a href="/Language/ru">Русский</a>
             </div>
         </div>
     </div>

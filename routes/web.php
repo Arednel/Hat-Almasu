@@ -1,6 +1,9 @@
 <?php
 
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Session;
+
 use App\Http\Controllers\DatesController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\RoomsController;
@@ -85,11 +88,14 @@ Route::post('/Occupancy/Room', [OccupancyController::class, 'chooseRoom']);
 Route::post('/Occupancy/Hour', [OccupancyController::class, 'chooseHour']);
 Route::post('/Occupancy/View', [OccupancyController::class, 'view']);
 
-//Examples
-// Route::get('/SomeRoute', function () {
-//     some logic
-//
-//     return view(
-//         'SomeView'
-//     );
-// });
+//Change language
+Route::get('/Language/{locale}', function (string $locale) {
+    if (!in_array($locale, ['ru', 'kz'])) {
+        abort(404);
+    }
+
+    App::setLocale($locale);
+    Session::put('locale', $locale);
+
+    return redirect()->back();
+});

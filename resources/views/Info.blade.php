@@ -37,8 +37,8 @@
     <br>
     <a href="/">← На главную</a>
 
-    <p>version 0.7.0 / 2023.03.24</p>
-    <p>Watch occupancy (both online and offline) update</p>
+    <p>version 0.7.2 / 2023.03.25</p>
+    <p>Localization start update</p>
     <p>Made by Evtifeev Artyom Vladislavovich / Arednel</p>
     <p>2023 &#169 Test Center</p>
 </body>
