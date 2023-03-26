@@ -8,6 +8,7 @@ use App\Models\Booking;
 use App\Models\Requests;
 
 use Illuminate\Http\Request;
+
 use Illuminate\Support\Facades\Session;
 
 class OccupancyController extends Controller

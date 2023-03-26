@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Dates;
 use App\Models\Requests;
 
 use Illuminate\Http\Request;
+
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\DB;
 
@@ -13,7 +13,6 @@ use App\Exports\RequestsExport;
 use Maatwebsite\Excel\Facades\Excel;
 
 use Illuminate\Validation\Rule;
-
 
 class RequestsController extends Controller
 {
@@ -90,8 +89,7 @@ class RequestsController extends Controller
             [
                 'fullName' => 'required',
                 'idOfTest' => [
-                    'required'
-                    //, Rule::unique('requests', 'idOfTest')
+                    'required', Rule::unique('requests', 'idOfTest')
                 ],
                 'course' => 'required',
                 'faculty' => 'required',

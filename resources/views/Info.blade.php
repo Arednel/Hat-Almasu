@@ -37,8 +37,8 @@
     <br>
     <a href="/">← На главную</a>
 
-    <p>version 0.8.0 / 2023.03.26</p>
-    <p>Retake level localization update</p>
+    <p>version 0.8.1 / 2023.03.26</p>
+    <p>Small fixes update</p>
     <p>Made by Evtifeev Artyom Vladislavovich / Arednel</p>
     <p>2023 &#169 Test Center</p>
 </body>

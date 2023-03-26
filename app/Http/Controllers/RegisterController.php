@@ -5,8 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Dates;
 use App\Models\Rooms;
 use App\Models\Booking;
-
 use App\Models\Requests;
+
 use Illuminate\Http\Request;
 
 class RegisterController extends Controller

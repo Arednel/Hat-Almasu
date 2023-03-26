@@ -37,12 +37,12 @@
                     <option value="Анг.">Анг.</option>
                 </select>
                 <input type="text" name="speciality" placeholder=" {!! __('Специальность') !!}" required />
-                <input type="text" name="subject" placeholder=" {!! __('Дисциплина') !!}" required />
+                <input type="text" name="subject" placeholder=" {!! __('Дисциплина (предмет)') !!}" required />
                 <input type="email" name="mail" placeholder=" {!! __('Почта для связи') !!}" required />
                 <input type="text" name="phoneNumber" placeholder=" {!! __('Номер телефона для связи') !!}" required />
                 <select name="reason">
                     <option value="Технический сбой">{!! __('Технический сбой') !!}</option>
-                    <option value="Апелляция">{!! __('Апелляция') !!}</option>
+                    {{-- <option value="Апелляция">{!! __('Апелляция') !!}</option> --}}
                 </select>
                 <label for="file">{!! __('Подтверждаю-<br>щий документ<br>(До 8 МБ)') !!}
                     <input id="file" type="file" accept="image/*" name="confirmationFile" required />
