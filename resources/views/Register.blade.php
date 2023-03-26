@@ -2,7 +2,7 @@
 <html>
 
 <head>
-    <title>Статус заявки</title>
+    <title>{!! __('Статус заявки') !!}</title>
 
     <link rel="stylesheet" href="{{ asset('css/main.css') }}">
     <link rel="stylesheet" href="{{ asset('css/manageForm.css') }}">
@@ -27,18 +27,19 @@
 
             @if (isset($availabledates))
                 <form method="POST" action="/Register/Room">
-                    <a href="/">← На главную</a>
+                    <a href="/">{!! __('← На главную') !!}</a>
 
                     @csrf
 
-                    <label>Выберите дату для пересдачи:</label>
+                    <label>{!! __('Выберите дату для пересдачи:') !!}</label>
                     <select name="date">
                         @foreach ($availabledates as $record)
                             <option value="{{ $record->date }}">{{ $record->date }}
                                 @if ($record->isOnline == true)
-                                    (Онлайн)
+                                    ({!! __('Онлайн') !!})
                                 @else
-                                    (Оффлайн, c {{ $record->startHour }} до {{ $record->endHour }})
+                                    ({!! __('Офлайн, c ') !!} {{ $record->startHour }} {!! __('до') !!}
+                                    {{ $record->endHour }})
                                 @endif
                             </option>
                         @endforeach
@@ -50,11 +51,11 @@
                 </form>
             @elseif(isset($rooms))
                 <form method="POST" action="/Register/Hour">
-                    <a href="/">← На главную</a>
+                    <a href="/">{!! __('← На главную') !!}</a>
 
                     @csrf
 
-                    <label>Выберите аудиторию для пересдачи:</label>
+                    <label>{!! __('Выберите аудиторию для пересдачи:') !!}</label>
                     <select name="roomID">
                         @foreach ($rooms as $record)
                             <option value="{{ $record->roomID }}">{{ $record->roomName }}</option>
@@ -68,11 +69,11 @@
                 </form>
             @elseif(isset($roomID))
                 <form method="POST" action="/Register/Complete">
-                    <a href="/">← На главную</a>
+                    <a href="/">{!! __('← На главную') !!}</a>
 
                     @csrf
 
-                    <label>Выберите время для пересдачи:</label>
+                    <label>{!! __('Выберите время для пересдачи:') !!}</label>
                     <select name="startHour">
                         @for ($i = $hours, $currentHour = $startHour; $i > 0; $i--, $currentHour++)
                             @php
@@ -89,9 +90,11 @@
                                 
                                 $leftSpace = $roomSpace->roomSpace - $bookingRecordsAmount;
                             @endphp
-                            <option value="{{ $currentHour }}">C {{ $currentHour }}:00 до {{ $currentHour + 1 }}:00
-                                (Осталось
-                                {{ $leftSpace }} мест)</option>
+                            <option value="{{ $currentHour }}">{!! __('C') !!} {{ $currentHour }}:00
+                                {!! __('до') !!}
+                                {{ $currentHour + 1 }}:00
+                                ({!! __('Осталось') !!}
+                                {{ $leftSpace }} {!! __('мест') !!})</option>
                         @endfor
                     </select>
                     <input type="hidden" name="mail" value="{{ $mail }}">
@@ -99,19 +102,20 @@
                     <input type="hidden" name="chosenDate" value="{{ $chosenDate }}">
                     <input type="hidden" name="roomID" value="{{ $roomID }}">
 
-                    <input type="submit" value="Выбрать" class="button-blue">
+                    <input type="submit" value="{!! __('Выбрать') !!}" class="button-blue">
                 </form>
             @else
                 <form method="POST" action="/Register/Date">
-                    <a href="/">← На главную</a>
+                    <a href="/">{!! __('← На главную') !!}</a>
 
                     @csrf
 
-                    <input type="email" name="mail" value="" placeholder=" Почта, указанная в заявке"
+                    <input type="email" name="mail" value="" placeholder=" {!! __('Почта, указанная в заявке') !!}"
                         required />
-                    <input type="number" name="requestID" value="" placeholder=" Номер заявки" required />
+                    <input type="number" name="requestID" value="" placeholder=" {!! __('Номер заявки') !!}"
+                        required />
                     <br>
-                    <input type="submit" value="Подтвердить" class="button-blue">
+                    <input type="submit" value="{!! __('Подтвердить') !!}" class="button-blue">
                 </form>
             @endif
 

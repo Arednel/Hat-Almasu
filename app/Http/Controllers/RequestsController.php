@@ -81,7 +81,7 @@ class RequestsController extends Controller
             $from_time = strtotime($currentFullTime);
             $diffirenceBetweenTime = round(abs($to_time - $from_time) / 60, 2);
             if ($diffirenceBetweenTime < 3) {
-                return redirect('Index?error=Подождите 3 минуты, перед подачей следующей заявки');
+                return redirect('Index?error=' . __('Подождите 3 минуты, перед подачей следующей заявки'));
             }
         }
 
@@ -119,7 +119,7 @@ class RequestsController extends Controller
 
         //Image save and checking size (Currently 10MB)
         $uploadedFile = $image->getRealPath();
-        if (filesize($uploadedFile) > 1048576) {
+        if (filesize($uploadedFile) > 10485760) {
             return redirect('Index?error=Файл слишком большой');
         }
         clearstatcache();
@@ -138,7 +138,7 @@ class RequestsController extends Controller
 
         Session::put('lastRequestTime', date('d-m-Y h:i:s'));
 
-        return redirect('Index?message=Вы успешно подали заявку, ваш номер заявки: ' . $requestID . '   Сохраните этот номер!');
+        return redirect('Index?message=' . __('Вы успешно подали заявку, ваш номер заявки: ')  . $requestID . __('. Сохраните этот номер!'));
     }
 
     public function image(int $requestID)

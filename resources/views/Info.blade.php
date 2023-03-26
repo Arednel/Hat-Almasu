@@ -2,7 +2,7 @@
 <html>
 
 <head>
-    <title>Информация</title>
+    <title>Information</title>
 </head>
 
 <style>
@@ -37,8 +37,8 @@
     <br>
     <a href="/">← На главную</a>
 
-    <p>version 0.7.2 / 2023.03.25</p>
-    <p>Localization start update</p>
+    <p>version 0.8.0 / 2023.03.26</p>
+    <p>Retake level localization update</p>
     <p>Made by Evtifeev Artyom Vladislavovich / Arednel</p>
     <p>2023 &#169 Test Center</p>
 </body>
