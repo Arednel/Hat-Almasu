@@ -44,6 +44,10 @@
                     <option value="Технический сбой">{!! __('Технический сбой') !!}</option>
                     {{-- <option value="Апелляция">{!! __('Апелляция') !!}</option> --}}
                 </select>
+                <select name="examType">
+                    <option value="Тестирование">{!! __('Тестирование') !!}</option>
+                    <option value="Письменно">{!! __('Письменно') !!}</option>
+                </select>
                 <label for="file">{!! __('Подтверждаю-<br>щий документ<br>(До 8 МБ)') !!}
                     <input id="file" type="file" accept="image/*" name="confirmationFile" required />
                 </label>

@@ -23,6 +23,7 @@
                     <th class="columnE">ID теста / Институт / Специальность / Курс / Отделение / Дисциплина</th>
                     <th class="columnE">Почта / Телефон</th>
                     <th class="columnE">Причина </th>
+                    <th class="columnE">Вид Экзамена </th>
                     <th class="columnE">Подтверждающий документ</th>
                 </tr>
             </thead>
@@ -74,6 +75,11 @@
                         <td class="columnE">
                             <div class="columnText">
                                 {{ $record->reason }}
+                            </div>
+                        </td>
+                        <td class="columnE">
+                            <div class="columnText">
+                                {{ $record->examType }}
                             </div>
                         </td>
                         <td class="columnE">

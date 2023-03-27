@@ -12,15 +12,13 @@ use Illuminate\Support\Facades\Session;
 
 class DatesController extends Controller
 {
-    private $perPagePrivate = 100;
-
     public function page(int $currentPage)
     {
         if (!(in_array(Session::get('userPrivilege'), ['Admin']))) {
             return redirect('/Index?error=У вас недостаточный уровень доступа!');
         }
 
-        $perPage = $this->perPagePrivate;
+        $perPage = 100;
 
         $offSet = $currentPage * $perPage;
         $pageStart = $offSet + 1;

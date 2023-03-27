@@ -24,7 +24,8 @@ return new class extends Migration
             $table->string('subject', 150);
             $table->string('mail', 150);
             $table->string('phoneNumber', 150);
-            $table->string('reason', 20);
+            $table->string('reason', 30);
+            $table->string('examType', 30);
             $table->binary('confirmationFile');
             $table->tinyInteger('requestStatus');
         });

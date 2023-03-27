@@ -11,10 +11,9 @@ class Requests
         $result = DB::table('requests')
             ->where('requestID', $requestID)
             ->select(array(
-                'requestID',
-                'fullName', 'idOfTest', 'faculty',
+                'requestID', 'fullName', 'idOfTest', 'faculty',
                 'speciality', 'course', 'department', 'subject',
-                'mail', 'phoneNumber', 'reason'
+                'mail', 'phoneNumber', 'reason', 'examType'
             ))
             ->first();
 
@@ -27,10 +26,9 @@ class Requests
             ->where('requestStatus', 0)
             ->orderBy('requestID')
             ->select(array(
-                'requestID',
-                'fullName', 'idOfTest', 'faculty',
+                'requestID', 'fullName', 'idOfTest', 'faculty',
                 'speciality', 'course', 'department', 'subject',
-                'mail', 'phoneNumber', 'reason', 'requestStatus'
+                'mail', 'phoneNumber', 'reason', 'examType', 'requestStatus'
             ))
             ->get();
 
@@ -47,10 +45,9 @@ class Requests
             ->limit($perPage)
             ->offset($offSet)
             ->select(array(
-                'requestID',
-                'fullName', 'idOfTest', 'faculty',
+                'requestID', 'fullName', 'idOfTest', 'faculty',
                 'speciality', 'course', 'department', 'subject',
-                'mail', 'phoneNumber', 'reason', 'requestStatus'
+                'mail', 'phoneNumber', 'reason',  'examType', 'requestStatus'
             ))
             ->get();
 
@@ -64,10 +61,9 @@ class Requests
             ->orWhere('requestStatus', 2)
             ->orderBy('requestID')
             ->select(array(
-                'requestID',
-                'fullName', 'idOfTest', 'faculty',
+                'requestID', 'fullName', 'idOfTest', 'faculty',
                 'speciality', 'course', 'department', 'subject',
-                'mail', 'phoneNumber', 'reason', 'requestStatus'
+                'mail', 'phoneNumber', 'reason', 'examType', 'requestStatus'
             ))
             ->get();
 
@@ -85,10 +81,9 @@ class Requests
             ->limit($perPage)
             ->offset($offSet)
             ->select(array(
-                'requestID',
-                'fullName', 'idOfTest', 'faculty',
+                'requestID', 'fullName', 'idOfTest', 'faculty',
                 'speciality', 'course', 'department', 'subject',
-                'mail', 'phoneNumber', 'reason', 'requestStatus'
+                'mail', 'phoneNumber', 'reason', 'examType', 'requestStatus'
             ))
             ->get();
 
@@ -101,10 +96,9 @@ class Requests
             ->where('requestStatus', 3)
             ->orderBy('requestID')
             ->select(array(
-                'requestID',
-                'fullName', 'idOfTest', 'faculty',
+                'requestID', 'fullName', 'idOfTest', 'faculty',
                 'speciality', 'course', 'department', 'subject',
-                'mail', 'phoneNumber', 'reason', 'requestStatus'
+                'mail', 'phoneNumber', 'reason',  'examType', 'requestStatus'
             ))
             ->get();
 
@@ -121,10 +115,9 @@ class Requests
             ->limit($perPage)
             ->offset($offSet)
             ->select(array(
-                'requestID',
-                'fullName', 'idOfTest', 'faculty',
+                'requestID', 'fullName', 'idOfTest', 'faculty',
                 'speciality', 'course', 'department', 'subject',
-                'mail', 'phoneNumber', 'reason', 'requestStatus'
+                'mail', 'phoneNumber', 'reason', 'examType', 'requestStatus'
             ))
             ->get();
 

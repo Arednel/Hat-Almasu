@@ -99,6 +99,7 @@ class RequestsController extends Controller
                 'mail' => ['required', 'email'],
                 'phoneNumber' => 'required',
                 'reason' => 'required',
+                'examType' => 'required',
                 'confirmationFile' => 'required'
             ]
         );
@@ -113,6 +114,7 @@ class RequestsController extends Controller
         $mail = $request->input('mail');
         $phoneNumber = $request->input('phoneNumber');
         $reason = $request->input('reason');
+        $examType = $request->input('examType');
         $image = $request->file('confirmationFile');
 
         //Image save and checking size (Currently 10MB)
@@ -127,7 +129,7 @@ class RequestsController extends Controller
         $data = array(
             'fullName' => $fullName, "idOfTest" => $idOfTest, "faculty" => $faculty, "course" => $course,
             "department" => $department, "speciality" => $speciality, "subject" => $subject, "mail" => $mail, "phoneNumber" => $phoneNumber,
-            "reason" => $reason, "confirmationFile" => $confirmationFile
+            "reason" => $reason, "examType" => $examType, "confirmationFile" => $confirmationFile
         );
 
         Requests::insert($data);
