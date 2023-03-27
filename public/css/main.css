@@ -241,39 +241,45 @@ a:hover {
     cursor: pointer;
 }
 
-.calendar-button,
-.calendar-button-grey,
-.calendar-button-green,
-.calendar-button-red,
-.calendar-button-grey-green-to-hover,
-.calendar-button-grey-red-to-hover,
-.calendar-button-green-to-hover,
-.calendar-button-red-to-hover {
+.table-approval,
+.table-approval-grey,
+.table-approval-green,
+.table-approval-red,
+.table-approval-grey-green-to-hover,
+.table-approval-grey-red-to-hover,
+.table-approval-green-to-hover,
+.table-approval-red-to-hover {
     width: 100%;
-    padding-top: 4vh;
-    padding-bottom: 4vh;
+    padding-top: clamp(6px, 4vh, 12px);
+    padding-bottom: clamp(6px, 4vh, 12px);
     background-color: white;
     border: 0;
-    font-size: 3vh;
+    font-size: clamp(12px, 2.5vh, 24px);
     cursor: pointer;
     border-radius: 1vh;
 }
 
-.calendar-button-grey,
-.calendar-button-grey-green-to-hover,
-.calendar-button-grey-red-to-hover {
+.table-approval,
+.table-approval-grey {
+    padding-top: clamp(12px, 3vh, 24px);
+    padding-bottom: clamp(12px, 3vh, 24px);
+}
+
+.table-approval-grey,
+.table-approval-grey-green-to-hover,
+.table-approval-grey-red-to-hover {
     background-color: #e9e9e9;
 }
 
-.calendar-button-green,
-.calendar-button-grey-green-to-hover:hover,
-.calendar-button-green-to-hover:hover {
+.table-approval-green,
+.table-approval-grey-green-to-hover:hover,
+.table-approval-green-to-hover:hover {
     background-color: green !important;
 }
 
-.calendar-button-red,
-.calendar-button-grey-red-to-hover:hover,
-.calendar-button-red-to-hover:hover {
+.table-approval-red,
+.table-approval-grey-red-to-hover:hover,
+.table-approval-red-to-hover:hover {
     background-color: red !important;
 }
 

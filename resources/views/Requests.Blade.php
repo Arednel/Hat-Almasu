@@ -15,7 +15,7 @@
 <body>
     <div class="main-body">
 
-        @include ('/Components/pageSwitchingDiv');
+        @include ('/Components/pageSwitchingDiv')
 
         <table class="tableE">
             <thead class="tableE-head">
@@ -90,7 +90,7 @@
                         <td class="columnE">
                             <button type="button" target="_blank"
                                 onclick="window.open('/Requests/Image/{{ $record->requestID }}')"
-                                class="calendar-button{{ $classGrey }}">
+                                class="table-approval{{ $classGrey }}">
                                 Перейти к файлу
                             </button>
                         </td>
@@ -99,14 +99,14 @@
                                 @if (in_array($statusType, ['new', 'rejected']))
                                     <button type="button" target="_blank"
                                         onclick="window.location=('/Requests/ChangeStatus/{{ $record->requestID }}/1')"
-                                        class="calendar-button{{ $classGrey }}-green-to-hover">
+                                        class="table-approval{{ $classGrey }}-green-to-hover">
                                         ✓
                                     </button>
                                 @endif
                                 @if (in_array($statusType, ['new', 'approved']))
                                     <button type="button" target="_blank"
                                         onclick="window.location=('/Requests/ChangeStatus/{{ $record->requestID }}/3')"
-                                        class="calendar-button{{ $classGrey }}-red-to-hover">
+                                        class="table-approval{{ $classGrey }}-red-to-hover">
                                         X
                                     </button>
                                 @endif
@@ -118,7 +118,7 @@
             </tbody>
         </table>
 
-        @include ('/Components/pageSwitchingDiv');
+        @include ('/Components/pageSwitchingDiv')
 
         <button type="button" target="_blank"
             onclick="window.location=('/Requests/ExcelExport/{{ $statusType }}/{{ $currentPage }}')"

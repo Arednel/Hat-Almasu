@@ -16,7 +16,7 @@
 <body>
     <div class="main-body">
 
-        @include ('/Components/pageSwitchingDiv');
+        @include ('/Components/pageSwitchingDiv')
 
         <table class="table">
             <thead class="table-head">
@@ -40,7 +40,7 @@
             </tbody>
         </table>
 
-        @include ('/Components/pageSwitchingDiv');
+        @include ('/Components/pageSwitchingDiv')
 
         <div id="myModal" class="modal">
             <div class="modal-content">

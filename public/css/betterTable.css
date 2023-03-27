@@ -3,7 +3,7 @@
 }
 
 .tableE td {
-    font-size: 3vh;
+    font-size: clamp(12px, 3vh, 24px);
     line-height: 1;
 }
 
@@ -11,7 +11,7 @@
     padding: 0;
 }
 
-.calendar-button:hover,
-.calendar-button-grey:hover {
+.table-approval:hover,
+.table-approval-grey:hover {
     background-color: #21abc4 !important;
 }

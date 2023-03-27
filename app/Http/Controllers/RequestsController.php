@@ -157,8 +157,8 @@ class RequestsController extends Controller
         }
 
         $data = [[
-            "ID заявки", "ID теста", "Институт", "ФИО", "Специальность",
-            "Курс", "Отделение", "Дисциплина", "Email", "Телефон", "Причина"
+            "ID заявки", "ID теста", "Институт", "ФИО", "Специальность", "Курс",
+            "Отделение", "Дисциплина", "Email", "Телефон", "Причина", "Вид Экзамена"
         ]];
 
         $result = Requests::{$statusType . 'All'}();
@@ -176,6 +176,7 @@ class RequestsController extends Controller
                 $item->mail,
                 $item->phoneNumber,
                 $item->reason,
+                $item->examType,
             ]);
         }
 
@@ -195,8 +196,8 @@ class RequestsController extends Controller
         $perPage = $this->perPagePrivate;
 
         $data = [[
-            "ID заявки", "ID теста", "Институт", "ФИО", "Специальность",
-            "Курс", "Отделение", "Дисциплина", "Email", "Телефон", "Причина"
+            "ID заявки", "ID теста", "Институт", "ФИО", "Специальность", "Курс",
+            "Отделение", "Дисциплина", "Email", "Телефон", "Причина", "Вид Экзамена"
         ]];
 
         $result = Requests::{$statusType . 'Page'}($perPage, $currentPage);
@@ -214,6 +215,7 @@ class RequestsController extends Controller
                 $item->mail,
                 $item->phoneNumber,
                 $item->reason,
+                $item->examType,
             ]);
         }
 

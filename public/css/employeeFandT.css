@@ -39,15 +39,15 @@ input[type=file] {
 }
 
 .tableE th {
-    font-size: 3vh;
+    font-size: clamp(12px, 4vh, 30px);
     line-height: 4vh;
     background-color: #334ee2;
     color: white;
 }
 
 .tableE td {
-    font-size: 3.5vh;
-    line-height: 0.5;
+    font-size: clamp(8px, 3vh, 24px);
+    line-height: 1;
 }
 
 .tableE text {
@@ -74,10 +74,10 @@ input[type=file] {
 }
 
 .columnE {
-    border: 2px solid black;
-    width: auto;
+    border: clamp(2px, 1vh, 3px) solid black;
+    width: clamp(6px, 4vh, 14px);
 }
 
 .columnText {
-    padding: 3px;
+    padding: clamp(1px, 1vh, 3px);
 }

@@ -56,6 +56,10 @@ class RegisterController extends Controller
 
         $availabledates = Dates::allFromTommorow();
 
+        if ($availabledates->isEmpty()) {
+            return redirect('/Index?error=Нет доступных дат для пересдачи');
+        }
+
         return view('Register', [
             'requestID' => $requestData->requestID, 'mail' => $requestData->mail,
             'availabledates' => $availabledates

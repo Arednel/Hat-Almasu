@@ -24,11 +24,11 @@ class Requests
     {
         $result = DB::table('requests')
             ->where('requestStatus', 0)
-            ->orderBy('requestID')
+            ->orderByDesc('requestID')
             ->select(array(
                 'requestID', 'fullName', 'idOfTest', 'faculty',
                 'speciality', 'course', 'department', 'subject',
-                'mail', 'phoneNumber', 'reason', 'examType', 'requestStatus'
+                'mail', 'phoneNumber', 'reason', 'examType'
             ))
             ->get();
 
@@ -41,13 +41,13 @@ class Requests
 
         $result = DB::table('requests')
             ->where('requestStatus', 0)
-            ->orderBy('requestID')
+            ->orderByDesc('requestID')
             ->limit($perPage)
             ->offset($offSet)
             ->select(array(
                 'requestID', 'fullName', 'idOfTest', 'faculty',
                 'speciality', 'course', 'department', 'subject',
-                'mail', 'phoneNumber', 'reason',  'examType', 'requestStatus'
+                'mail', 'phoneNumber', 'reason',  'examType'
             ))
             ->get();
 
@@ -59,11 +59,11 @@ class Requests
         $result = DB::table('requests')
             ->where('requestStatus', 1)
             ->orWhere('requestStatus', 2)
-            ->orderBy('requestID')
+            ->orderByDesc('requestID')
             ->select(array(
                 'requestID', 'fullName', 'idOfTest', 'faculty',
                 'speciality', 'course', 'department', 'subject',
-                'mail', 'phoneNumber', 'reason', 'examType', 'requestStatus'
+                'mail', 'phoneNumber', 'reason', 'examType'
             ))
             ->get();
 
@@ -77,13 +77,13 @@ class Requests
         $result = DB::table('requests')
             ->where('requestStatus', 1)
             ->orWhere('requestStatus', 2)
-            ->orderBy('requestID')
+            ->orderByDesc('requestID')
             ->limit($perPage)
             ->offset($offSet)
             ->select(array(
                 'requestID', 'fullName', 'idOfTest', 'faculty',
                 'speciality', 'course', 'department', 'subject',
-                'mail', 'phoneNumber', 'reason', 'examType', 'requestStatus'
+                'mail', 'phoneNumber', 'reason', 'examType'
             ))
             ->get();
 
@@ -94,11 +94,11 @@ class Requests
     {
         $result = DB::table('requests')
             ->where('requestStatus', 3)
-            ->orderBy('requestID')
+            ->orderByDesc('requestID')
             ->select(array(
                 'requestID', 'fullName', 'idOfTest', 'faculty',
                 'speciality', 'course', 'department', 'subject',
-                'mail', 'phoneNumber', 'reason',  'examType', 'requestStatus'
+                'mail', 'phoneNumber', 'reason',  'examType'
             ))
             ->get();
 
@@ -111,13 +111,13 @@ class Requests
 
         $result = DB::table('requests')
             ->where('requestStatus', 3)
-            ->orderBy('requestID')
+            ->orderByDesc('requestID')
             ->limit($perPage)
             ->offset($offSet)
             ->select(array(
                 'requestID', 'fullName', 'idOfTest', 'faculty',
                 'speciality', 'course', 'department', 'subject',
-                'mail', 'phoneNumber', 'reason', 'examType', 'requestStatus'
+                'mail', 'phoneNumber', 'reason', 'examType'
             ))
             ->get();
 

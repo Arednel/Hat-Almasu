@@ -85,7 +85,7 @@
                         <td class="columnE">
                             <button type="button" target="_blank"
                                 onclick="window.open('/Requests/Image/{{ $record->requestID }}')"
-                                class="calendar-button{{ $classGrey }}">
+                                class="table-approval{{ $classGrey }}">
                                 Перейти к файлу
                             </button>
                         </td>
