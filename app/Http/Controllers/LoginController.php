@@ -12,7 +12,7 @@ class LoginController extends Controller
     public function login(Request $request)
     {
         //Validation of user input
-        $formFields = $request->validate(
+        $request->validate(
             [
                 'userName' => 'required',
                 'userPassword' => 'required'
@@ -38,7 +38,6 @@ class LoginController extends Controller
                     ->get()
                     ->first();
 
-                Session::put('userName', $userName);
                 Session::put('userID', $result->userID);
                 Session::put('userPrivilege', $result->userPrivilege);
 
@@ -51,9 +50,9 @@ class LoginController extends Controller
         }
     }
 
-    public function logout(Request $request)
+    public function logout()
     {
-        Session::forget(['userName', 'userID', 'userPrivilege']);
+        Session::forget(['userID', 'userPrivilege']);
 
         return redirect('/');
     }

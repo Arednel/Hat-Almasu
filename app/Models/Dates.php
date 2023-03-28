@@ -12,6 +12,7 @@ class Dates
 
         $result = DB::table('availabledates')
             ->limit($perPage)
+            ->orderByDesc('date')
             ->offset($offSet)
             ->get();
 

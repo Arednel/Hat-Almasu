@@ -41,7 +41,6 @@ class Rooms
 
     public static function updateRoomName($roomID, $roomName)
     {
-
         DB::table('rooms')
             ->where('roomID', $roomID)
             ->update(['roomName' => $roomName]);
@@ -49,7 +48,6 @@ class Rooms
 
     public static function updateRoomSpace($roomID, $roomSpace)
     {
-
         DB::table('rooms')
             ->where('roomID', $roomID)
             ->update(['roomSpace' => $roomSpace]);
