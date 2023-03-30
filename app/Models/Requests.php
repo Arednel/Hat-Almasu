@@ -20,10 +20,11 @@ class Requests
         return $result;
     }
 
-    public static function newAll()
+    public static function newAll(int $currentExamSessionID)
     {
         $result = DB::table('requests')
             ->where('requestStatus', 0)
+            ->where('examSessionID', $currentExamSessionID)
             ->orderByDesc('requestID')
             ->select(array(
                 'requestID', 'fullName', 'idOfTest', 'faculty',
@@ -35,12 +36,13 @@ class Requests
         return $result;
     }
 
-    public static function newPage(int $perPage, int $currentPage)
+    public static function newPage(int $perPage, int $currentPage, int $currentExamSessionID)
     {
         $offSet = $currentPage * $perPage;
 
         $result = DB::table('requests')
             ->where('requestStatus', 0)
+            ->where('examSessionID', $currentExamSessionID)
             ->orderByDesc('requestID')
             ->limit($perPage)
             ->offset($offSet)
@@ -54,11 +56,17 @@ class Requests
         return $result;
     }
 
-    public static function approvedAll()
+    public static function approvedAll(int $currentExamSessionID)
     {
         $result = DB::table('requests')
-            ->where('requestStatus', 1)
-            ->orWhere('requestStatus', 2)
+            ->where(
+                function ($query) {
+                    return $query
+                        ->where('requestStatus', 1)
+                        ->orWhere('requestStatus', 2);
+                }
+            )
+            ->where('examSessionID', $currentExamSessionID)
             ->orderByDesc('requestID')
             ->select(array(
                 'requestID', 'fullName', 'idOfTest', 'faculty',
@@ -70,13 +78,19 @@ class Requests
         return $result;
     }
 
-    public static function approvedPage(int $perPage, int $currentPage)
+    public static function approvedPage(int $perPage, int $currentPage, int $currentExamSessionID)
     {
         $offSet = $currentPage * $perPage;
 
         $result = DB::table('requests')
-            ->where('requestStatus', 1)
-            ->orWhere('requestStatus', 2)
+            ->where(
+                function ($query) {
+                    return $query
+                        ->where('requestStatus', 1)
+                        ->orWhere('requestStatus', 2);
+                }
+            )
+            ->where('examSessionID', $currentExamSessionID)
             ->orderByDesc('requestID')
             ->limit($perPage)
             ->offset($offSet)
@@ -90,10 +104,11 @@ class Requests
         return $result;
     }
 
-    public static function rejectedAll()
+    public static function rejectedAll(int $currentExamSessionID)
     {
         $result = DB::table('requests')
             ->where('requestStatus', 3)
+            ->where('examSessionID', $currentExamSessionID)
             ->orderByDesc('requestID')
             ->select(array(
                 'requestID', 'fullName', 'idOfTest', 'faculty',
@@ -105,12 +120,13 @@ class Requests
         return $result;
     }
 
-    public static function rejectedPage(int $perPage, int $currentPage)
+    public static function rejectedPage(int $perPage, int $currentPage, int $currentExamSessionID)
     {
         $offSet = $currentPage * $perPage;
 
         $result = DB::table('requests')
             ->where('requestStatus', 3)
+            ->where('examSessionID', $currentExamSessionID)
             ->orderByDesc('requestID')
             ->limit($perPage)
             ->offset($offSet)
@@ -166,5 +182,14 @@ class Requests
             ->first();
 
         return $requestData;
+    }
+
+    public static function count($examSessionID)
+    {
+        $requestsAmount = DB::table('requests')
+            ->where('examSessionID', $examSessionID)
+            ->count();
+
+        return $requestsAmount;
     }
 }

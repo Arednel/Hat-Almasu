@@ -4,19 +4,19 @@ namespace App\Models;
 
 use Illuminate\Support\Facades\DB;
 
-class Sessions
+class ExamSessions
 {
     public static function all()
     {
-        $result = DB::table('sessions')->get();
+        $result = DB::table('examsessions')->get();
 
         return $result;
     }
 
     public static function get($sessionID)
     {
-        $result = DB::table('sessions')
-            ->where('sessions', $sessionID)
+        $result = DB::table('examsessions')
+            ->where('examsessions', $sessionID)
             ->first();
 
         return $result;
@@ -26,7 +26,7 @@ class Sessions
     {
         $offSet = $currentPage * $perPage;
 
-        $result = DB::table('sessions')
+        $result = DB::table('examsessions')
             ->limit($perPage)
             ->offset($offSet)
             ->get();
@@ -34,15 +34,15 @@ class Sessions
         return $result;
     }
 
-    public static function insert($data)
+    public static function insert()
     {
-        DB::table('sessions')->insert($data);
+        DB::table('examsessions')->insert(array('examSessionID' => null));
     }
 
     public static function delete($sessionID)
     {
-        DB::table('sessions')
-            ->where('sessionID', $sessionID)
+        DB::table('examsessions')
+            ->where('examSessionID', $sessionID)
             ->delete();
     }
 }

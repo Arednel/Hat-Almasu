@@ -6,19 +6,19 @@ use Illuminate\Support\Facades\DB;
 
 class SiteSettings
 {
-    public static function currentSessionID()
+    public static function currentExamSessionID()
     {
         $result = DB::table('sitesettings')
-            ->select('currentSessionID')
+            ->select('currentExamSessionID')
             ->first();
 
         return $result;
     }
 
-    public static function setCurrentSession($sessionID)
+    public static function setCurrentExamSessionID($sessionID)
     {
         DB::table('sitesettings')
             ->select('id', 1)
-            ->update(['currentSessionID' => $sessionID]);
+            ->update(['currentExamSessionID' => $sessionID]);
     }
 }

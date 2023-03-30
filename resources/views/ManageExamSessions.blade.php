@@ -23,22 +23,18 @@
                 <tr>
                     <th class="column">ID сессии <img src="{{ asset('images/sort.png') }}" class="Sort" />
                     </th>
-                    <th class="column">Начало сессии <img src="{{ asset('images/sort.png') }}" class="Sort" />
+                    <th class="column">Количество заявок <img src="{{ asset('images/sort.png') }}" class="Sort" />
                     </th>
-                    <th class="column">Конец сесии <img src="{{ asset('images/sort.png') }}" class="Sort" /></th>
                 </tr>
             </thead>
             <tbody class="table-body">
                 @foreach ($result as $record)
                     <tr>
                         <td class="column">
-                            {{ $record->sessionID }}
+                            {{ $record->examSessionID }}
                         </td>
                         <td class="column">
-                            {{ $record->sessionStart }}
-                        </td>
-                        <td class="column">
-                            {{ $record->sessionEnd }}
+                            {{ $record->requestsAmount }}
                         </td>
                     </tr>
                 @endforeach
@@ -50,53 +46,39 @@
         <div id="myModal" class="modal">
             <div class="modal-content">
                 <span class="close">&times;</span>
-                <form method="POST" action="/Manage/SessionInsert">
-
-                    @csrf
-
-                    @php
-                        $tomorrow = date('Y-m-d', strtotime('+1 days'));
-                        $tomorrowPlusOne = date('Y-m-d', strtotime('+2 days'));
-                        $yearLate = date('Y-m-d', strtotime('+1 year'));
-                    @endphp
-
-                    <label>Начало сессии</label>
-                    <input type="date" name="sessionStart" value="{{ $tomorrow }}" min="{{ $tomorrow }}"
-                        max="{{ $yearLate }}">
-                    <label>Конец сессии</label>
-                    <input type="date" name="sessionEnd" value="{{ $tomorrowPlusOne }}"
-                        min="{{ $tomorrowPlusOne }}" max="{{ $yearLate }}">
-
-                    <input type="submit" value="Добавить" class="button-blue">
-                </form>
-                <br>
-                <form method="POST" action="/Manage/SessionDelete">
+                <form method="POST" action="/Manage/ExamSessionDelete">
 
                     @csrf
 
                     <label>Сессия</label>
-                    <select name="sessionID">
+                    <select name="examSessionID">
                         @foreach ($result as $record)
-                            <option value="{{ $record->sessionID }}">С {{ $record->sessionStart }} до
-                                {{ $record->sessionEnd }}</option>
+                            <option value="{{ $record->examSessionID }}">{{ $record->examSessionID }}</option>
                         @endforeach
                     </select>
 
                     <input type="submit" value="Удалить (Не рекомендуется!)" class="button-blue">
                 </form>
                 <br>
-                <form method="POST" action="/Manage/SessionChangeCurrent">
+                <form method="POST" action="/Manage/ExamSessionChangeCurrent">
 
                     @csrf
 
-                    <label>Текущая сессия {{ $currentSessionID }} Поменять на</label>
-                    <select name="sessionID">
+                    <label>Текущая сессия {{ $currentExamSessionID }} Поменять на</label>
+                    <select name="examSessionID">
                         @foreach ($result as $record)
-                            <option value="{{ $record->sessionID }}">ID: {{ $record->sessionID }}</option>
+                            <option value="{{ $record->examSessionID }}">ID: {{ $record->examSessionID }}</option>
                         @endforeach
                     </select>
 
                     <input type="submit" value="Поменять" class="button-blue">
+                </form>
+                <br>
+                <form method="POST" action="/Manage/ExamSessionInsert">
+
+                    @csrf
+                    <label>Добавить новую сессию</label>
+                    <input type="submit" value="Добавить" class="button-blue">
                 </form>
             </div>
         </div>

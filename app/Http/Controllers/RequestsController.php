@@ -3,16 +3,16 @@
 namespace App\Http\Controllers;
 
 use App\Models\Requests;
+use App\Models\SiteSettings;
 
 use Illuminate\Http\Request;
-
-use Illuminate\Support\Facades\Session;
-use Illuminate\Support\Facades\DB;
-
 use App\Exports\RequestsExport;
-use Maatwebsite\Excel\Facades\Excel;
 
 use Illuminate\Validation\Rule;
+use Illuminate\Support\Facades\DB;
+
+use Maatwebsite\Excel\Facades\Excel;
+use Illuminate\Support\Facades\Session;
 
 class RequestsController extends Controller
 {
@@ -30,7 +30,8 @@ class RequestsController extends Controller
         $pageStart = $offSet + 1;
         $pageEnd = $pageStart + $perPage - 1;
 
-        $result = Requests::{$statusType . 'Page'}($perPage, $currentPage);
+        $currentExamSessionID = SiteSettings::currentExamSessionID()->currentExamSessionID;
+        $result = Requests::{$statusType . 'Page'}($perPage, $currentPage, $currentExamSessionID);
 
         return view('Requests', [
             'result' => $result, 'currentPage' => $currentPage,
@@ -161,7 +162,8 @@ class RequestsController extends Controller
             "Отделение", "Дисциплина", "Email", "Телефон", "Причина", "Вид Экзамена"
         ]];
 
-        $result = Requests::{$statusType . 'All'}();
+        $currentExamSessionID = SiteSettings::currentExamSessionID()->currentExamSessionID;
+        $result = Requests::{$statusType . 'All'}($currentExamSessionID);
 
         foreach ($result as $item) {
             array_push($data, [
@@ -200,7 +202,8 @@ class RequestsController extends Controller
             "Отделение", "Дисциплина", "Email", "Телефон", "Причина", "Вид Экзамена"
         ]];
 
-        $result = Requests::{$statusType . 'Page'}($perPage, $currentPage);
+        $currentExamSessionID = SiteSettings::currentExamSessionID()->currentExamSessionID;
+        $result = Requests::{$statusType . 'Page'}($perPage, $currentPage, $currentExamSessionID);
 
         foreach ($result as $item) {
             array_push($data, [

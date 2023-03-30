@@ -15,7 +15,7 @@
                     <a href="/Manage/Dates/0">{!! __('Доступными датами') !!}</a>
                     <a href="/Manage/Rooms/0">{!! __('Доступными аудиториями') !!}</a>
                     <a href="/Manage/Users/0">{!! __('Пользователями') !!}</a>
-                    <a href="/Manage/Sessions/0">{!! __('Сессиями') !!}</a>
+                    <a href="/Manage/ExamSessions/0">{!! __('Сессиями') !!}</a>
                 </div>
             </div>
             &nbsp<a href="/Occupancy/Date">{!! __('Заполненность') !!}</a>&nbsp

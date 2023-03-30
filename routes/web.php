@@ -10,7 +10,7 @@ use App\Http\Controllers\RoomsController;
 use App\Http\Controllers\UsersController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\RequestsController;
-use App\Http\Controllers\SessionsController;
+use App\Http\Controllers\ExamSessionsController;
 use App\Http\Controllers\OccupancyController;
 
 /*
@@ -77,10 +77,10 @@ Route::post('/Manage/UserUpdate', [UsersController::class, 'update']);
 Route::post('/Manage/UserDelete', [UsersController::class, 'delete']);
 
 //Manage sessions (current, start date, end date)
-Route::get('/Manage/Sessions/{currentPage}', [SessionsController::class, 'page']);
-Route::post('/Manage/SessionInsert', [SessionsController::class, 'insert']);
-Route::post('/Manage/SessionDelete', [SessionsController::class, 'delete']);
-Route::post('/Manage/SessionChangeCurrent', [SessionsController::class, 'changeCurrent']);
+Route::get('/Manage/ExamSessions/{currentPage}', [ExamSessionsController::class, 'page']);
+Route::post('/Manage/ExamSessionInsert', [ExamSessionsController::class, 'insert']);
+Route::post('/Manage/ExamSessionDelete', [ExamSessionsController::class, 'delete']);
+Route::post('/Manage/ExamSessionChangeCurrent', [ExamSessionsController::class, 'changeCurrent']);
 
 //Request check status (as student)
 Route::view('/Register', 'Register');

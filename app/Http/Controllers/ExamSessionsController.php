@@ -2,19 +2,20 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Sessions;
+use App\Models\Requests;
+use App\Models\ExamSessions;
 use App\Models\SiteSettings;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 
-class SessionsController extends Controller
+class ExamSessionsController extends Controller
 {
     private $perPagePrivate = 100;
 
     public function all()
     {
-        $rooms = Sessions::all();
+        $rooms = ExamSessions::all();
 
         return $rooms;
     }
@@ -31,41 +32,28 @@ class SessionsController extends Controller
         $pageStart = $offSet + 1;
         $pageEnd = $pageStart + $perPage - 1;
 
-        $result = Sessions::page($perPage, $currentPage);
-        $currentSessionID = SiteSettings::currentSessionID();
+        $result = ExamSessions::page($perPage, $currentPage);
 
-        return view('ManageSessions', [
+        foreach ($result as $value) {
+            $requestsAmount = Requests::count($value->examSessionID);
+            $value->requestsAmount = $requestsAmount;
+        }
+        $currentSessionID = SiteSettings::currentExamSessionID();
+
+        return view('ManageExamSessions', [
             'result' => $result, 'currentPage' => $currentPage,
             'pageStart' => $pageStart, 'pageEnd' => $pageEnd,
-            'currentSessionID' => $currentSessionID->currentSessionID
+            'currentExamSessionID' => $currentSessionID->currentExamSessionID
         ]);
     }
 
-    public function insert(Request $request)
+    public function insert()
     {
         if (!(in_array(Session::get('userPrivilege'), ['Admin']))) {
             return redirect('/Index?error=У вас недостаточный уровень доступа!');
         }
 
-        $request->validate(
-            [
-                'sessionStart' => ['required', 'date'],
-                'sessionEnd' => ['required', 'date']
-            ]
-        );
-
-        $sessionStart = $request->input('sessionStart');
-        $sessionEnd = $request->input('sessionEnd');
-
-        if ($sessionStart > $sessionEnd) {
-            $sessionStart = date('Y-m-d', strtotime($sessionEnd . ' - 1 days'));
-        }
-
-        $data = array(
-            'sessionStart' => $sessionStart, 'sessionEnd' => $sessionEnd
-        );
-
-        Sessions::insert($data);
+        ExamSessions::insert();
 
         return redirect()->back();
     }
@@ -78,11 +66,11 @@ class SessionsController extends Controller
 
         $request->validate(
             [
-                'sessionID' => 'required'
+                'examSessionID' => 'required'
             ]
         );
 
-        Sessions::delete($request->input('sessionID'));
+        ExamSessions::delete($request->input('examSessionID'));
 
         return redirect()->back();
     }
@@ -95,11 +83,11 @@ class SessionsController extends Controller
 
         $request->validate(
             [
-                'sessionID' => 'required'
+                'examSessionID' => 'required'
             ]
         );
 
-        SiteSettings::setCurrentSession($request->input('sessionID'));
+        SiteSettings::setCurrentExamSessionID($request->input('examSessionID'));
 
         return redirect()->back();
     }
