@@ -78,7 +78,7 @@
 
                     @csrf
                     <label>Добавить новую сессию</label>
-                    <input type="submit" value="Добавить" class="button-blue">
+                    <input type="submit" value="Добавить новую" class="button-blue">
                 </form>
             </div>
         </div>

@@ -6,6 +6,7 @@ use App\Models\Dates;
 use App\Models\Rooms;
 use App\Models\Booking;
 use App\Models\Requests;
+use App\Models\SiteSettings;
 
 use Illuminate\Http\Request;
 
@@ -20,7 +21,7 @@ class RegisterController extends Controller
             ]
         );
 
-        $requestData = Requests::requestIDMailStatus($requestDataFromUser->requestID);
+        $requestData = Requests::requestCheck($requestDataFromUser->requestID);
 
         if ($requestData == null) {
             return redirect('/Index?error=Заявки не существует');
@@ -31,6 +32,11 @@ class RegisterController extends Controller
             &&
             $requestData->mail == $requestDataFromUser->mail
         ) {
+            $currentExamSessionID = SiteSettings::currentExamSessionID()->currentExamSessionID;
+            if ($currentExamSessionID != $requestData->examSessionID) {
+                return redirect('/Index?error=Заявка была отправлена во время другой сессии');
+            }
+
             switch ($requestData->requestStatus) {
                 case 0:
                     return redirect('/Index?messageokay=Заявка рассматривается');

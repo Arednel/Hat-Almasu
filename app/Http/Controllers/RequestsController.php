@@ -117,6 +117,7 @@ class RequestsController extends Controller
         $reason = $request->input('reason');
         $examType = $request->input('examType');
         $image = $request->file('confirmationFile');
+        $currentExamSessionID = SiteSettings::currentExamSessionID()->currentExamSessionID;
 
         //Image save and checking size (Currently 10MB)
         $uploadedFile = $image->getRealPath();
@@ -130,7 +131,7 @@ class RequestsController extends Controller
         $data = array(
             'fullName' => $fullName, "idOfTest" => $idOfTest, "faculty" => $faculty, "course" => $course,
             "department" => $department, "speciality" => $speciality, "subject" => $subject, "mail" => $mail, "phoneNumber" => $phoneNumber,
-            "reason" => $reason, "examType" => $examType, "confirmationFile" => $confirmationFile
+            "reason" => $reason, "examType" => $examType, "confirmationFile" => $confirmationFile, "examSessionID" => $currentExamSessionID
         );
 
         Requests::insert($data);

@@ -172,12 +172,12 @@ class Requests
         return $image;
     }
 
-    public static function requestIDMailStatus(int $requestID)
+    public static function requestCheck(int $requestID)
     {
         $requestData = DB::table('requests')
             ->where('requestID', $requestID)
             ->select(array(
-                'requestID', 'mail', 'requestStatus'
+                'requestID', 'mail', 'requestStatus', 'examSessionID'
             ))
             ->first();
 

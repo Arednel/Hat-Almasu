@@ -37,8 +37,8 @@
     <br>
     <a href="/">← На главную</a>
 
-    <p>version 0.8.5 / 2023.03.30</p>
-    <p>Exam sesions integrated with requests</p>
+    <p>version 0.8.6 / 2023.03.30</p>
+    <p>Exam sessions fixes</p>
     <p>Made by Evtifeev Artyom Vladislavovich / Arednel</p>
     <p>2023 &#169 Test Center</p>
 </body>
