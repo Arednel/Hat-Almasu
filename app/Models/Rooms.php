@@ -6,9 +6,11 @@ use Illuminate\Support\Facades\DB;
 
 class Rooms
 {
-    public static function all()
+    public static function all($examSessionID)
     {
-        $result = DB::table('rooms')->get();
+        $result = DB::table('rooms')
+            ->where('examSessionID', $examSessionID)
+            ->get();
 
         return $result;
     }
@@ -27,6 +29,7 @@ class Rooms
         $offSet = $currentPage * $perPage;
 
         $result = DB::table('rooms')
+            ->orderByDesc('examSessionID')
             ->limit($perPage)
             ->offset($offSet)
             ->get();
@@ -58,5 +61,14 @@ class Rooms
         DB::table('rooms')
             ->where('roomID', $roomID)
             ->delete();
+    }
+
+    public static function count($examSessionID)
+    {
+        $roomsAmount = DB::table('rooms')
+            ->where('examSessionID', $examSessionID)
+            ->count();
+
+        return $roomsAmount;
     }
 }

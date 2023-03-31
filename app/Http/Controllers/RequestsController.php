@@ -30,7 +30,7 @@ class RequestsController extends Controller
         $pageStart = $offSet + 1;
         $pageEnd = $pageStart + $perPage - 1;
 
-        $currentExamSessionID = SiteSettings::currentExamSessionID()->currentExamSessionID;
+        $currentExamSessionID = SiteSettings::currentExamSessionID();
         $result = Requests::{$statusType . 'Page'}($perPage, $currentPage, $currentExamSessionID);
 
         return view('Requests', [
@@ -117,7 +117,7 @@ class RequestsController extends Controller
         $reason = $request->input('reason');
         $examType = $request->input('examType');
         $image = $request->file('confirmationFile');
-        $currentExamSessionID = SiteSettings::currentExamSessionID()->currentExamSessionID;
+        $currentExamSessionID = SiteSettings::currentExamSessionID();
 
         //Image save and checking size (Currently 10MB)
         $uploadedFile = $image->getRealPath();
@@ -129,9 +129,9 @@ class RequestsController extends Controller
         $confirmationFile = base64_encode($bin_string);
 
         $data = array(
-            'fullName' => $fullName, "idOfTest" => $idOfTest, "faculty" => $faculty, "course" => $course,
-            "department" => $department, "speciality" => $speciality, "subject" => $subject, "mail" => $mail, "phoneNumber" => $phoneNumber,
-            "reason" => $reason, "examType" => $examType, "confirmationFile" => $confirmationFile, "examSessionID" => $currentExamSessionID
+            'fullName' => $fullName, 'idOfTest' => $idOfTest, 'faculty' => $faculty, 'course' => $course,
+            'department' => $department, 'speciality' => $speciality, 'subject' => $subject, 'mail' => $mail, 'phoneNumber' => $phoneNumber,
+            'reason' => $reason, 'examType' => $examType, 'confirmationFile' => $confirmationFile, 'examSessionID' => $currentExamSessionID
         );
 
         Requests::insert($data);
@@ -163,7 +163,7 @@ class RequestsController extends Controller
             "Отделение", "Дисциплина", "Email", "Телефон", "Причина", "Вид Экзамена"
         ]];
 
-        $currentExamSessionID = SiteSettings::currentExamSessionID()->currentExamSessionID;
+        $currentExamSessionID = SiteSettings::currentExamSessionID();
         $result = Requests::{$statusType . 'All'}($currentExamSessionID);
 
         foreach ($result as $item) {
@@ -203,7 +203,7 @@ class RequestsController extends Controller
             "Отделение", "Дисциплина", "Email", "Телефон", "Причина", "Вид Экзамена"
         ]];
 
-        $currentExamSessionID = SiteSettings::currentExamSessionID()->currentExamSessionID;
+        $currentExamSessionID = SiteSettings::currentExamSessionID();
         $result = Requests::{$statusType . 'Page'}($perPage, $currentPage, $currentExamSessionID);
 
         foreach ($result as $item) {

@@ -12,13 +12,13 @@ class SiteSettings
             ->select('currentExamSessionID')
             ->first();
 
-        return $result;
+        return $result->currentExamSessionID;
     }
 
-    public static function setCurrentExamSessionID($sessionID)
+    public static function setCurrentExamSessionID($examSessionID)
     {
         DB::table('sitesettings')
             ->select('id', 1)
-            ->update(['currentExamSessionID' => $sessionID]);
+            ->update(['currentExamSessionID' => $examSessionID]);
     }
 }

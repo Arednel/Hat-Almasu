@@ -3,7 +3,7 @@
 <html>
 
 <head>
-    <title>Список аудиторий</title>
+    <title>Аудитории</title>
     <link rel="stylesheet" href="{{ asset('css/main.css') }}">
     <link rel="stylesheet" href="{{ asset('css/employeeFandT.css') }}">
     <link rel="stylesheet" href="{{ asset('css/betterTableManage.css') }}">
@@ -24,6 +24,7 @@
                     <th class="column">Название Аудитории <img src="{{ asset('images/sort.png') }}" class="Sort" />
                     </th>
                     <th class="column">Количество мест <img src="{{ asset('images/sort.png') }}" class="Sort" /></th>
+                    <th class="column">ID сессии <img src="{{ asset('images/sort.png') }}" class="Sort" /></th>
                 </tr>
             </thead>
             <tbody class="table-body">
@@ -34,6 +35,9 @@
                         </td>
                         <td class="column">
                             {{ $record->roomSpace }}
+                        </td>
+                        <td class="column">
+                            {{ $record->examSessionID }}
                         </td>
                     </tr>
                 @endforeach
@@ -69,7 +73,8 @@
                     <select name="roomID">
                         @foreach ($result as $record)
                             <option value="{{ $record->roomID }}">
-                                {{ $record->roomName }} &#40 {{ $record->roomSpace }} &#41
+                                {{ $record->roomName }} &#40 {{ $record->roomSpace }} мест &#41 , &#40
+                                {{ $record->examSessionID }} сессия &#41
                             </option>
                         @endforeach
                     </select>
@@ -84,7 +89,9 @@
                     <label>Аудитория</label>
                     <select name="roomID">
                         @foreach ($result as $record)
-                            <option value="{{ $record->roomID }}">{{ $record->roomName }}</option>
+                            <option value="{{ $record->roomID }}">{{ $record->roomName }} &#40
+                                {{ $record->roomSpace }} мест &#41 , &#40
+                                {{ $record->examSessionID }} сессия &#41</option>
                         @endforeach
                     </select>
 

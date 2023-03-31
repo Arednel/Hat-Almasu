@@ -3,7 +3,7 @@
 <html>
 
 <head>
-    <title>Список аудиторий</title>
+    <title>Сессии</title>
     <link rel="stylesheet" href="{{ asset('css/main.css') }}">
     <link rel="stylesheet" href="{{ asset('css/employeeFandT.css') }}">
     <link rel="stylesheet" href="{{ asset('css/betterTableManage.css') }}">
@@ -23,7 +23,12 @@
                 <tr>
                     <th class="column">ID сессии <img src="{{ asset('images/sort.png') }}" class="Sort" />
                     </th>
-                    <th class="column">Количество заявок <img src="{{ asset('images/sort.png') }}" class="Sort" />
+                    <th class="column">Заявки <img src="{{ asset('images/sort.png') }}" class="Sort" />
+                    </th>
+                    <th class="column">Доступные для пересдачи даты <img src="{{ asset('images/sort.png') }}"
+                            class="Sort" />
+                    </th>
+                    <th class="column">Аудитории <img src="{{ asset('images/sort.png') }}" class="Sort" />
                     </th>
                 </tr>
             </thead>
@@ -35,6 +40,12 @@
                         </td>
                         <td class="column">
                             {{ $record->requestsAmount }}
+                        </td>
+                        <td class="column">
+                            {{ $record->datesAmount }}
+                        </td>
+                        <td class="column">
+                            {{ $record->roomsAmount }}
                         </td>
                     </tr>
                 @endforeach

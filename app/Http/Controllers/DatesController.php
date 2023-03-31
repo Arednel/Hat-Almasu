@@ -3,11 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\Dates;
+use App\Models\SiteSettings;
 
 use Illuminate\Http\Request;
 
 use Illuminate\Validation\Rule;
-
 use Illuminate\Support\Facades\Session;
 
 class DatesController extends Controller
@@ -30,7 +30,7 @@ class DatesController extends Controller
 
         return view('ManageDates', [
             'result' => $result, 'currentPage' => $currentPage,
-            'pageStart' => $pageStart, 'pageEnd' => $pageEnd,
+            'pageStart' => $pageStart, 'pageEnd' => $pageEnd
         ]);
     }
 
@@ -61,9 +61,10 @@ class DatesController extends Controller
         } else {
             $isOnline = false;
         }
+        $currentExamSessionID = SiteSettings::currentExamSessionID();
 
         $data = array(
-            'date' => $date, 'startHour' => $startHour, 'endHour' => $endHour, 'isOnline' => $isOnline
+            'date' => $date, 'startHour' => $startHour, 'endHour' => $endHour, 'isOnline' => $isOnline, 'examSessionID' => $currentExamSessionID
         );
 
         Dates::insert($data);

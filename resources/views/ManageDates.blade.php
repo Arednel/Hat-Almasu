@@ -3,7 +3,7 @@
 <html>
 
 <head>
-    <title>Список доступных дат</title>
+    <title>Доступные даты</title>
     <link rel="stylesheet" href="{{ asset('css/main.css') }}">
     <link rel="stylesheet" href="{{ asset('css/employeeFandT.css') }}">
     <link rel="stylesheet" href="{{ asset('css/betterTableManage.css') }}">
@@ -24,6 +24,7 @@
                     <th class="column">Дата <img src="{{ asset('images/sort.png') }}" class="Sort" /></th>
                     <th class="column">С / До <img src="{{ asset('images/sort.png') }}" class="Sort" /></th>
                     <th class="column">Онлайн <img src="{{ asset('images/sort.png') }}" class="Sort" /></th>
+                    <th class="column">ID сессии <img src="{{ asset('images/sort.png') }}" class="Sort" /></th>
                 </tr>
             </thead>
             <tbody class="table-body">
@@ -40,6 +41,9 @@
                         @else
                             <td class="column">X</td>
                         @endif
+                        <td class="column">
+                            {{ $record->examSessionID }}
+                        </td>
                     </tr>
                 @endforeach
             </tbody>

@@ -32,7 +32,7 @@ class RegisterController extends Controller
             &&
             $requestData->mail == $requestDataFromUser->mail
         ) {
-            $currentExamSessionID = SiteSettings::currentExamSessionID()->currentExamSessionID;
+            $currentExamSessionID = SiteSettings::currentExamSessionID();
             if ($currentExamSessionID != $requestData->examSessionID) {
                 return redirect('/Index?error=Заявка была отправлена во время другой сессии');
             }
@@ -60,7 +60,8 @@ class RegisterController extends Controller
             return $requestData;
         }
 
-        $availabledates = Dates::allFromTommorow();
+        $currentExamSessionID = SiteSettings::currentExamSessionID();
+        $availabledates = Dates::allFromTommorow($currentExamSessionID);
 
         if ($availabledates->isEmpty()) {
             return redirect('/Index?error=Нет доступных дат для пересдачи');
@@ -94,7 +95,8 @@ class RegisterController extends Controller
 
             return redirect('/Index?message=Вы успешно выбрали дату пересдачи');
         } else {
-            $rooms = Rooms::all();
+            $currentExamSessionID = SiteSettings::currentExamSessionID();
+            $rooms = Rooms::all($currentExamSessionID);
 
             return view('Register', [
                 'requestID' => $requestDataFromUser->requestID, 'mail' => $requestDataFromUser->mail,

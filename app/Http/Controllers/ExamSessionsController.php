@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Dates;
+use App\Models\Rooms;
 use App\Models\Requests;
 use App\Models\ExamSessions;
 use App\Models\SiteSettings;
@@ -33,17 +35,20 @@ class ExamSessionsController extends Controller
         $pageEnd = $pageStart + $perPage - 1;
 
         $result = ExamSessions::page($perPage, $currentPage);
-
         foreach ($result as $value) {
             $requestsAmount = Requests::count($value->examSessionID);
+            $datesAmount = Dates::count($value->examSessionID);
+            $roomsAmount = Rooms::count($value->examSessionID);
             $value->requestsAmount = $requestsAmount;
+            $value->datesAmount = $datesAmount;
+            $value->roomsAmount = $roomsAmount;
         }
         $currentSessionID = SiteSettings::currentExamSessionID();
 
         return view('ManageExamSessions', [
             'result' => $result, 'currentPage' => $currentPage,
             'pageStart' => $pageStart, 'pageEnd' => $pageEnd,
-            'currentExamSessionID' => $currentSessionID->currentExamSessionID
+            'currentExamSessionID' => $currentSessionID
         ]);
     }
 

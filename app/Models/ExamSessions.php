@@ -13,10 +13,10 @@ class ExamSessions
         return $result;
     }
 
-    public static function get($sessionID)
+    public static function get($examSessionID)
     {
         $result = DB::table('examsessions')
-            ->where('examsessions', $sessionID)
+            ->where('examsessions', $examSessionID)
             ->first();
 
         return $result;
@@ -27,6 +27,7 @@ class ExamSessions
         $offSet = $currentPage * $perPage;
 
         $result = DB::table('examsessions')
+            ->orderByDesc('examSessionID')
             ->limit($perPage)
             ->offset($offSet)
             ->get();

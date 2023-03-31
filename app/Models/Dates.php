@@ -47,9 +47,10 @@ class Dates
         return $result;
     }
 
-    public static function allFromTommorow()
+    public static function allFromTommorow($currentExamSessionID)
     {
         $result = DB::table('availabledates')
+            ->where('examSessionID', $currentExamSessionID)
             ->where('date', '>', now())
             ->get();
 
@@ -74,5 +75,14 @@ class Dates
             ->first();
 
         return $result;
+    }
+
+    public static function count($examSessionID)
+    {
+        $datesAmount = DB::table('availabledates')
+            ->where('examSessionID', $examSessionID)
+            ->count();
+
+        return $datesAmount;
     }
 }

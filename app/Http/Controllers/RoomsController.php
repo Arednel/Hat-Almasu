@@ -3,9 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Rooms;
+use App\Models\SiteSettings;
 
 use Illuminate\Http\Request;
-
 use Illuminate\Support\Facades\Session;
 
 class RoomsController extends Controller
@@ -54,9 +54,10 @@ class RoomsController extends Controller
 
         $roomName = $request->input('roomName');
         $roomSpace = $request->input('roomSpace');
+        $currentExamSessionID = SiteSettings::currentExamSessionID();
 
         $data = array(
-            'roomName' => $roomName, 'roomSpace' => $roomSpace
+            'roomName' => $roomName, 'roomSpace' => $roomSpace, 'examSessionID' => $currentExamSessionID
         );
 
         Rooms::insert($data);
