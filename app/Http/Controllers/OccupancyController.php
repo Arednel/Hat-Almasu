@@ -50,7 +50,8 @@ class OccupancyController extends Controller
 
             return $this->viewOccupancy($result);
         } else {
-            $rooms = Rooms::all();
+            $dateExamSessionID = Dates::dateExamSessionID($requestDataFromUser->date);
+            $rooms = Rooms::atDate($dateExamSessionID);
 
             return view('Occupancy', [
                 'chosenDate' => $requestDataFromUser->date, 'rooms' => $rooms

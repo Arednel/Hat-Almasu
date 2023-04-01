@@ -5,22 +5,19 @@
 <head>
     <title>{!! __('Подача заявки') !!}</title>
 
-    <link rel="stylesheet" href="{{ asset('css/main.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/manageForm.css') }}">
-
-    <script src="{{ asset('scripts/jquery-3.6.4.min.js') }}"></script>
+    <link rel="stylesheet" href="{{ asset('css/RequestNew.css') }}">
 </head>
 
 <body>
-    <div class="main-body">
-        <div class="modal-content">
-            <img src="{{ asset('images/3.jpg') }}" class="formImage">
+    <div class="main-block">
+        <form method="POST" action="/RequestNew" enctype="multipart/form-data">
+            <a href="/">{!! __('← Назад') !!}</a>
+            <br>
+            <br>
 
-            <form method="POST" action="/RequestNew" enctype="multipart/form-data" class="formInputs">
-                <a href="/">{!! __('← Назад') !!}</a>
+            @csrf
 
-                @csrf
-
+            <div class="info">
                 <input type="text" name="fullName" placeholder=" {!! __('ФИО') !!}" required />
 
                 @error('fullName')
@@ -62,17 +59,20 @@
                     <option value="Тестирование">{!! __('Тестирование') !!}</option>
                     <option value="Письменно">{!! __('Письменно') !!}</option>
                 </select>
-                <label for="file">{!! __('Подтверждаю-<br>щий документ<br>(До 8 МБ)') !!}
+                <label for="file">{!! __('Подтверждающий документ (До 8 МБ)') !!}
+                    <br>
+                    <br>
                     <input id="file" type="file" accept="image/*" name="confirmationFile" required />
                 </label>
 
                 <input type="submit" value="{!! __('Отправить') !!}" class="button-blue">
-            </form>
-
-        </div>
+            </div>
+        </form>
     </div>
 </body>
 
+
+<script src="{{ asset('scripts/jquery-3.6.4.min.js') }}"></script>
 <script>
     $.ajax({
         type: 'GET',

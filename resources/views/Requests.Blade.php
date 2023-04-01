@@ -22,7 +22,9 @@
                 <tr>
                     <th class="columnE">ID</th>
                     <th class="columnE">ФИО </th>
-                    <th class="columnE">ID теста / Институт / Специальность / Курс / Отделение / Дисциплина</th>
+                    <th class="columnE">ID теста </th>
+                    <th class="columnE">Отделение </th>
+                    <th class="columnE">Институт / Специальность / Курс / Дисциплина</th>
                     <th class="columnE">Почта / Телефон</th>
                     <th class="columnE">Причина </th>
                     <th class="columnE">Вид Экзамена </th>
@@ -66,9 +68,20 @@
                         </td>
                         <td class="columnE">
                             <div class="columnText">
-                                {{ $record->idOfTest }} / {{ $record->faculty }} /
+                                {{ $record->idOfTest }}
+                            </div>
+                        </td>
+                        <td class="columnE">
+                            <div class="columnText">
+                                {{ $record->department }}
+                            </div>
+                        </td>
+                        <td class="columnE">
+                            <div class="columnText">
+                                {{ $record->faculty }} /
                                 {{ $record->speciality }} /
-                                {{ $record->course }} / {{ $record->department }} / {{ $record->subject }}
+                                {{ $record->course }} /
+                                {{ $record->subject }}
                             </div>
                         </td>
                         <td class="columnE">

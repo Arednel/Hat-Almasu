@@ -77,6 +77,16 @@ class Dates
         return $result;
     }
 
+    public static function dateExamSessionID($date)
+    {
+        $result = DB::table('availabledates')
+            ->where('date', $date)
+            ->select('examSessionID')
+            ->first();
+
+        return $result->examSessionID;
+    }
+
     public static function count($examSessionID)
     {
         $datesAmount = DB::table('availabledates')

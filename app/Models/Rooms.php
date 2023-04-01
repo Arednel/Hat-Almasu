@@ -15,6 +15,15 @@ class Rooms
         return $result;
     }
 
+    public static function atDate($dateExamSessionID)
+    {
+        $result = DB::table('rooms')
+            ->where('examSessionID', $dateExamSessionID)
+            ->get();
+
+        return $result;
+    }
+
     public static function get($roomID)
     {
         $result = DB::table('rooms')
