@@ -1,0 +1,40 @@
+.standard-button,
+.standard-button-long {
+    align-self: center;
+    background-color: #0A66C2;
+    color: #ffffff;
+
+    border: 0;
+    border-radius: 30px;
+
+    cursor: pointer;
+
+    font-size: clamp(16px, 3vh, 24px);
+    font-weight: 600;
+
+    min-height: 60px;
+    min-width: 250px;
+    max-width: 480px;
+
+    padding-left: 20px;
+    padding-right: 20px;
+    transition: background-color 0.167s cubic-bezier(0.4, 0, 0.2, 1) 0s, box-shadow 0.167s cubic-bezier(0.4, 0, 0.2, 1) 0s, color 0.167s cubic-bezier(0.4, 0, 0.2, 1) 0s;
+}
+
+.standard-button:hover,
+.standard-button:focus,
+.standard-button-long:hover,
+.standard-button-long:focus {
+    background-color: #16437E;
+    color: #ffffff;
+}
+
+.standard-button:active,
+.standard-button-long:active {
+    background: green;
+}
+
+.standard-button-long {
+    min-height: 70px;
+    min-width: 90%;
+}
