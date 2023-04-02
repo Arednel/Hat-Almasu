@@ -14,7 +14,7 @@ class RoomsController extends Controller
 
     public function all()
     {
-        $rooms = Rooms::all();
+        $rooms = Rooms::all(SiteSettings::currentExamSessionID());
 
         return $rooms;
     }
@@ -54,10 +54,9 @@ class RoomsController extends Controller
 
         $roomName = $request->input('roomName');
         $roomSpace = $request->input('roomSpace');
-        $currentExamSessionID = SiteSettings::currentExamSessionID();
 
         $data = array(
-            'roomName' => $roomName, 'roomSpace' => $roomSpace, 'examSessionID' => $currentExamSessionID
+            'roomName' => $roomName, 'roomSpace' => $roomSpace, 'examSessionID' => SiteSettings::currentExamSessionID()
         );
 
         Rooms::insert($data);

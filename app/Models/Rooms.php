@@ -80,4 +80,14 @@ class Rooms
 
         return $roomsAmount;
     }
+
+    public static function roomSpace($roomID)
+    {
+        $roomSpace = DB::table('rooms')
+            ->where('roomID', $roomID)
+            ->select('roomSpace')
+            ->first();
+
+        return $roomSpace;
+    }
 }

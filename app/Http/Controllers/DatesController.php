@@ -61,10 +61,9 @@ class DatesController extends Controller
         } else {
             $isOnline = false;
         }
-        $currentExamSessionID = SiteSettings::currentExamSessionID();
 
         $data = array(
-            'date' => $date, 'startHour' => $startHour, 'endHour' => $endHour, 'isOnline' => $isOnline, 'examSessionID' => $currentExamSessionID
+            'date' => $date, 'startHour' => $startHour, 'endHour' => $endHour, 'isOnline' => $isOnline, 'examSessionID' => SiteSettings::currentExamSessionID()
         );
 
         Dates::insert($data);

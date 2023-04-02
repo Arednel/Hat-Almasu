@@ -4,6 +4,7 @@
 
 <head>
     <title>Аудитории</title>
+
     <link rel="stylesheet" href="{{ asset('css/main.css') }}">
     <link rel="stylesheet" href="{{ asset('css/employeeFandT.css') }}">
     <link rel="stylesheet" href="{{ asset('css/betterTableManage.css') }}">

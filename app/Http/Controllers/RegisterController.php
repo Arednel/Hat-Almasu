@@ -32,8 +32,7 @@ class RegisterController extends Controller
             &&
             $requestData->mail == $requestDataFromUser->mail
         ) {
-            $currentExamSessionID = SiteSettings::currentExamSessionID();
-            if ($currentExamSessionID != $requestData->examSessionID) {
+            if (SiteSettings::currentExamSessionID() != $requestData->examSessionID) {
                 return redirect('/Index?error=Заявка была отправлена во время другой сессии');
             }
 
@@ -60,8 +59,7 @@ class RegisterController extends Controller
             return $requestData;
         }
 
-        $currentExamSessionID = SiteSettings::currentExamSessionID();
-        $availabledates = Dates::allFromTommorow($currentExamSessionID);
+        $availabledates = Dates::allFromTommorow(SiteSettings::currentExamSessionID());
 
         if ($availabledates->isEmpty()) {
             return redirect('/Index?error=Нет доступных дат для пересдачи');
@@ -75,53 +73,41 @@ class RegisterController extends Controller
 
     public function chooseRoom(Request $requestDataFromUser)
     {
-        $requestData = $this->requestCheck($requestDataFromUser);
-
-        if ($requestData instanceof \Illuminate\Http\RedirectResponse) {
-            return $requestData;
-        }
-
-        $isOnline = Dates::isOnline($requestDataFromUser->date);
+        $isOnline = Dates::isOnline($requestDataFromUser->chosenDate);
 
         if ($isOnline->isOnline) {
-            $data = array(
-                'bookingdate' => $requestDataFromUser->date,
-                'requestID' => $requestDataFromUser->requestID,
-                'isOnline' => true
-            );
-
-            Booking::insert($data);
-            Requests::updateTo($requestDataFromUser->requestID, 2);
-
-            return redirect('/Index?message=Вы успешно выбрали дату пересдачи');
+            return $isOnline;
         } else {
-            $currentExamSessionID = SiteSettings::currentExamSessionID();
-            $rooms = Rooms::all($currentExamSessionID);
+            $rooms = Rooms::all(SiteSettings::currentExamSessionID());
 
-            return view('Register', [
-                'requestID' => $requestDataFromUser->requestID, 'mail' => $requestDataFromUser->mail,
-                'chosenDate' => $requestDataFromUser->date, 'rooms' => $rooms
-            ]);
+            $html = '';
+            foreach ($rooms as $room) {
+                $html .= '<option value="' . $room->roomID . '">' . $room->roomName . '</option>';
+            }
+
+            return $html;
         }
     }
 
     public function chooseHour(Request $requestDataFromUser)
     {
-        $requestData = $this->requestCheck($requestDataFromUser);
-
-        if ($requestData instanceof \Illuminate\Http\RedirectResponse) {
-            return $requestData;
-        }
-
         $hours = Dates::hours($requestDataFromUser->chosenDate);
 
-        $amountOfHours = $hours->endHour - $hours->startHour;
+        $html = '';
+        for ($currentHour = $hours->startHour; $currentHour < $hours->endHour; $currentHour++) {
 
-        return view('Register', [
-            'requestID' => $requestDataFromUser->requestID, 'mail' => $requestDataFromUser->mail,
-            'chosenDate' => $requestDataFromUser->chosenDate, 'roomID' =>  $requestDataFromUser->roomID,
-            'startHour' =>  $hours->startHour, 'hours' =>  $amountOfHours
-        ]);
+            $bookingRecordsAmount = Booking::bookingRecordsAmount($requestDataFromUser->chosenDate, $requestDataFromUser->roomID, $currentHour);
+
+            $roomSpace = Rooms::roomSpace($requestDataFromUser->roomID);
+
+            $leftSpace = $roomSpace->roomSpace - $bookingRecordsAmount;
+
+            $html .= '<option value="' . $currentHour . '">' . __('C') . ' ' . $currentHour . ':00 ' . __('до') . ' ' .
+                ($currentHour + 1) . ':00 (' . __('Осталось') . ' ' .
+                $leftSpace . ' ' . __('мест') . ' )</option>';
+        }
+
+        return $html;
     }
 
     public function complete(Request $requestDataFromUser)
@@ -132,20 +118,33 @@ class RegisterController extends Controller
             return $requestData;
         }
 
-        $data = array(
-            'bookingdate' => $requestDataFromUser->chosenDate,
-            'requestID' => $requestDataFromUser->requestID,
-            'isOnline' => false,
-            'startHour' => $requestDataFromUser->startHour,
-            'roomID' => $requestDataFromUser->roomID,
-        );
+        if ($requestDataFromUser->roomID == 'isOnline') {
+            $data = array(
+                'bookingdate' => $requestDataFromUser->chosenDate,
+                'requestID' => $requestDataFromUser->requestID,
+                'isOnline' => true
+            );
 
-        Booking::insert($data);
-        Requests::updateTo($requestDataFromUser->requestID, 2);
+            Booking::insert($data);
+            Requests::updateTo($requestDataFromUser->requestID, 2);
 
-        $roomName = Rooms::get($requestDataFromUser->roomID);
-        return redirect('/Index?message=Вы успешно выбрали время пересдачи ' . $requestDataFromUser->chosenDate
-            . ', в аудитории: ' . $roomName->roomName . ', С ' . $requestDataFromUser->startHour . ':00' .
-            ' до ' . (($requestDataFromUser->startHour) + 1) . ':00');
+            return redirect('/Index?message=' . __('Вы успешно выбрали дату пересдачи') . ' ' . $requestDataFromUser->chosenDate . ' ' . __('в онлайн формате'));
+        } else {
+            $data = array(
+                'bookingdate' => $requestDataFromUser->chosenDate,
+                'requestID' => $requestDataFromUser->requestID,
+                'isOnline' => false,
+                'startHour' => $requestDataFromUser->startHour,
+                'roomID' => $requestDataFromUser->roomID,
+            );
+
+            Booking::insert($data);
+            Requests::updateTo($requestDataFromUser->requestID, 2);
+
+            $roomName = Rooms::get($requestDataFromUser->roomID);
+            return redirect('/Index?message=' . __('Вы успешно выбрали дату пересдачи') . ' ' . $requestDataFromUser->chosenDate
+                . ', ' . __('в аудитории') . ': ' . $roomName->roomName . ', С ' . $requestDataFromUser->startHour . ':00' .
+                ' до ' . (($requestDataFromUser->startHour) + 1) . ':00');
+        }
     }
 }

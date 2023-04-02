@@ -5,7 +5,7 @@
 <head>
     <title>{!! __('Подача заявки') !!}</title>
 
-    <link rel="stylesheet" href="{{ asset('css/ViewRequestNew.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/StandardForm.css') }}">
     <link rel="stylesheet" href="{{ asset('css/StandardButtons.css') }}">
 </head>
 
@@ -15,8 +15,7 @@
 
         <form method="POST" action="/RequestNew" enctype="multipart/form-data">
             <button onclick="location.href='/'" type="button" class="standard-button">{!! __('← Назад') !!}</button>
-            <br>
-            <br>
+            <br><br><br><br>
 
             @csrf
 
@@ -36,7 +35,7 @@
                 <option value="Рус.">Рус.</option>
                 <option value="Анг.">Анг.</option>
             </select>
-            <select id="faculty" type="text" name="faculty" required>
+            <select id="faculty" name="faculty" required>
                 <option value="" disabled selected>{!! __('Институт (Факультет)') !!}</option>
                 <option value="Институт Сорбонна-Казахстан">Институт Сорбонна-Казахстан</option>
                 <option value="Институт математики, физики и информатики">Институт математики, физики и информатики
@@ -47,12 +46,12 @@
                 <option value="Институт искусств, культуры и спорта">Институт искусств, культуры и спорта</option>
                 <option value="Институт истории и права">Институт истории и права</option>
             </select>
-            <select id="speciality" type="text" name="speciality" required>
+            <select id="speciality" name="speciality" required>
                 <option value="" disabled selected>{!! __('Специальность') !!}</option>
             </select>
             <input type="text" name="subject" placeholder=" {!! __('Дисциплина (предмет)') !!}" required />
             <input type="email" name="mail" placeholder=" {!! __('Почта для связи') !!}" required />
-            <input type="text" name="phoneNumber" placeholder=" {!! __('Номер телефона для связи') !!}" required />
+            <input type="tel" name="phoneNumber" minlength="11" placeholder=" {!! __('Номер телефона для связи') !!}" required />
             <select name="reason">
                 <option value="Технический сбой">{!! __('Технический сбой') !!}</option>
             </select>
@@ -66,13 +65,13 @@
                         class="test"required />
                 </label>
             </div>
+
             <div style="text-align:center">
                 <button type="submit" class="standard-button-long">{!! __('Отправить') !!}</button>
             </div>
         </form>
     </div>
 </body>
-
 
 <script src="{{ asset('scripts/jquery-3.6.4.min.js') }}"></script>
 <script>

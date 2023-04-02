@@ -30,8 +30,7 @@ class RequestsController extends Controller
         $pageStart = $offSet + 1;
         $pageEnd = $pageStart + $perPage - 1;
 
-        $currentExamSessionID = SiteSettings::currentExamSessionID();
-        $result = Requests::{$statusType . 'Page'}($perPage, $currentPage, $currentExamSessionID);
+        $result = Requests::{$statusType . 'Page'}($perPage, $currentPage, SiteSettings::currentExamSessionID());
 
         return view('Requests', [
             'result' => $result, 'currentPage' => $currentPage,
@@ -80,7 +79,7 @@ class RequestsController extends Controller
             $to_time = strtotime(Session::get('lastRequestTime'));
             $from_time = strtotime($currentFullTime);
             $diffirenceBetweenTime = round(abs($to_time - $from_time) / 60, 2);
-            if ($diffirenceBetweenTime < 3) {
+            if ($diffirenceBetweenTime < 0) {
                 return redirect('Index?error=' . __('Подождите 3 минуты, перед подачей следующей заявки'));
             }
         }
@@ -117,7 +116,6 @@ class RequestsController extends Controller
         $reason = $request->input('reason');
         $examType = $request->input('examType');
         $image = $request->file('confirmationFile');
-        $currentExamSessionID = SiteSettings::currentExamSessionID();
 
         //Image save and checking size (Currently 10MB)
         $uploadedFile = $image->getRealPath();
@@ -131,7 +129,7 @@ class RequestsController extends Controller
         $data = array(
             'fullName' => $fullName, 'idOfTest' => $idOfTest, 'faculty' => $faculty, 'course' => $course,
             'department' => $department, 'speciality' => $speciality, 'subject' => $subject, 'mail' => $mail, 'phoneNumber' => $phoneNumber,
-            'reason' => $reason, 'examType' => $examType, 'confirmationFile' => $confirmationFile, 'examSessionID' => $currentExamSessionID
+            'reason' => $reason, 'examType' => $examType, 'confirmationFile' => $confirmationFile, 'examSessionID' => SiteSettings::currentExamSessionID()
         );
 
         Requests::insert($data);
@@ -163,8 +161,7 @@ class RequestsController extends Controller
             "Отделение", "Дисциплина", "Email", "Телефон", "Причина", "Вид Экзамена"
         ]];
 
-        $currentExamSessionID = SiteSettings::currentExamSessionID();
-        $result = Requests::{$statusType . 'All'}($currentExamSessionID);
+        $result = Requests::{$statusType . 'All'}(SiteSettings::currentExamSessionID());
 
         foreach ($result as $item) {
             array_push($data, [
@@ -203,8 +200,7 @@ class RequestsController extends Controller
             "Отделение", "Дисциплина", "Email", "Телефон", "Причина", "Вид Экзамена"
         ]];
 
-        $currentExamSessionID = SiteSettings::currentExamSessionID();
-        $result = Requests::{$statusType . 'Page'}($perPage, $currentPage, $currentExamSessionID);
+        $result = Requests::{$statusType . 'Page'}($perPage, $currentPage, SiteSettings::currentExamSessionID());
 
         foreach ($result as $item) {
             array_push($data, [

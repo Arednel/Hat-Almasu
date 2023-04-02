@@ -9,7 +9,7 @@
 
     cursor: pointer;
 
-    font-size: clamp(16px, 3vh, 24px);
+    font-size: clamp(14px, 3vh, 22px);
     font-weight: 600;
 
     min-height: 60px;
@@ -36,5 +36,14 @@
 
 .standard-button-long {
     min-height: 70px;
-    min-width: 90%;
+    min-width: 80%;
+}
+
+@media (max-device-width: 750px) {
+
+    .standard-button,
+    .standard-button-long {
+        min-height: 100px;
+        font-size: clamp(20px, 3vh, 40px);
+    }
 }

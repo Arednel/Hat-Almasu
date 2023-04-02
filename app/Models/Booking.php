@@ -32,4 +32,15 @@ class Booking
 
         return $result;
     }
+
+    public static function bookingRecordsAmount($chosenDate, int $roomID, int $startHour)
+    {
+        $bookingRecordsAmount = DB::table('bookingrecords')
+            ->where('bookingDate', $chosenDate)
+            ->where('roomID', $roomID)
+            ->where('startHour', $startHour)
+            ->count();
+
+        return $bookingRecordsAmount;
+    }
 }

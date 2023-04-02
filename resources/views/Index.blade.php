@@ -5,6 +5,9 @@
 <head>
     <title>{!! __('Главная страница') !!}</title>
 
+    {{-- For ngrok --}}
+    {{-- <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests"> --}}
+
     <link rel="stylesheet" href="{{ asset('css/main.css') }}">
     <link rel="stylesheet" href="{{ asset('css/index.css') }}">
 </head>

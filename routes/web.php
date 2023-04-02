@@ -87,8 +87,8 @@ Route::post('/Manage/ExamSessionChangeCurrent', [ExamSessionsController::class, 
 //Request check status (as student)
 Route::view('/Register', 'Register');
 Route::post('/Register/Date', [RegisterController::class, 'chooseDate']);
-Route::post('/Register/Room', [RegisterController::class, 'chooseRoom']);
-Route::post('/Register/Hour', [RegisterController::class, 'chooseHour']);
+Route::get('/Register/Room', [RegisterController::class, 'chooseRoom']);
+Route::get('/Register/Hour', [RegisterController::class, 'chooseHour']);
 Route::post('/Register/Complete', [RegisterController::class, 'complete']);
 
 //Occupancy view
