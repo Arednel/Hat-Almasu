@@ -6,9 +6,9 @@ use App\Models\Dates;
 use App\Models\Rooms;
 use App\Models\Booking;
 use App\Models\Requests;
+use App\Models\SiteSettings;
 
 use Illuminate\Http\Request;
-
 use Illuminate\Support\Facades\Session;
 
 class OccupancyController extends Controller
@@ -26,7 +26,7 @@ class OccupancyController extends Controller
         ]);
     }
 
-    public function chooseDate()
+    public function dates()
     {
         if (!(in_array(Session::get('userPrivilege'), ['Admin', 'Support', 'Viewer']))) {
             return redirect('/Index?error=У вас недостаточный уровень доступа!');
@@ -37,51 +37,63 @@ class OccupancyController extends Controller
         return view('Occupancy', ['availabledates' => $availabledates]);
     }
 
-    public function chooseRoom(Request $requestDataFromUser)
+    public function chooseRoom(Request $request)
     {
         if (!(in_array(Session::get('userPrivilege'), ['Admin', 'Support', 'Viewer']))) {
             return redirect('/Index?error=У вас недостаточный уровень доступа!');
         }
 
-        $isOnline = Dates::isOnline($requestDataFromUser->date);
+        $isOnline = Dates::isOnline($request->chosenDate);
 
         if ($isOnline->isOnline) {
-            $result = Booking::selectWhereOnline($requestDataFromUser->date);
+            return $isOnline;
+        } else {
+            $rooms = Rooms::all(Dates::dateExamSessionID($request->chosenDate));
+
+            $html = '';
+            foreach ($rooms as $room) {
+                $html .= '<option value="' . $room->roomID . '">' . $room->roomName . '</option>';
+            }
+
+            return $html;
+        }
+    }
+
+    public function chooseHour(Request $request)
+    {
+        if (!(in_array(Session::get('userPrivilege'), ['Admin', 'Support', 'Viewer']))) {
+            return redirect('/Index?error=У вас недостаточный уровень доступа!');
+        }
+
+        $hours = Dates::hours($request->chosenDate);
+
+        $html = '';
+        for ($currentHour = $hours->startHour; $currentHour < $hours->endHour; $currentHour++) {
+
+            $bookingRecordsAmount = Booking::bookingRecordsAmount($request->chosenDate, $request->roomID, $currentHour);
+
+            $roomSpace = Rooms::roomSpace($request->roomID);
+
+            $html .= '<option value="' . $currentHour . '">
+            ' . __('C') . ' ' . $currentHour . ':00 ' . __('до') . ' ' . ($currentHour + 1) . ':00 
+            (Занято ' . $bookingRecordsAmount . ' ' . __('мест') . ' из ' . $roomSpace->roomSpace . ' )</option>';
+        }
+
+        return $html;
+    }
+
+    public function view(Request $request)
+    {
+        if (!(in_array(Session::get('userPrivilege'), ['Admin', 'Support', 'Viewer']))) {
+            return redirect('/Index?error=У вас недостаточный уровень доступа!');
+        }
+
+        if ($request->roomID == 'isOnline') {
+            $result = Booking::selectWhereOnline($request->chosenDate);
 
             return $this->viewOccupancy($result);
-        } else {
-            $dateExamSessionID = Dates::dateExamSessionID($requestDataFromUser->date);
-            $rooms = Rooms::atDate($dateExamSessionID);
-
-            return view('Occupancy', [
-                'chosenDate' => $requestDataFromUser->date, 'rooms' => $rooms
-            ]);
         }
-    }
-
-    public function chooseHour(Request $requestDataFromUser)
-    {
-        if (!(in_array(Session::get('userPrivilege'), ['Admin', 'Support', 'Viewer']))) {
-            return redirect('/Index?error=У вас недостаточный уровень доступа!');
-        }
-
-        $hours = Dates::hours($requestDataFromUser->chosenDate);
-
-        $amountOfHours = $hours->endHour - $hours->startHour;
-
-        return view('Occupancy', [
-            'chosenDate' => $requestDataFromUser->chosenDate, 'roomID' =>  $requestDataFromUser->roomID,
-            'startHour' =>  $hours->startHour, 'hours' =>  $amountOfHours
-        ]);
-    }
-
-    public function view(Request $requestDataFromUser)
-    {
-        if (!(in_array(Session::get('userPrivilege'), ['Admin', 'Support', 'Viewer']))) {
-            return redirect('/Index?error=У вас недостаточный уровень доступа!');
-        }
-
-        $result = Booking::selectWhereOffline($requestDataFromUser->chosenDate, $requestDataFromUser->startHour, $requestDataFromUser->roomID);
+        $result = Booking::selectWhereOffline($request->chosenDate, $request->startHour, $request->roomID);
 
         return $this->viewOccupancy($result);
     }

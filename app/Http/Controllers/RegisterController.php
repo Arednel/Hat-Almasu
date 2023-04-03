@@ -12,25 +12,25 @@ use Illuminate\Http\Request;
 
 class RegisterController extends Controller
 {
-    private function requestCheck($requestDataFromUser)
+    private function requestCheck($request)
     {
-        $requestDataFromUser->validate(
+        $request->validate(
             [
                 'mail' => ['required', 'email'],
                 'requestID' => 'required'
             ]
         );
 
-        $requestData = Requests::requestCheck($requestDataFromUser->requestID);
+        $requestData = Requests::requestCheck($request->requestID);
 
         if ($requestData == null) {
             return redirect('/Index?error=Заявки не существует');
         }
 
         if (
-            $requestData->requestID == $requestDataFromUser->requestID
+            $requestData->requestID == $request->requestID
             &&
-            $requestData->mail == $requestDataFromUser->mail
+            $requestData->mail == $request->mail
         ) {
             if (SiteSettings::currentExamSessionID() != $requestData->examSessionID) {
                 return redirect('/Index?error=Заявка была отправлена во время другой сессии');
@@ -51,9 +51,9 @@ class RegisterController extends Controller
         }
     }
 
-    public function chooseDate(Request $requestDataFromUser)
+    public function chooseDate(Request $request)
     {
-        $requestData = $this->requestCheck($requestDataFromUser);
+        $requestData = $this->requestCheck($request);
 
         if ($requestData instanceof \Illuminate\Http\RedirectResponse) {
             return $requestData;
@@ -71,9 +71,9 @@ class RegisterController extends Controller
         ]);
     }
 
-    public function chooseRoom(Request $requestDataFromUser)
+    public function chooseRoom(Request $request)
     {
-        $isOnline = Dates::isOnline($requestDataFromUser->chosenDate);
+        $isOnline = Dates::isOnline($request->chosenDate);
 
         if ($isOnline->isOnline) {
             return $isOnline;
@@ -89,16 +89,16 @@ class RegisterController extends Controller
         }
     }
 
-    public function chooseHour(Request $requestDataFromUser)
+    public function chooseHour(Request $request)
     {
-        $hours = Dates::hours($requestDataFromUser->chosenDate);
+        $hours = Dates::hours($request->chosenDate);
 
         $html = '';
         for ($currentHour = $hours->startHour; $currentHour < $hours->endHour; $currentHour++) {
 
-            $bookingRecordsAmount = Booking::bookingRecordsAmount($requestDataFromUser->chosenDate, $requestDataFromUser->roomID, $currentHour);
+            $bookingRecordsAmount = Booking::bookingRecordsAmount($request->chosenDate, $request->roomID, $currentHour);
 
-            $roomSpace = Rooms::roomSpace($requestDataFromUser->roomID);
+            $roomSpace = Rooms::roomSpace($request->roomID);
 
             $leftSpace = $roomSpace->roomSpace - $bookingRecordsAmount;
 
@@ -110,41 +110,41 @@ class RegisterController extends Controller
         return $html;
     }
 
-    public function complete(Request $requestDataFromUser)
+    public function complete(Request $request)
     {
-        $requestData = $this->requestCheck($requestDataFromUser);
+        $requestData = $this->requestCheck($request);
 
         if ($requestData instanceof \Illuminate\Http\RedirectResponse) {
             return $requestData;
         }
 
-        if ($requestDataFromUser->roomID == 'isOnline') {
+        if ($request->roomID == 'isOnline') {
             $data = array(
-                'bookingdate' => $requestDataFromUser->chosenDate,
-                'requestID' => $requestDataFromUser->requestID,
+                'bookingdate' => $request->chosenDate,
+                'requestID' => $request->requestID,
                 'isOnline' => true
             );
 
             Booking::insert($data);
-            Requests::updateTo($requestDataFromUser->requestID, 2);
+            Requests::updateTo($request->requestID, 2);
 
-            return redirect('/Index?message=' . __('Вы успешно выбрали дату пересдачи') . ' ' . $requestDataFromUser->chosenDate . ' ' . __('в онлайн формате'));
+            return redirect('/Index?message=' . __('Вы успешно выбрали дату пересдачи') . ' ' . $request->chosenDate . ' ' . __('в онлайн формате'));
         } else {
             $data = array(
-                'bookingdate' => $requestDataFromUser->chosenDate,
-                'requestID' => $requestDataFromUser->requestID,
+                'bookingdate' => $request->chosenDate,
+                'requestID' => $request->requestID,
                 'isOnline' => false,
-                'startHour' => $requestDataFromUser->startHour,
-                'roomID' => $requestDataFromUser->roomID,
+                'startHour' => $request->startHour,
+                'roomID' => $request->roomID,
             );
 
             Booking::insert($data);
-            Requests::updateTo($requestDataFromUser->requestID, 2);
+            Requests::updateTo($request->requestID, 2);
 
-            $roomName = Rooms::get($requestDataFromUser->roomID);
-            return redirect('/Index?message=' . __('Вы успешно выбрали дату пересдачи') . ' ' . $requestDataFromUser->chosenDate
-                . ', ' . __('в аудитории') . ': ' . $roomName->roomName . ', С ' . $requestDataFromUser->startHour . ':00' .
-                ' до ' . (($requestDataFromUser->startHour) + 1) . ':00');
+            $roomName = Rooms::get($request->roomID);
+            return redirect('/Index?message=' . __('Вы успешно выбрали дату пересдачи') . ' ' . $request->chosenDate
+                . ', ' . __('в аудитории') . ': ' . $roomName->roomName . ', С ' . $request->startHour . ':00' .
+                ' до ' . (($request->startHour) + 1) . ':00');
         }
     }
 }

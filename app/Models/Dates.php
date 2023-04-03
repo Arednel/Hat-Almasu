@@ -33,7 +33,9 @@ class Dates
 
     public static function all()
     {
-        $result = DB::table('availabledates')->get();
+        $result = DB::table('availabledates')
+            ->orderByDesc('date')
+            ->get();
 
         return $result;
     }

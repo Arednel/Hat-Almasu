@@ -92,9 +92,9 @@ Route::get('/Register/Hour', [RegisterController::class, 'chooseHour']);
 Route::post('/Register/Complete', [RegisterController::class, 'complete']);
 
 //Occupancy view
-Route::get('/Occupancy/Date', [OccupancyController::class, 'chooseDate']);
-Route::post('/Occupancy/Room', [OccupancyController::class, 'chooseRoom']);
-Route::post('/Occupancy/Hour', [OccupancyController::class, 'chooseHour']);
+Route::get('/Occupancy/Date', [OccupancyController::class, 'dates']);
+Route::get('/Occupancy/Room', [OccupancyController::class, 'chooseRoom']);
+Route::get('/Occupancy/Hour', [OccupancyController::class, 'chooseHour']);
 Route::post('/Occupancy/View', [OccupancyController::class, 'view']);
 
 //Change language

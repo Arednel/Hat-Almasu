@@ -4,99 +4,108 @@
 <head>
     <title>Статус заявки</title>
 
-    <link rel="stylesheet" href="{{ asset('css/main.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/manageForm.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/StandardForm.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/StandardButtons.css') }}">
 </head>
 
-<style>
-    .formInputs {
-        grid-column: 1 / 3;
-    }
-
-    a:link,
-    a:visited {
-        padding-bottom: 0;
-        height: 6vh;
-    }
-</style>
-
 <body>
-    <div class="main-body">
-        <div class="modal-content">
-            <img src="{{ asset('images/3.jpg') }}" class="formImage">
+    <div class="main-block">
+        <div class="form-image" style="background-image: url('{{ asset('images/3.jpg') }}');"></div>
 
-            @if (isset($rooms))
-                <form method="POST" action="/Occupancy/Hour">
-                    <a href="/">← На главную</a>
+        <form method="POST" action="/Occupancy/View">
+            <button onclick="location.href='/'" type="button" class="standard-button">{!! __('← На главную') !!}</button>
+            <br><br><br><br>
 
-                    @csrf
+            @csrf
 
-                    <label>Выберите аудиторию для просмотра:</label>
-                    <select name="roomID">
-                        @foreach ($rooms as $record)
-                            <option value="{{ $record->roomID }}">{{ $record->roomName }}</option>
-                        @endforeach
-                    </select>
-                    <input type="hidden" name="chosenDate" value="{{ $chosenDate }}">
+            <label>&nbspВыберите дату, аудиторию и время:</label>
+            <br>
+            <br>
+            <select id="date" name="chosenDate" required>
+                <option value="" disabled selected>{!! __('Дата') !!}</option>
+                @foreach ($availabledates as $record)
+                    <option value="{{ $record->date }}">{{ $record->date }}
+                        @if ($record->isOnline == true)
+                            ({!! __('Онлайн') !!})
+                        @else
+                            ({!! __('Офлайн, c ') !!} {{ $record->startHour }} {!! __('до') !!}
+                            {{ $record->endHour }})
+                        @endif
+                        (Сессия №{{ $record->examSessionID }})
+                    </option>
+                @endforeach
+            </select>
+            <select id="room" name="roomID" required>
+                <option value="" disabled selected>{!! __('Аудитория') !!}</option>
+            </select>
+            <select id="startHour" name="startHour" required>
+                <option value="" disabled selected>{!! __('Время') !!}</option>
+            </select>
 
-                    <input type="submit" value="Выбрать" class="button-blue">
-                </form>
-            @elseif(isset($roomID))
-                <form method="POST" action="/Occupancy/View">
-                    <a href="/">← На главную</a>
+            <br><br><br>
+            <div style="text-align:center">
+                <button type="submit" class="standard-button-long">{!! __('Выбрать') !!}</button>
+            </div>
+        </form>
 
-                    @csrf
-
-                    <label>Выберите время для просмотра:</label>
-                    <select name="startHour">
-                        @for ($i = $hours, $currentHour = $startHour; $i > 0; $i--, $currentHour++)
-                            @php
-                                $bookingRecordsAmount = DB::table('bookingrecords')
-                                    ->where('bookingDate', $chosenDate)
-                                    ->where('roomID', $roomID)
-                                    ->where('startHour', $currentHour)
-                                    ->count();
-                                
-                                $roomSpace = DB::table('rooms')
-                                    ->where('roomID', $roomID)
-                                    ->select('roomSpace')
-                                    ->first();
-                            @endphp
-                            <option value="{{ $currentHour }}">C {{ $currentHour }}:00 до {{ $currentHour + 1 }}:00
-                                (Занято
-                                {{ $bookingRecordsAmount }} мест из {{ $roomSpace->roomSpace }})</option>
-                        @endfor
-                    </select>
-                    <input type="hidden" name="chosenDate" value="{{ $chosenDate }}">
-                    <input type="hidden" name="roomID" value="{{ $roomID }}">
-
-                    <input type="submit" value="Выбрать" class="button-blue">
-                </form>
-            @else
-                <form method="POST" action="/Occupancy/Room">
-                    <a href="/">← На главную</a>
-
-                    @csrf
-
-                    <label>Выберите дату для просмотра:</label>
-                    <select name="date">
-                        @foreach ($availabledates as $record)
-                            <option value="{{ $record->date }}">{{ $record->date }}
-                                @if ($record->isOnline == true)
-                                    (Онлайн)
-                                @else
-                                    (Оффлайн, c {{ $record->startHour }} до {{ $record->endHour }})
-                                @endif
-                            </option>
-                        @endforeach
-                    </select>
-
-                    <input type="submit" value="Выбрать" class="button-blue">
-                </form>
-            @endif
-
-        </div>
     </div>
 </body>
+
+<script src="{{ asset('scripts/jquery-3.6.4.min.js') }}"></script>
+<script>
+    var chosenDate;
+
+    $('#date').change(function() {
+        chosenDate = $(this).val();
+
+        $('#room').empty();
+        $('#room').append(
+            '<option value="" disabled selected>{!! __('Аудитория') !!}</option>'
+        );
+        $('#startHour').empty();
+        $('#startHour').append(
+            '<option value="" disabled selected>{!! __('Время') !!}</option>'
+        );
+
+        $.ajax({
+            type: 'GET',
+            url: '/Occupancy/Room',
+            data: {
+                chosenDate
+            },
+            success: function(rooms) {
+                if (rooms.isOnline) {
+                    $('#room').empty();
+                    $('#room').append(
+                        '<option value="isOnline" selected>{!! __('Онлайн') !!}</option>'
+                    );
+                    $('#startHour').empty();
+                    $('#startHour').append(
+                        '<option value="isOnline" selected>{!! __('Онлайн') !!}</option>'
+                    );
+                } else {
+                    $('#room').append(rooms);
+                }
+            }
+        });
+    });
+
+    $('#room').change(function() {
+        $('#startHour').children().not(':first').remove();
+        roomID = $(this).val();
+
+        $.ajax({
+            type: 'GET',
+            url: '/Occupancy/Hour',
+            data: {
+                chosenDate,
+                roomID
+            },
+            success: function(hours) {
+                $('#startHour').append(hours);
+            }
+        });
+    });
+</script>
 
 </html>
