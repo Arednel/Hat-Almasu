@@ -37,8 +37,8 @@
     <br>
     <a href="/">← На главную</a>
 
-    <p>version 0.9.4 / 2023.04.3</p>
-    <p>Occupancy view updated CSS and Ajax</p>
+    <p>version 0.9.5 / 2023.04.3</p>
+    <p>RequestNew options fix, added Site setting - can/can't send requests</p>
     <p>Made by Evtifeev Artyom Vladislavovich / Arednel</p>
     <p>2023 &#169 Test Center</p>
 </body>

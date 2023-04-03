@@ -75,19 +75,16 @@
 
 <script src="{{ asset('scripts/jquery-3.6.4.min.js') }}"></script>
 <script>
-    $.ajax({
-        type: 'GET',
-        url: '/RequestNew/options',
-        success: function(options) {
-            $('#faculty').change(function() {
-                $('#speciality').empty();
-                var chosenOption = $(this).val();
-                $('#speciality').append(
-                    '<option value="" disabled selected>{!! __('Специальность') !!}</option>'
-                );
-                $('#speciality').append(options[chosenOption]);
-            });
-        }
+    var options = @json($options);
+
+    $('#faculty').change(function() {
+        $('#speciality').empty();
+        var chosenOption = $(this).val();
+        $('#speciality').append(
+            '<option value="" disabled selected>{!! __('Специальность') !!}</option>'
+        );
+
+        $('#speciality').append(options[chosenOption]);
     });
 </script>
 

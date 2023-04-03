@@ -21,4 +21,13 @@ class SiteSettings
             ->select('id', 1)
             ->update(['currentExamSessionID' => $examSessionID]);
     }
+
+    public static function canSendRequests()
+    {
+        $result = DB::table('sitesettings')
+            ->select('canSendRequests')
+            ->first();
+
+        return $result->canSendRequests;
+    }
 }

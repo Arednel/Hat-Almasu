@@ -35,9 +35,8 @@ Route::view('/Info', 'Info');
 Route::view('/info', 'Info');
 
 //Creating new request
-Route::view('/RequestNew', 'RequestNew');
+Route::get('/RequestNew', [RequestsController::class, 'sendNew']);
 Route::post('/RequestNew', [RequestsController::class, 'insert']);
-Route::get('/RequestNew/options', [OptionsController::class, 'getOptions']);
 
 //Login
 Route::view('/Login', 'Login');

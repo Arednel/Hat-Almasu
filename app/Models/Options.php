@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Models;
 
-class OptionsController extends Controller
+class Options
 {
-    public function getOptions()
+    public static function options()
     {
-        return response()->json([
+        return array(
             'Институт Сорбонна-Казахстан' => '
             <optgroup label="Бакалавриат">
             <option value="6В03101 — Международные отношения в условиях глобализации">6В03101 — Международные отношения в условиях глобализации</option>
@@ -248,6 +248,6 @@ class OptionsController extends Controller
             <option value="7М04201 — Юриспруденция (научно — педагогическое направление)">7М04201 — Юриспруденция (научно — педагогическое направление)</option>
             <option value="7М04201 — Юриспруденция (профильное направление)">7М04201 — Юриспруденция (профильное направление)</option>
             </optgroup>',
-        ]);
+        );
     }
 }

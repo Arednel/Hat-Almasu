@@ -2,16 +2,18 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Options;
 use App\Models\Requests;
 use App\Models\SiteSettings;
 
 use Illuminate\Http\Request;
+
+use Maatwebsite\Excel\Facades\Excel;
 use App\Exports\RequestsExport;
 
 use Illuminate\Validation\Rule;
-use Illuminate\Support\Facades\DB;
 
-use Maatwebsite\Excel\Facades\Excel;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
 
 class RequestsController extends Controller
@@ -148,6 +150,16 @@ class RequestsController extends Controller
         }
 
         return view('RequestImage', ['image' => Requests::image($requestID)]);
+    }
+
+    public function sendNew()
+    {
+        $canSendRequests = SiteSettings::canSendRequests();
+        if (!$canSendRequests) {
+            return redirect('/Index?error=Сейчас нельзя подавать новые заявки');
+        }
+
+        return view('RequestNew', ['options' => Options::options()]);
     }
 
     public function excelExportAll(string $statusType)
