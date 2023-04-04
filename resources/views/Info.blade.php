@@ -37,8 +37,8 @@
     <br>
     <a href="/">← На главную</a>
 
-    <p>version 0.9.5 / 2023.04.3</p>
-    <p>RequestNew options fix, added Site setting - can/can't send requests</p>
+    <p>version 0.9.6 / 2023.04.4</p>
+    <p>Search done, just need css</p>
     <p>Made by Evtifeev Artyom Vladislavovich / Arednel</p>
     <p>2023 &#169 Test Center</p>
 </body>

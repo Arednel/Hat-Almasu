@@ -49,6 +49,7 @@ Route::get('/logout', [LoginController::class, 'logout']);
 Route::get('/Requests/New/{currentPage}', [RequestsController::class, 'new']);
 Route::get('/Requests/Approved/{currentPage}', [RequestsController::class, 'approved']);
 Route::get('/Requests/Rejected/{currentPage}', [RequestsController::class, 'rejected']);
+Route::get('/Requests/Search', [RequestsController::class, 'search']);
 
 //Request view image
 Route::get('/Requests/Image/{requestID}', [RequestsController::class, 'image']);

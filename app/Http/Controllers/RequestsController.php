@@ -56,6 +56,53 @@ class RequestsController extends Controller
         return $this->requests('rejected', 'Отклонённые заявки', $currentPage);
     }
 
+    public function search(Request $request)
+    {
+        if ($request->searchRequest == '') {
+            $perPage = $this->perPagePrivate;
+
+            $result = Requests::{$request->statusType . 'Page'}($perPage, $request->currentPage, SiteSettings::currentExamSessionID());
+        } else {
+            $result = Requests::{$request->statusType . 'Search'}($request->searchRequest, $request->searchType, SiteSettings::currentExamSessionID());
+        }
+
+        $html = '';
+        $greyRow = false;
+        foreach ($result as $value) {
+            if ($greyRow) {
+                $classGrey = '-grey';
+            } else {
+                $classGrey = '';
+            }
+            $greyRow = !$greyRow;
+
+            $html .= '<tr><td class="columnE"><div class="columnText">' . $value->requestID . '</div></td>';
+            $html .= '<td class="columnE"><div class="columnText">' . $value->fullName . '</div></td>';
+            $html .= '<td class="columnE"><div class="columnText">' . $value->idOfTest . '</div></td>';
+            $html .= '<td class="columnE"><div class="columnText">' . $value->department . '</div></td>';
+            $html .= '<td class="columnE"><div class="columnText">' . $value->faculty . ' / ' . $value->speciality . ' / ' . $value->course . ' / ' . $value->subject . '</div></td>';
+            $html .= '<td class="columnE"><div class="columnText">' . $value->mail . ' / ' . $value->phoneNumber . '</div></td>';
+            $html .= '<td class="columnE"><div class="columnText">' . $value->reason . '</div></td>';
+            $html .= '<td class="columnE"><div class="columnText">' . $value->examType . '</div></td>';
+            $html .= '<td class="columnE"><button type="button" target="_blank" onclick="window.open(&#39/Requests/Image/' . $value->requestID . '&#39)" class="table-approval' . $classGrey . '">Перейти к файлу</button></td>';
+            if (in_array(Session::get('userPrivilege'), ['Admin', 'Support'])) {
+                $html .= '<td class="columnE">';
+                if (in_array($request->statusType, ['new', 'rejected'])) {
+                    $html .= '<button type="button" target="_blank" onclick="window.location=(&#39/Requests/ChangeStatus/' .
+                        $value->requestID . '/1&#39)" class="table-approval' . $classGrey . '-green-to-hover">✓</button>';
+                }
+                if (in_array($request->statusType, ['new', 'approved'])) {
+                    $html .= '<button type="button" target="_blank" onclick="window.location=(&#39/Requests/ChangeStatus/' .
+                        $value->requestID . '/3&#39)" class="table-approval' . $classGrey . '-red-to-hover">X</button>';
+                }
+                $html .=   '</td>';
+            }
+            $html .= '</tr>';
+        }
+
+        return $html;
+    }
+
     public function changeStatus(int $requestID, int $requestStatus)
     {
         if (!(in_array(Session::get('userPrivilege'), ['Admin', 'Support']))) {

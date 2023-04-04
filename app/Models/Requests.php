@@ -56,6 +56,23 @@ class Requests
         return $result;
     }
 
+    public static function newSearch($searchRequest, $searchType, int $currentExamSessionID)
+    {
+        $result = DB::table('requests')
+            ->where('requestStatus', 0)
+            ->where('examSessionID', $currentExamSessionID)
+            ->where("{$searchType}", 'like', "%{$searchRequest}%")
+            ->orderByDesc('requestID')
+            ->select(array(
+                'requestID', 'fullName', 'idOfTest', 'faculty',
+                'speciality', 'course', 'department', 'subject',
+                'mail', 'phoneNumber', 'reason',  'examType'
+            ))
+            ->get();
+
+        return $result;
+    }
+
     public static function approvedAll(int $currentExamSessionID)
     {
         $result = DB::table('requests')
@@ -104,6 +121,29 @@ class Requests
         return $result;
     }
 
+    public static function approvedSearch($searchRequest, $searchType, int $currentExamSessionID)
+    {
+        $result = DB::table('requests')
+            ->where(
+                function ($query) {
+                    return $query
+                        ->where('requestStatus', 1)
+                        ->orWhere('requestStatus', 2);
+                }
+            )
+            ->where('examSessionID', $currentExamSessionID)
+            ->orderByDesc('requestID')
+            ->where("{$searchType}", 'like', "%{$searchRequest}%")
+            ->select(array(
+                'requestID', 'fullName', 'idOfTest', 'faculty',
+                'speciality', 'course', 'department', 'subject',
+                'mail', 'phoneNumber', 'reason', 'examType'
+            ))
+            ->get();
+
+        return $result;
+    }
+
     public static function rejectedAll(int $currentExamSessionID)
     {
         $result = DB::table('requests')
@@ -134,6 +174,23 @@ class Requests
                 'requestID', 'fullName', 'idOfTest', 'faculty',
                 'speciality', 'course', 'department', 'subject',
                 'mail', 'phoneNumber', 'reason', 'examType'
+            ))
+            ->get();
+
+        return $result;
+    }
+
+    public static function rejectedSearch($searchRequest, $searchType, int $currentExamSessionID)
+    {
+        $result = DB::table('requests')
+            ->where('requestStatus', 3)
+            ->where('examSessionID', $currentExamSessionID)
+            ->where("{$searchType}", 'like', "%{$searchRequest}%")
+            ->orderByDesc('requestID')
+            ->select(array(
+                'requestID', 'fullName', 'idOfTest', 'faculty',
+                'speciality', 'course', 'department', 'subject',
+                'mail', 'phoneNumber', 'reason',  'examType'
             ))
             ->get();
 

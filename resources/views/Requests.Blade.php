@@ -17,25 +17,26 @@
     <div class="main-body">
 
         @include ('/Components/pageSwitchingDiv')
+        @include ('/Components/search')
 
         <table class="tableE">
             <thead class="tableE-head">
                 <tr>
                     <th class="columnE">ID</th>
-                    <th class="columnE">ФИО </th>
-                    <th class="columnE">ID теста </th>
-                    <th class="columnE">Отделение </th>
+                    <th class="columnE">ФИО</th>
+                    <th class="columnE">ID теста</th>
+                    <th class="columnE">Отделение</th>
                     <th class="columnE">Институт / Специальность / Курс / Дисциплина</th>
                     <th class="columnE">Почта / Телефон</th>
-                    <th class="columnE">Причина </th>
-                    <th class="columnE">Вид Экзамена </th>
+                    <th class="columnE">Причина</th>
+                    <th class="columnE">Вид Экзамена</th>
                     <th class="columnE">Подтверждающий документ</th>
                     @if (in_array(Session::get('userPrivilege'), ['Admin', 'Support']))
                         <th class="columnE">Решение</th>
                     @endif
                 </tr>
             </thead>
-            <tbody class="tableE-body">
+            <tbody id="tableE-body" class="tableE-body">
                 @php
                     $greyRow = false;
                 @endphp
