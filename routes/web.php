@@ -46,20 +46,18 @@ Route::get('/Logout', [LoginController::class, 'logout']);
 Route::get('/logout', [LoginController::class, 'logout']);
 
 //Requests view data: New, Approved and Rejected
-Route::get('/Requests/New/{currentPage}', [RequestsController::class, 'new']);
-Route::get('/Requests/Approved/{currentPage}', [RequestsController::class, 'approved']);
-Route::get('/Requests/Rejected/{currentPage}', [RequestsController::class, 'rejected']);
+Route::get('/RequestsView/{statusType}/{currentPage}', [RequestsController::class, 'page']);
 Route::get('/Requests/Search', [RequestsController::class, 'search']);
 
 //Request view image
-Route::get('/Requests/Image/{requestID}', [RequestsController::class, 'image']);
+Route::get('/Request/Image/{requestID}', [RequestsController::class, 'image']);
 
 //Request change status
-Route::get('/Requests/ChangeStatus/{requestID}/{requestStatus}', [RequestsController::class, 'changeStatus']);
+Route::get('/Request/ChangeStatus/{requestID}/{requestStatus}', [RequestsController::class, 'changeStatus']);
 
 //Request excel export
-Route::get('/Requests/ExcelExportAll/{statusType}', [RequestsController::class, 'excelExportAll']);
-Route::get('/Requests/ExcelExport/{statusType}/{currentPage}', [RequestsController::class, 'excelExport']);
+Route::get('/ExcelExportAll/{statusType}', [RequestsController::class, 'excelExportAll']);
+Route::get('/ExcelExport/{statusType}/{currentPage}', [RequestsController::class, 'excelExport']);
 
 //Manage available dates
 Route::get('/Manage/Dates/{currentPage}', [DatesController::class, 'page']);

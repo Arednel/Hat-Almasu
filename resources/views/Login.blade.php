@@ -4,7 +4,7 @@
 <head>
     <title>Авторизация</title>
 
-    <link rel="stylesheet" href="{{ asset('css/loginForm.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/LoginForm.css') }}">
 </head>
 
 <body>

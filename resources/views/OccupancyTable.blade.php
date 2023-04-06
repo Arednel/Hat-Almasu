@@ -35,70 +35,26 @@
                 @endphp
 
                 @foreach ($result as $record)
-                    {{-- fix that, it's awful --}}
-                    @if ($greyRow)
-                        @php
-                            $classGrey = '-grey';
-                        @endphp
-                    @else
-                        @php
-                            $classGrey = '';
-                        @endphp
-                    @endif
-                    @php
-                        $greyRow = !$greyRow;
-                    @endphp
-                    {{-- fix that, it's awful --}}
-
                     <tr>
-                        <td class="columnE">
-                            <div class="columnText">
-                                {{ $record->requestID }}
-                            </div>
+                        <td class="columnE">{{ $record->requestID }} </td>
+                        <td class="columnE">{{ $record->fullName }}</td>
+                        <td class="columnE">{{ $record->idOfTest }}</td>
+                        <td class="columnE">{{ $record->department }}</td>
+                        <td class="columnE">{{ $record->faculty }} /
+                            {{ $record->speciality }} /
+                            {{ $record->course }} /
+                            {{ $record->subject }}
                         </td>
                         <td class="columnE">
-                            <div class="columnText">
-                                {{ $record->fullName }}
-                            </div>
+                            {{ $record->mail }} /
+                            {{ $record->phoneNumber }}
                         </td>
-                        <td class="columnE">
-                            <div class="columnText">
-                                {{ $record->idOfTest }}
-                            </div>
-                        </td>
-                        <td class="columnE">
-                            <div class="columnText">
-                                {{ $record->department }}
-                            </div>
-                        </td>
-                        <td class="columnE">
-                            <div class="columnText">
-                                {{ $record->faculty }} /
-                                {{ $record->speciality }} /
-                                {{ $record->course }} /
-                                {{ $record->subject }}
-                            </div>
-                        </td>
-                        <td class="columnE">
-                            <div class="columnText">
-                                {{ $record->mail }}/<br>
-                                {{ $record->phoneNumber }}
-                            </div>
-                        </td>
-                        <td class="columnE">
-                            <div class="columnText">
-                                {{ $record->reason }}
-                            </div>
-                        </td>
-                        <td class="columnE">
-                            <div class="columnText">
-                                {{ $record->examType }}
-                            </div>
-                        </td>
+                        <td class="columnE">{{ $record->reason }}</td>
+                        <td class="columnE"> {{ $record->examType }}</td>
                         <td class="columnE">
                             <button type="button" target="_blank"
-                                onclick="window.open('/Requests/Image/{{ $record->requestID }}')"
-                                class="table-approval{{ $classGrey }}">
+                                onclick="window.open('/Request/Image/{{ $record->requestID }}')"
+                                class="table-approval">
                                 Перейти к файлу
                             </button>
                         </td>

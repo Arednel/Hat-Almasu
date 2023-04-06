@@ -76,8 +76,7 @@ input[type=file] {
 .columnE {
     border: clamp(2px, 1vh, 3px) solid black;
     width: clamp(6px, 4vh, 14px);
-}
-
-.columnText {
-    padding: clamp(1px, 1vh, 3px);
+    text-align: center;
+    text-indent: 1px;
+    padding-right: 1px;
 }

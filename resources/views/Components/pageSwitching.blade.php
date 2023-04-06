@@ -1,3 +1,5 @@
+<link rel="stylesheet" href="{{ asset('css/PageSwitching.css') }}" />
+
 <div class="page-switching">
     @php
         $currentDir = dirname(url()->current());

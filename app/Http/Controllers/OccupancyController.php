@@ -6,7 +6,6 @@ use App\Models\Dates;
 use App\Models\Rooms;
 use App\Models\Booking;
 use App\Models\Requests;
-use App\Models\SiteSettings;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;

@@ -23,7 +23,7 @@
     var keyupTimer;
     var timeMS = 1000;
 
-    function main() {
+    function search() {
         clearTimeout(keyupTimer);
         keyupTimer = setTimeout(function() {
             var searchRequest = $("#search").val();
@@ -45,10 +45,10 @@
         }, timeMS);
     }
 
-    $("#search").keyup(function() {
-        main();
+    $("#search").on("input", function() {
+        search();
     });
     $('#searchType').change(function() {
-        main();
+        search();
     });
 </script>

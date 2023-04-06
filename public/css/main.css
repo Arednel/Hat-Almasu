@@ -19,7 +19,6 @@ h3 {
 
 /* Table */
 table {
-    width: 99%;
     margin-left: 1vh;
     border-spacing: 0;
     border: 2px solid black;
@@ -242,16 +241,11 @@ a:hover {
 }
 
 .table-approval,
-.table-approval-grey,
 .table-approval-green,
-.table-approval-red,
-.table-approval-grey-green-to-hover,
-.table-approval-grey-red-to-hover,
-.table-approval-green-to-hover,
-.table-approval-red-to-hover {
-    width: 100%;
-    padding-top: clamp(6px, 4vh, 12px);
-    padding-bottom: clamp(6px, 4vh, 12px);
+.table-approval-red {
+    width: calc(100% - 1px);
+    padding-top: clamp(12px, 3vh, 24px);
+    padding-bottom: clamp(12px, 3vh, 24px);
     background-color: white;
     border: 0;
     font-size: clamp(12px, 2.5vh, 24px);
@@ -259,27 +253,11 @@ a:hover {
     border-radius: 1vh;
 }
 
-.table-approval,
-.table-approval-grey {
-    padding-top: clamp(12px, 3vh, 24px);
-    padding-bottom: clamp(12px, 3vh, 24px);
-}
-
-.table-approval-grey,
-.table-approval-grey-green-to-hover,
-.table-approval-grey-red-to-hover {
-    background-color: #e9e9e9;
-}
-
-.table-approval-green,
-.table-approval-grey-green-to-hover:hover,
-.table-approval-green-to-hover:hover {
+.table-approval-green:hover {
     background-color: green !important;
 }
 
-.table-approval-red,
-.table-approval-grey-red-to-hover:hover,
-.table-approval-red-to-hover:hover {
+.table-approval-red:hover {
     background-color: red !important;
 }
 

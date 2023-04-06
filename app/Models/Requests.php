@@ -20,10 +20,30 @@ class Requests
         return $result;
     }
 
-    public static function newAll(int $currentExamSessionID)
+    private static function whereRequestStatus($statusType)
+    {
+        $whereRequestStatus = function ($query) use ($statusType) {
+            switch ($statusType) {
+                case 'new':
+                    return $query
+                        ->where('requestStatus', 0);
+                case 'approved':
+                    return $query
+                        ->where('requestStatus', 1)
+                        ->orWhere('requestStatus', 2);
+                case 'rejected':
+                    return $query
+                        ->where('requestStatus', 3);
+            }
+        };
+
+        return $whereRequestStatus;
+    }
+
+    public static function all($statusType, int $currentExamSessionID)
     {
         $result = DB::table('requests')
-            ->where('requestStatus', 0)
+            ->where(Requests::whereRequestStatus($statusType))
             ->where('examSessionID', $currentExamSessionID)
             ->orderByDesc('requestID')
             ->select(array(
@@ -36,12 +56,12 @@ class Requests
         return $result;
     }
 
-    public static function newPage(int $perPage, int $currentPage, int $currentExamSessionID)
+    public static function page($statusType, int $perPage, int $currentPage, int $currentExamSessionID)
     {
         $offSet = $currentPage * $perPage;
 
         $result = DB::table('requests')
-            ->where('requestStatus', 0)
+            ->where(Requests::whereRequestStatus($statusType))
             ->where('examSessionID', $currentExamSessionID)
             ->orderByDesc('requestID')
             ->limit($perPage)
@@ -56,134 +76,10 @@ class Requests
         return $result;
     }
 
-    public static function newSearch($searchRequest, $searchType, int $currentExamSessionID)
+    public static function search($statusType, $searchRequest, $searchType, int $currentExamSessionID)
     {
         $result = DB::table('requests')
-            ->where('requestStatus', 0)
-            ->where('examSessionID', $currentExamSessionID)
-            ->where("{$searchType}", 'like', "%{$searchRequest}%")
-            ->orderByDesc('requestID')
-            ->select(array(
-                'requestID', 'fullName', 'idOfTest', 'faculty',
-                'speciality', 'course', 'department', 'subject',
-                'mail', 'phoneNumber', 'reason',  'examType'
-            ))
-            ->get();
-
-        return $result;
-    }
-
-    public static function approvedAll(int $currentExamSessionID)
-    {
-        $result = DB::table('requests')
-            ->where(
-                function ($query) {
-                    return $query
-                        ->where('requestStatus', 1)
-                        ->orWhere('requestStatus', 2);
-                }
-            )
-            ->where('examSessionID', $currentExamSessionID)
-            ->orderByDesc('requestID')
-            ->select(array(
-                'requestID', 'fullName', 'idOfTest', 'faculty',
-                'speciality', 'course', 'department', 'subject',
-                'mail', 'phoneNumber', 'reason', 'examType'
-            ))
-            ->get();
-
-        return $result;
-    }
-
-    public static function approvedPage(int $perPage, int $currentPage, int $currentExamSessionID)
-    {
-        $offSet = $currentPage * $perPage;
-
-        $result = DB::table('requests')
-            ->where(
-                function ($query) {
-                    return $query
-                        ->where('requestStatus', 1)
-                        ->orWhere('requestStatus', 2);
-                }
-            )
-            ->where('examSessionID', $currentExamSessionID)
-            ->orderByDesc('requestID')
-            ->limit($perPage)
-            ->offset($offSet)
-            ->select(array(
-                'requestID', 'fullName', 'idOfTest', 'faculty',
-                'speciality', 'course', 'department', 'subject',
-                'mail', 'phoneNumber', 'reason', 'examType'
-            ))
-            ->get();
-
-        return $result;
-    }
-
-    public static function approvedSearch($searchRequest, $searchType, int $currentExamSessionID)
-    {
-        $result = DB::table('requests')
-            ->where(
-                function ($query) {
-                    return $query
-                        ->where('requestStatus', 1)
-                        ->orWhere('requestStatus', 2);
-                }
-            )
-            ->where('examSessionID', $currentExamSessionID)
-            ->orderByDesc('requestID')
-            ->where("{$searchType}", 'like', "%{$searchRequest}%")
-            ->select(array(
-                'requestID', 'fullName', 'idOfTest', 'faculty',
-                'speciality', 'course', 'department', 'subject',
-                'mail', 'phoneNumber', 'reason', 'examType'
-            ))
-            ->get();
-
-        return $result;
-    }
-
-    public static function rejectedAll(int $currentExamSessionID)
-    {
-        $result = DB::table('requests')
-            ->where('requestStatus', 3)
-            ->where('examSessionID', $currentExamSessionID)
-            ->orderByDesc('requestID')
-            ->select(array(
-                'requestID', 'fullName', 'idOfTest', 'faculty',
-                'speciality', 'course', 'department', 'subject',
-                'mail', 'phoneNumber', 'reason',  'examType'
-            ))
-            ->get();
-
-        return $result;
-    }
-
-    public static function rejectedPage(int $perPage, int $currentPage, int $currentExamSessionID)
-    {
-        $offSet = $currentPage * $perPage;
-
-        $result = DB::table('requests')
-            ->where('requestStatus', 3)
-            ->where('examSessionID', $currentExamSessionID)
-            ->orderByDesc('requestID')
-            ->limit($perPage)
-            ->offset($offSet)
-            ->select(array(
-                'requestID', 'fullName', 'idOfTest', 'faculty',
-                'speciality', 'course', 'department', 'subject',
-                'mail', 'phoneNumber', 'reason', 'examType'
-            ))
-            ->get();
-
-        return $result;
-    }
-
-    public static function rejectedSearch($searchRequest, $searchType, int $currentExamSessionID)
-    {
-        $result = DB::table('requests')
-            ->where('requestStatus', 3)
+            ->where(Requests::whereRequestStatus($statusType))
             ->where('examSessionID', $currentExamSessionID)
             ->where("{$searchType}", 'like', "%{$searchRequest}%")
             ->orderByDesc('requestID')
