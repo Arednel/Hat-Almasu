@@ -4,12 +4,14 @@
     <label for="search">Вариант поиска</label>
     <select id="searchType" name="searchType" required>
         <option value="requestID">ID</option>
-        <option value="fullName">ФИО</option>
         <option value="idOfTest">ID теста</option>
         <option value="department">Отделение</option>
+        <option value="course">Курс</option>
+        <option value="fullName">ФИО</option>
+
         <option value="faculty">Институт</option>
         <option value="speciality">Специальность</option>
-        <option value="course">Курс</option>
+
         <option value="subject">Дисциплина</option>
         <option value="mail">Почта</option>
         <option value="phoneNumber">Телефон</option>
@@ -38,8 +40,8 @@
                     searchType: searchType
                 },
                 success: function(requests) {
-                    $('#tableE-body').empty();
-                    $('#tableE-body').append(requests);
+                    $('tbody').empty();
+                    $('tbody').append(requests);
                 }
             });
         }, timeMS);

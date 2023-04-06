@@ -43,7 +43,6 @@
                     <th>Решение</th>
             </thead>
             <tbody>
-
                 @foreach ($result as $record)
                     <tr>
                         <td>{{ $record->requestID }} </td>
@@ -58,7 +57,6 @@
                         <td>{{ $record->phoneNumber }} </td>
                         <td>{{ $record->reason }} </td>
                         <td>{{ $record->examType }} </td>
-
                         <td>
                             <button type="button" target="_blank"
                                 onclick="window.open('/Request/Image/{{ $record->requestID }}')"

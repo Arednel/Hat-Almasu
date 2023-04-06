@@ -55,24 +55,28 @@ class RequestsController extends Controller
 
         $html = '';
         foreach ($result as $value) {
-            $html .= '<tr><td class="columnE">' . $value->requestID . '</td>';
-            $html .= '<td class="columnE">' . $value->fullName . '</td>';
-            $html .= '<td class="columnE">' . $value->idOfTest . '</td>';
-            $html .= '<td class="columnE">' . $value->department . '</td>';
-            $html .= '<td class="columnE">' . $value->faculty . ' / ' . $value->speciality . ' / ' . $value->course . ' / ' . $value->subject . '</td>';
-            $html .= '<td class="columnE">' . $value->mail . ' / ' . $value->phoneNumber . '</td>';
-            $html .= '<td class="columnE">' . $value->reason . '</td>';
-            $html .= '<td class="columnE">' . $value->examType . '</td>';
-            $html .= '<td class="columnE"><button type="button" target="_blank" onclick="window.open(&#39/Request/Image/' . $value->requestID . '&#39)" class="table-approval">Перейти к файлу</button></td>';
+            $html .= '<tr><td>' . $value->requestID . '</td>';
+            $html .= '<td>' . $value->idOfTest . '</td>';
+            $html .= '<td>' . $value->department . '</td>';
+            $html .= '<td>' . $value->course . '</td>';
+            $html .= '<td>' . $value->fullName . '</td>';
+            $html .= '<td>' . $value->faculty . '</td>';
+            $html .= '<td>' . $value->speciality . '</td>';
+            $html .= '<td>' . $value->subject . '</td>';
+            $html .= '<td>' . $value->mail . '</td>';
+            $html .= '<td>' . $value->phoneNumber . '</td>';
+            $html .= '<td>' . $value->reason . '</td>';
+            $html .= '<td>' . $value->examType . '</td>';
+            $html .= '<td><button type="button" target="_blank" onclick="window.open(&#39/Request/Image/' . $value->requestID . '&#39)" class="button-image-view">Перейти к файлу</button></td>';
             if (in_array(Session::get('userPrivilege'), ['Admin', 'Support'])) {
-                $html .= '<td class="columnE">';
+                $html .= '<td>';
                 if (in_array($request->statusType, ['new', 'rejected'])) {
                     $html .= '<button type="button" target="_blank" onclick="window.location=(&#39/Request/ChangeStatus/' .
-                        $value->requestID . '/1&#39)" class="table-approval-green">✓</button>';
+                        $value->requestID . '/1&#39)" class="button-approve">✓</button>';
                 }
                 if (in_array($request->statusType, ['new', 'approved'])) {
                     $html .= '<button type="button" target="_blank" onclick="window.location=(&#39/Request/ChangeStatus/' .
-                        $value->requestID . '/3&#39)" class="table-approval-red">X</button>';
+                        $value->requestID . '/3&#39)" class="button-reject">X</button>';
                 }
                 $html .=   '</td>';
             }
