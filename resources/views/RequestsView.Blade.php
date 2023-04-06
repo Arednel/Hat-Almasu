@@ -59,7 +59,7 @@
                         <td>{{ $record->examType }} </td>
                         <td>
                             <button type="button" target="_blank"
-                                onclick="window.open('/Request/Image/{{ $record->requestID }}')"
+                                onclick="window.open('/Requests/Image/{{ $record->requestID }}')"
                                 class="button-image-view">
                                 Перейти к файлу
                             </button>
@@ -68,14 +68,14 @@
                             <td>
                                 @if (in_array($statusType, ['new', 'rejected']))
                                     <button type="button" target="_blank"
-                                        onclick="window.location=('/Request/ChangeStatus/{{ $record->requestID }}/1')"
+                                        onclick="window.location=('/Requests/ChangeStatus/{{ $record->requestID }}/1')"
                                         class="button-approve">
                                         ✓
                                     </button>
                                 @endif
                                 @if (in_array($statusType, ['new', 'approved']))
                                     <button type="button" target="_blank"
-                                        onclick="window.location=('/Request/ChangeStatus/{{ $record->requestID }}/3')"
+                                        onclick="window.location=('/Requests/ChangeStatus/{{ $record->requestID }}/3')"
                                         class="button-reject">
                                         X
                                     </button>

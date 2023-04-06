@@ -5,9 +5,7 @@
 <head>
     <title>Наполненность</title>
 
-    <link rel="stylesheet" href="{{ asset('css/main.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/employeeFandT.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/betterTable.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/StandardTable.css') }}">
 </head>
 
 @include('/Components/navBar')
@@ -15,46 +13,48 @@
 
 <body>
     <div class="main-body">
-        <table class="tableE">
-            <thead class="tableE-head">
-                <tr>
-                    <th class="columnE">ID</th>
-                    <th class="columnE">ФИО</th>
-                    <th class="columnE">ID теста</th>
-                    <th class="columnE">Отделение</th>
-                    <th class="columnE">Институт / Специальность / Курс / Дисциплина</th>
-                    <th class="columnE">Почта / Телефон</th>
-                    <th class="columnE">Причина</th>
-                    <th class="columnE">Вид Экзамена</th>
-                    <th class="columnE">Подтверждающий документ</th>
-                </tr>
-            </thead>
-            <tbody class="tableE-body">
-                @php
-                    $greyRow = false;
-                @endphp
+        <table>
+            <colgroup>
+                <col span="4" style="width: 4%" />
+                <col span="8" />
+                <col style="width: 6%" />
+            </colgroup>
 
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>ID теста</th>
+                    <th>Отделение</th>
+                    <th>Курс</th>
+                    <th>ФИО</th>
+                    <th>Институт</th>
+                    <th>Специальность</th>
+                    <th>Дисциплина</th>
+                    <th>Почта</th>
+                    <th>Телефон</th>
+                    <th>Причина</th>
+                    <th>Вид Экзамена</th>
+                    <th>Файл</th>
+            </thead>
+            <tbody>
                 @foreach ($result as $record)
                     <tr>
-                        <td class="columnE">{{ $record->requestID }} </td>
-                        <td class="columnE">{{ $record->fullName }}</td>
-                        <td class="columnE">{{ $record->idOfTest }}</td>
-                        <td class="columnE">{{ $record->department }}</td>
-                        <td class="columnE">{{ $record->faculty }} /
-                            {{ $record->speciality }} /
-                            {{ $record->course }} /
-                            {{ $record->subject }}
-                        </td>
-                        <td class="columnE">
-                            {{ $record->mail }} /
-                            {{ $record->phoneNumber }}
-                        </td>
-                        <td class="columnE">{{ $record->reason }}</td>
-                        <td class="columnE"> {{ $record->examType }}</td>
-                        <td class="columnE">
+                        <td>{{ $record->requestID }} </td>
+                        <td>{{ $record->idOfTest }} </td>
+                        <td>{{ $record->department }} </td>
+                        <td>{{ $record->course }} </td>
+                        <td>{{ $record->fullName }} </td>
+                        <td>{{ $record->faculty }} </td>
+                        <td>{{ $record->speciality }} </td>
+                        <td>{{ $record->subject }} </td>
+                        <td>{{ $record->mail }} </td>
+                        <td>{{ $record->phoneNumber }} </td>
+                        <td>{{ $record->reason }} </td>
+                        <td>{{ $record->examType }} </td>
+                        <td>
                             <button type="button" target="_blank"
-                                onclick="window.open('/Request/Image/{{ $record->requestID }}')"
-                                class="table-approval">
+                                onclick="window.open('/Requests/Image/{{ $record->requestID }}')"
+                                class="button-image-view">
                                 Перейти к файлу
                             </button>
                         </td>

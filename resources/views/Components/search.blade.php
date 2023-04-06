@@ -23,7 +23,7 @@
 <script src="{{ asset('scripts/jquery-3.6.4.min.js') }}"></script>
 <script>
     var keyupTimer;
-    var timeMS = 1000;
+    var timeMS = 800;
 
     function search() {
         clearTimeout(keyupTimer);

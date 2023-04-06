@@ -8,8 +8,7 @@
     {{-- For ngrok --}}
     {{-- <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests"> --}}
 
-    <link rel="stylesheet" href="{{ asset('css/main.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/index.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/Index.css') }}">
 </head>
 
 @include('/Components/navBar')

@@ -5,9 +5,8 @@
 <head>
     <title>Сессии</title>
 
-    <link rel="stylesheet" href="{{ asset('css/main.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/employeeFandT.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/betterTableManage.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/StandardTable.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/Modal.css') }}">
 </head>
 
 @include('/Components/navBar')
@@ -17,43 +16,30 @@
 <body>
     <div class="main-body">
 
-        @include ('/Components/pageSwitchingDiv')
+        @include ('/Components/pageSwitching')
 
         <table class="table">
             <thead class="table-head">
                 <tr>
-                    <th class="column">ID сессии <img src="{{ asset('images/sort.png') }}" class="Sort" />
-                    </th>
-                    <th class="column">Заявки <img src="{{ asset('images/sort.png') }}" class="Sort" />
-                    </th>
-                    <th class="column">Доступные для пересдачи даты <img src="{{ asset('images/sort.png') }}"
-                            class="Sort" />
-                    </th>
-                    <th class="column">Аудитории <img src="{{ asset('images/sort.png') }}" class="Sort" />
-                    </th>
+                    <th>ID</th>
+                    <th>Заявки</th>
+                    <th>Доступные для пересдачи даты</th>
+                    <th>Аудитории</th>
                 </tr>
             </thead>
             <tbody class="table-body">
                 @foreach ($result as $record)
                     <tr>
-                        <td class="column">
-                            {{ $record->examSessionID }}
-                        </td>
-                        <td class="column">
-                            {{ $record->requestsAmount }}
-                        </td>
-                        <td class="column">
-                            {{ $record->datesAmount }}
-                        </td>
-                        <td class="column">
-                            {{ $record->roomsAmount }}
-                        </td>
+                        <td>{{ $record->examSessionID }}</td>
+                        <td>{{ $record->requestsAmount }}</td>
+                        <td>{{ $record->datesAmount }}</td>
+                        <td>{{ $record->roomsAmount }}</td>
                     </tr>
                 @endforeach
             </tbody>
         </table>
 
-        @include ('/Components/pageSwitchingDiv')
+        @include ('/Components/pageSwitching')
 
         <div id="myModal" class="modal">
             <div class="modal-content">

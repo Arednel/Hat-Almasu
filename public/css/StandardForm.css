@@ -38,8 +38,6 @@ select {
     border-bottom: 0.4vh solid rgb(182, 182, 182);
     font-size: clamp(16px, 3vh, 24px);
     background-color: #F7F4F4;
-    -moz-box-sizing: border-box;
-    -webkit-box-sizing: border-box;
     box-sizing: border-box;
 
     border-top-right-radius: 1vh;

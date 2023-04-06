@@ -1,3 +1,14 @@
+body {
+    min-height: 120vh;
+    margin: 0;
+
+    display: grid;
+    grid-template-rows: 9vh auto auto;
+    grid-column: auto;
+
+    font-family: system-ui;
+}
+
 .main-body {
     grid-row: 2/3;
     display: grid;
@@ -159,6 +170,31 @@ h4 {
     /* Unicode character for "minus" sign (-) */
 }
 
+.message-green,
+.message-red,
+.message-grey {
+    color: white;
+    padding: 2vh;
+    width: 35%;
+    border-radius: 1vh;
+    margin: 4vh auto;
+    font-size: 2.7vh;
+    text-align: center;
+}
+
+.message-green {
+    background: green;
+}
+
+.message-red {
+    background: red;
+}
+
+.message-grey {
+    background: grey;
+}
+
+
 @media (max-device-width: 850px) {
     .secondDivLeft {
         grid-column: 1/5;
@@ -179,5 +215,15 @@ h4 {
         top: -2%;
         left: 5%;
         width: 90%;
+    }
+
+    body {
+        grid-template-rows: 18vh auto auto;
+    }
+
+    .message-green,
+    .message-red,
+    .message-grey {
+        width: 75%;
     }
 }

@@ -5,9 +5,8 @@
 <head>
     <title>Доступные даты</title>
 
-    <link rel="stylesheet" href="{{ asset('css/main.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/employeeFandT.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/betterTableManage.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/StandardTable.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/Modal.css') }}">
 </head>
 
 @include('/Components/navBar')
@@ -17,40 +16,34 @@
 <body>
     <div class="main-body">
 
-        @include ('/Components/pageSwitchingDiv')
+        @include ('/Components/pageSwitching')
 
-        <table class="table">
-            <thead class="table-head">
+        <table>
+            <thead>
                 <tr>
-                    <th class="column">Дата <img src="{{ asset('images/sort.png') }}" class="Sort" /></th>
-                    <th class="column">С / До <img src="{{ asset('images/sort.png') }}" class="Sort" /></th>
-                    <th class="column">Онлайн <img src="{{ asset('images/sort.png') }}" class="Sort" /></th>
-                    <th class="column">ID сессии <img src="{{ asset('images/sort.png') }}" class="Sort" /></th>
+                    <th>Дата</th>
+                    <th>С / До</th>
+                    <th>Онлайн</th>
+                    <th>ID сессии</th>
                 </tr>
             </thead>
-            <tbody class="table-body">
+            <tbody>
                 @foreach ($result as $record)
                     <tr>
-                        <td class="column">
-                            {{ $record->date }}
-                        </td>
-                        <td class="column">
-                            С {{ $record->startHour }}:00 до {{ $record->endHour }}:00
-                        </td>
+                        <td>{{ $record->date }}</td>
+                        <td>С {{ $record->startHour }}:00 до {{ $record->endHour }}:00</td>
                         @if ($record->isOnline)
-                            <td class="column">✓</td>
+                            <td>✓</td>
                         @else
-                            <td class="column">X</td>
+                            <td>X</td>
                         @endif
-                        <td class="column">
-                            {{ $record->examSessionID }}
-                        </td>
+                        <td>{{ $record->examSessionID }}</td>
                     </tr>
                 @endforeach
             </tbody>
         </table>
 
-        @include ('/Components/pageSwitchingDiv')
+        @include ('/Components/pageSwitching')
 
         <div id="myModal" class="modal">
             <div class="modal-content">

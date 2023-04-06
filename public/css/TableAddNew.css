@@ -1,0 +1,16 @@
+.table-add-new {
+    position: fixed;
+    top: 34vh;
+    right: 1.7vh;
+    z-index: 5;
+}
+
+.table-add-new-DropBtn {
+    background-color: #0c1f8b;
+    color: white;
+    font-family: system-ui;
+    font-size: 3vh;
+    border: none;
+    height: 8vh;
+    min-width: 17vh;
+}

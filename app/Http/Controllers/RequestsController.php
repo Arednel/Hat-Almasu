@@ -67,15 +67,15 @@ class RequestsController extends Controller
             $html .= '<td>' . $value->phoneNumber . '</td>';
             $html .= '<td>' . $value->reason . '</td>';
             $html .= '<td>' . $value->examType . '</td>';
-            $html .= '<td><button type="button" target="_blank" onclick="window.open(&#39/Request/Image/' . $value->requestID . '&#39)" class="button-image-view">Перейти к файлу</button></td>';
+            $html .= '<td><button type="button" target="_blank" onclick="window.open(&#39/Requests/Image/' . $value->requestID . '&#39)" class="button-image-view">Перейти к файлу</button></td>';
             if (in_array(Session::get('userPrivilege'), ['Admin', 'Support'])) {
                 $html .= '<td>';
                 if (in_array($request->statusType, ['new', 'rejected'])) {
-                    $html .= '<button type="button" target="_blank" onclick="window.location=(&#39/Request/ChangeStatus/' .
+                    $html .= '<button type="button" target="_blank" onclick="window.location=(&#39/Requests/ChangeStatus/' .
                         $value->requestID . '/1&#39)" class="button-approve">✓</button>';
                 }
                 if (in_array($request->statusType, ['new', 'approved'])) {
-                    $html .= '<button type="button" target="_blank" onclick="window.location=(&#39/Request/ChangeStatus/' .
+                    $html .= '<button type="button" target="_blank" onclick="window.location=(&#39/Requests/ChangeStatus/' .
                         $value->requestID . '/3&#39)" class="button-reject">X</button>';
                 }
                 $html .=   '</td>';

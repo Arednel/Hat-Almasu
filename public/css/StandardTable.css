@@ -14,12 +14,12 @@ body {
 }
 
 table {
-    margin-top: 9vh;
     margin-left: 1vh;
     width: calc(100% - 1vh);
     table-layout: fixed;
 
-    border-collapse: collapse;
+    border-collapse: separate;
+    border-spacing: 0;
 
     overflow-wrap: break-word;
     text-align: center;
@@ -39,8 +39,11 @@ thead {
 
 th {
     padding: 3px;
+    padding-bottom: 6px;
 
-    border: 2px solid black;
+    border-top: 3px solid black;
+    border-bottom: 3px solid black;
+    border-right: 3px solid black;
 
     font-size: clamp(20px, 3vh, 24px);
 }
@@ -48,9 +51,15 @@ th {
 td {
     padding: 3px;
 
-    border: 2px solid black;
+    border-bottom: 3px solid black;
+    border-right: 3px solid black;
 
     font-size: clamp(16px, 2vh, 20px);
+}
+
+table th:first-child,
+table td:first-child {
+    border-left: 2px solid black;
 }
 
 .button-image-view,

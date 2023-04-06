@@ -3,7 +3,7 @@
 <html>
 
 <head>
-    <title>Документ заявки</title>
+    <title>Файл заявки</title>
 </head>
 
 <style>

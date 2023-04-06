@@ -22,9 +22,9 @@
             <div class="DropDown">
                 <button class="dropbtn">{!! __('Заявки') !!}</button>
                 <div class="DropDown-content">
-                    <a href="/RequestsView/new/0">{!! __('Новые') !!}</a>
-                    <a href="/RequestsView/approved/0">{!! __('Одобренные') !!}</a>
-                    <a href="/RequestsView/rejected/0">{!! __('Отклонённые') !!}</a>
+                    <a href="/Requests/View/new/0">{!! __('Новые') !!}</a>
+                    <a href="/Requests/View/approved/0">{!! __('Одобренные') !!}</a>
+                    <a href="/Requests/View/rejected/0">{!! __('Отклонённые') !!}</a>
                 </div>
             </div>&nbsp<a href="/Logout"> {!! __('Выйти') !!} </a>
         @endif

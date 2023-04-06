@@ -5,9 +5,8 @@
 <head>
     <title>Аудитории</title>
 
-    <link rel="stylesheet" href="{{ asset('css/main.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/employeeFandT.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/betterTableManage.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/StandardTable.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/Modal.css') }}">
 </head>
 
 @include('/Components/navBar')
@@ -17,35 +16,28 @@
 <body>
     <div class="main-body">
 
-        @include ('/Components/pageSwitchingDiv')
+        @include ('/Components/pageSwitching')
 
         <table class="table">
             <thead class="table-head">
                 <tr>
-                    <th class="column">Название Аудитории <img src="{{ asset('images/sort.png') }}" class="Sort" />
-                    </th>
-                    <th class="column">Количество мест <img src="{{ asset('images/sort.png') }}" class="Sort" /></th>
-                    <th class="column">ID сессии <img src="{{ asset('images/sort.png') }}" class="Sort" /></th>
+                    <th>Название Аудитории</th>
+                    <th>Количество мест</th>
+                    <th>ID сессии</th>
                 </tr>
             </thead>
             <tbody class="table-body">
                 @foreach ($result as $record)
                     <tr>
-                        <td class="column">
-                            {{ $record->roomName }}
-                        </td>
-                        <td class="column">
-                            {{ $record->roomSpace }}
-                        </td>
-                        <td class="column">
-                            {{ $record->examSessionID }}
-                        </td>
+                        <td>{{ $record->roomName }}</td>
+                        <td>{{ $record->roomSpace }}</td>
+                        <td>{{ $record->examSessionID }}</td>
                     </tr>
                 @endforeach
             </tbody>
         </table>
 
-        @include ('/Components/pageSwitchingDiv')
+        @include ('/Components/pageSwitching')
 
         <div id="myModal" class="modal">
             <div class="modal-content">

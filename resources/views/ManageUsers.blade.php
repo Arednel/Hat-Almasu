@@ -5,9 +5,8 @@
 <head>
     <title>Пользователи</title>
 
-    <link rel="stylesheet" href="{{ asset('css/main.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/employeeFandT.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/betterTableManage.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/StandardTable.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/Modal.css') }}">
 </head>
 
 @include('/Components/navBar')
@@ -17,38 +16,30 @@
 <body>
     <div class="main-body">
 
-        @include ('/Components/pageSwitchingDiv')
+        @include ('/Components/pageSwitching')
 
         <table class="table">
             <thead class="table-head">
                 <tr>
-                    <th class="column">Логин <img src="{{ asset('images/sort.png') }}" class="Sort" /></th>
-                    <th class="column">Пароль <img src="{{ asset('images/sort.png') }}" class="Sort" /></th>
-                    <th class="column">Уровень доступа <img src="{{ asset('images/sort.png') }}" class="Sort" /></th>
-                    <th class="column">ID пользователя <img src="{{ asset('images/sort.png') }}" class="Sort" /></th>
+                    <th>ID</th>
+                    <th>Логин</th>
+                    <th>Пароль</th>
+                    <th>Уровень доступа</th>
                 </tr>
             </thead>
             <tbody class="table-body">
                 @foreach ($result as $record)
                     <tr>
-                        <td class="column">
-                            {{ $record->userName }}
-                        </td>
-                        <td class="column">
-                            {{ $record->userPassword }}
-                        </td>
-                        <td class="column">
-                            {{ $record->userPrivilege }}
-                        </td>
-                        <td class="column">
-                            {{ $record->userID }}
-                        </td>
+                        <td>{{ $record->userID }}</td>
+                        <td>{{ $record->userName }}</td>
+                        <td>{{ $record->userPassword }}</td>
+                        <td>{{ $record->userPrivilege }}</td>
                     </tr>
                 @endforeach
             </tbody>
         </table>
 
-        @include ('/Components/pageSwitchingDiv')
+        @include ('/Components/pageSwitching')
 
         <div id="myModal" class="modal">
             <div class="modal-content">

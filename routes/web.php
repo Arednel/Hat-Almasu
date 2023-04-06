@@ -45,15 +45,17 @@ Route::post('/LoginLogic', [LoginController::class, 'login']);
 Route::get('/Logout', [LoginController::class, 'logout']);
 Route::get('/logout', [LoginController::class, 'logout']);
 
-//Requests view data: New, Approved and Rejected
-Route::get('/RequestsView/{statusType}/{currentPage}', [RequestsController::class, 'page']);
+//Requests view (new, approved and rejected)
+Route::get('/Requests/View/{statusType}/{currentPage}', [RequestsController::class, 'page']);
+
+//Requests search
 Route::get('/Requests/Search', [RequestsController::class, 'search']);
 
 //Request view image
-Route::get('/Request/Image/{requestID}', [RequestsController::class, 'image']);
+Route::get('/Requests/Image/{requestID}', [RequestsController::class, 'image']);
 
 //Request change status
-Route::get('/Request/ChangeStatus/{requestID}/{requestStatus}', [RequestsController::class, 'changeStatus']);
+Route::get('/Requests/ChangeStatus/{requestID}/{requestStatus}', [RequestsController::class, 'changeStatus']);
 
 //Request excel export
 Route::get('/ExcelExportAll/{statusType}', [RequestsController::class, 'excelExportAll']);
