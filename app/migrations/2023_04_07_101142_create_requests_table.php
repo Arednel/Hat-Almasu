@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
+class CreateRequestsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -26,8 +26,10 @@ return new class extends Migration
             $table->string('phoneNumber', 150);
             $table->string('reason', 30);
             $table->string('examType', 30);
-            $table->binary('confirmationFile');
-            $table->tinyInteger('requestStatus');
+            $table->mediumblob('confirmationFile');
+            $table->boolean('requestStatus')->default(0);
+            $table->integer('examSessionID');
+            $table->dateTime('created_at')->useCurrent();
         });
     }
 
@@ -40,4 +42,4 @@ return new class extends Migration
     {
         Schema::dropIfExists('requests');
     }
-};
+}

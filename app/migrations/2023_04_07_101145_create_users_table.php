@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
+class CreateUsersTable extends Migration
 {
     /**
      * Run the migrations.
@@ -18,9 +18,8 @@ return new class extends Migration
             $table->string('userName', 50);
             $table->string('userPassword', 50);
             $table->string('userPrivilege', 50);
-            $table->timestamps();
-            $table->timestamp('created_at')->useCurrent();
-            $table->timestamp('updated_at')->useCurrent();
+            $table->dateTime('created_at')->useCurrent();
+            $table->dateTime('updated_at')->useCurrent();
         });
     }
 
@@ -33,4 +32,4 @@ return new class extends Migration
     {
         Schema::dropIfExists('users');
     }
-};
+}

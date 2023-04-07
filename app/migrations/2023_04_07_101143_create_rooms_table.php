@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
+class CreateRoomsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,11 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('availabledates', function (Blueprint $table) {
-            $table->date('date')->primary();
-            $table->tinyInteger('startHour');
-            $table->tinyInteger('endHour');
-            $table->tinyInteger('isOnline')->default(0);
+        Schema::create('rooms', function (Blueprint $table) {
+            $table->increments('roomID');
+            $table->string('roomName', 50);
+            $table->smallInteger('roomSpace');
+            $table->integer('examSessionID');
         });
     }
 
@@ -28,6 +28,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('availabledates');
+        Schema::dropIfExists('rooms');
     }
-};
+}
