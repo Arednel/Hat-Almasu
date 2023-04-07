@@ -67,7 +67,7 @@ class RequestsController extends Controller
             $html .= '<td>' . $value->phoneNumber . '</td>';
             $html .= '<td>' . $value->reason . '</td>';
             $html .= '<td>' . $value->examType . '</td>';
-            $html .= '<td><button type="button" target="_blank" onclick="window.open(&#39/Requests/Image/' . $value->requestID . '&#39)" class="button-image-view">Перейти к файлу</button></td>';
+            $html .= '<td><button type="button" target="_blank" onclick="window.open(&#39/Requests/Image/' . $value->requestID . '&#39)" class="button-image-view">Перейти</button></td>';
             if (in_array(Session::get('userPrivilege'), ['Admin', 'Support'])) {
                 $html .= '<td>';
                 if (in_array($request->statusType, ['new', 'rejected'])) {

@@ -1,5 +1,7 @@
-<div>
-    <label for="search">Поиск по id</label>
+<link rel="stylesheet" href="{{ asset('css/Search.css') }}" />
+
+<div class="search">
+    <label for="search">Введите данные для поиска</label>
     <input type="search" id="search" name="search">
     <label for="search">Вариант поиска</label>
     <select id="searchType" name="searchType" required>

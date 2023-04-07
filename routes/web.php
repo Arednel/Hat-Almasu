@@ -8,7 +8,6 @@ use App\Http\Controllers\DatesController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\RoomsController;
 use App\Http\Controllers\UsersController;
-use App\Http\Controllers\OptionsController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\RequestsController;
 use App\Http\Controllers\OccupancyController;

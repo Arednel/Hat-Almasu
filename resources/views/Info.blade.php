@@ -37,8 +37,8 @@
     <br>
     <a href="/">← На главную</a>
 
-    <p>version 0.9.8 / 2023.04.6</p>
-    <p>Visual update part 2 and fixes</p>
+    <p>version 0.9.9 / 2023.04.7</p>
+    <p>Fixes</p>
     <p>Made by Evtifeev Artyom Vladislavovich / Arednel</p>
     <p>2023 &#169 Test Center</p>
 </body>

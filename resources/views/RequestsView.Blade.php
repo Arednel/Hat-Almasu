@@ -61,7 +61,7 @@
                             <button type="button" target="_blank"
                                 onclick="window.open('/Requests/Image/{{ $record->requestID }}')"
                                 class="button-image-view">
-                                Перейти к файлу
+                                Перейти
                             </button>
                         </td>
                         @if (in_array(Session::get('userPrivilege'), ['Admin', 'Support']))

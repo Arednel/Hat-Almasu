@@ -17,6 +17,7 @@ class Users
 
         return $result;
     }
+
     public static function insert($data)
     {
         DB::table('users')->insert($data);
@@ -27,7 +28,10 @@ class Users
 
         DB::table('users')
             ->where('userID', $userID)
-            ->update(['userName' => $userName], ['updated_at' => time()]);
+            ->update([
+                'userName' => $userName,
+                'updated_at' => now()
+            ]);
     }
 
     public static function updateUserPassword($userID, $userPassword)
@@ -35,7 +39,10 @@ class Users
 
         DB::table('users')
             ->where('userID', $userID)
-            ->update(['userPassword' => $userPassword], ['updated_at' => time()]);
+            ->update([
+                'userPassword' => $userPassword,
+                'updated_at' => now()
+            ]);
     }
 
     public static function updateUserPrivilege($userID, $userPrivilege)
@@ -43,7 +50,10 @@ class Users
 
         DB::table('users')
             ->where('userID', $userID)
-            ->update(['userPrivilege' => $userPrivilege], ['updated_at' => time()]);
+            ->update([
+                'userPrivilege' => $userPrivilege,
+                'updated_at' => now()
+            ]);
     }
 
     public static function delete($userID)

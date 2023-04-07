@@ -50,8 +50,9 @@
                 <option value="" disabled selected>{!! __('Специальность') !!}</option>
             </select>
             <input type="text" name="subject" placeholder=" {!! __('Дисциплина (предмет)') !!}" required />
-            <input type="email" name="mail" placeholder=" {!! __('Почта для связи') !!}" required />
-            <input type="tel" name="phoneNumber" minlength="11" placeholder=" {!! __('Номер телефона для связи') !!}" required />
+            <input id="email" type="email" name="mail" placeholder=" {!! __('Почта для связи') !!}" required />
+            <input id="phoneNumber" type="text" name="phoneNumber" placeholder=" {!! __('Номер телефона для связи') !!}"
+                required />
             <select name="reason">
                 <option value="Технический сбой">{!! __('Технический сбой') !!}</option>
             </select>
@@ -85,6 +86,12 @@
         );
 
         $('#speciality').append(options[chosenOption]);
+    });
+</script>
+<script src="{{ asset('scripts/jquery.inputmask.js') }}"></script>
+<script>
+    $('#phoneNumber').inputmask({
+        'mask': '+7 999 999 99-99'
     });
 </script>
 
