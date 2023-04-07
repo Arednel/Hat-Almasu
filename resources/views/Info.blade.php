@@ -37,8 +37,8 @@
     <br>
     <a href="/">← На главную</a>
 
-    <p>version 1.0.0.3 / 2023.04.7</p>
-    <p>Migrations fix 3</p>
+    <p>version 1.0.0.4 / 2023.04.7</p>
+    <p>Migrations fix 4</p>
     <p>Made by Evtifeev Artyom Vladislavovich / Arednel</p>
     <p>2023 &#169 Test Center</p>
 </body>

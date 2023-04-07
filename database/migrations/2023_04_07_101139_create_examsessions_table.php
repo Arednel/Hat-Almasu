@@ -1,8 +1,9 @@
 <?php
 
-use Illuminate\Database\Migrations\Migration;
-use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Database\Migrations\Migration;
 
 class CreateExamsessionsTable extends Migration
 {
@@ -16,6 +17,12 @@ class CreateExamsessionsTable extends Migration
         Schema::create('examsessions', function (Blueprint $table) {
             $table->integer('examSessionID')->primary();
         });
+
+        DB::table('examsessions')->insert(
+            array(
+                'examSessionID' => 0
+            )
+        );
     }
 
     /**

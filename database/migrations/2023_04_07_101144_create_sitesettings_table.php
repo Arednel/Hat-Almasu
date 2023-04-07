@@ -20,13 +20,14 @@ class CreateSitesettingsTable extends Migration
             $table->boolean('canSendRequests')->default(1);
         });
 
-        DB::table('sitesettings')->insert(
-            array(
-                'id' => '1',
-                'currentExamSessionID' => '0',
-                'canSendRequests' => '1'
-            )
-        );
+        DB::table('sitesettings')
+            ->insert(
+                array(
+                    'id' => '1',
+                    'currentExamSessionID' => '0',
+                    'canSendRequests' => '1'
+                )
+            );
     }
 
     /**
