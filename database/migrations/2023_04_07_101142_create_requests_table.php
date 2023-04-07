@@ -1,8 +1,9 @@
 <?php
 
-use Illuminate\Database\Migrations\Migration;
-use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Database\Migrations\Migration;
 
 class CreateRequestsTable extends Migration
 {
@@ -26,11 +27,13 @@ class CreateRequestsTable extends Migration
             $table->string('phoneNumber', 150);
             $table->string('reason', 30);
             $table->string('examType', 30);
-            $table->mediumblob('confirmationFile');
+            $table->binary('confirmationFile');
             $table->boolean('requestStatus')->default(0);
             $table->integer('examSessionID');
             $table->dateTime('created_at')->useCurrent();
         });
+
+        DB::statement("ALTER TABLE `requests` MODIFY `confirmationFile` MEDIUMBLOB");
     }
 
     /**
