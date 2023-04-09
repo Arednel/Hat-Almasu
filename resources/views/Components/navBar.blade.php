@@ -1,9 +1,9 @@
 <link rel="stylesheet" href="{{ asset('css/NavBar.css') }}" />
 
-<div class="nav-bar">
+<header class="nav-bar">
     <a href="/"><img src="{{ asset('images/logo.png') }}" class="topLogo"></a>
     <div class="nav-bar-center">
-        <a href="/Register">{!! __('Статус заявки') !!}</a>&nbsp
+        <a href="/Register">{!! __('Статус заявки') !!}</a>
         <a href="/RequestNew" class="red">{!! __('Подать заявку') !!}</a>
 
         @if (Session::get('userID'))
@@ -18,7 +18,7 @@
                     <a href="/Manage/ExamSessions/0">{!! __('Сессиями') !!}</a>
                 </div>
             </div>
-            &nbsp<a href="/Occupancy/Date">{!! __('Заполненность') !!}</a>&nbsp
+            <a href="/Occupancy/Date">{!! __('Заполненность') !!}</a>
             <div class="DropDown">
                 <button class="dropbtn">{!! __('Заявки') !!}</button>
                 <div class="DropDown-content">
@@ -26,7 +26,7 @@
                     <a href="/Requests/View/approved/0">{!! __('Одобренные') !!}</a>
                     <a href="/Requests/View/rejected/0">{!! __('Отклонённые') !!}</a>
                 </div>
-            </div>&nbsp<a href="/Logout"> {!! __('Выйти') !!} </a>
+            </div><a href="/Logout"> {!! __('Выйти') !!}</a>
         @endif
     </div>
     <div class="nav-bar-right">
@@ -39,4 +39,4 @@
             </div>
         </div>
     </div>
-</div>
+</header>
