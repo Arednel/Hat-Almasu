@@ -37,8 +37,8 @@
     <br>
     <a href="/">← На главную</a>
 
-    <p>version 1.0.1 / 2023.04.9</p>
-    <p>NavBar refactor</p>
+    <p>version 1.0.2 / 2023.04.13</p>
+    <p>CSS updates and fixes</p>
     <p>Made by Evtifeev Artyom Vladislavovich / Arednel</p>
     <p>2023 &#169 Test Center</p>
 </body>

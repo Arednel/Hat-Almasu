@@ -75,7 +75,7 @@ input[type="file"]::file-selector-button {
 
 /* For image input */
 
-@media (max-device-width: 750px) {
+@media (max-device-width: 700px) {
     .form-image {
         display: none;
     }

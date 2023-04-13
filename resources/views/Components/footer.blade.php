@@ -4,7 +4,7 @@
     <div class="footerColumnTwo">
         <hr style="visibility:hidden;" />
         <img src="{{ asset('images/logo.png') }}" class="footerLogo">
-        <p class="footerTextWhite">2022 &#169 Test Center</p>
+        <p class="footerTextWhite">2022-2023 &#169 Test Center</p>
     </div>
 
     <div class="footerColumnFour">
@@ -17,7 +17,7 @@
         <p class="footerTextGrey">{!! __('Помощь') !!}</p>
         <p class="footerTextWhite">
             <span style="color:yellow">8983125706a@gmail.com</span>
-            {!! __('- при возникновении каких-либо проблем или вопросов касательно работы сайта') !!}
+            - {!! __('при возникновении проблем или вопросов касательно работы сайта') !!}
         </p>
     </div>
 </div>

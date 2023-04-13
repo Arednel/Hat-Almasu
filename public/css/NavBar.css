@@ -113,7 +113,7 @@ a:link.red {
 }
 
 /* Media query for small screens */
-@media (max-device-width: 850px) {
+@media (max-device-width: 700px) {
     .nav-bar {
         height: 18vh;
     }

@@ -22,12 +22,12 @@ body {
 
 h1 {
     text-align: center;
-    font-size: 6vh;
+    font-size: clamp(32px, 6vh, 52px);
 }
 
 h2 {
     text-align: center;
-    font-size: 4vh;
+    font-size: clamp(24px, 4vh, 40px);
     color: #7C7C7C
 }
 
@@ -42,7 +42,7 @@ h3 {
     text-align: center;
     grid-row: 1;
     grid-column: 2/4;
-    font-size: 5vh;
+    font-size: clamp(28px, 5vh, 48px);
     letter-spacing: -0.01em;
 }
 
@@ -57,12 +57,12 @@ h3 {
 }
 
 .secondDivRightTextFirst {
-    font-size: 5vh;
+    font-size: clamp(28px, 5vh, 48px);
     letter-spacing: -0.01em;
 }
 
 .secondDivRightTextSecond {
-    font-size: 3.5vh;
+    font-size: clamp(20px, 4vh, 40px);
     letter-spacing: -0.01em;
 }
 
@@ -73,7 +73,7 @@ h3 {
 
 h4 {
     text-align: center;
-    font-size: 4vh;
+    font-size: clamp(20px, 4vh, 40px);
 }
 
 .help {
@@ -84,29 +84,31 @@ h4 {
     text-align: left;
     border-radius: 7vh;
     background-color: white;
-    font-size: 3vh;
+    font-size: clamp(20px, 4vh, 40px);
 }
 
 .imgOne {
-    border-radius: 25vh;
+    border-radius: clamp(50px, 20vh, 150px);
     margin: auto;
     display: block;
-    width: 60%;
-    filter: drop-shadow(-5vh -3vh #d0c7df);
+    width: clamp(150px, 60%, 800px);
+    filter: drop-shadow(clamp(-30px, -4vh, -80px) clamp(-20px, -2vh, -60px) #d0c7df);
 }
 
 .imgTwo {
-    border-radius: 10vh;
+    border-radius: clamp(25px, 10vh, 75px);
     margin: auto;
     display: block;
-    width: 80%;
-    filter: drop-shadow(-4vh -3vh #d0c7df);
+    width: clamp(200px, 70%, 900px);
+    filter: drop-shadow(clamp(-30px, -4vh, -80px) clamp(-30px, -3vh, -80px) #d0c7df);
 }
 
 /* Faq css */
 .faq-heading {
     border-bottom: #777;
     padding: 20px 60px;
+    font-size: clamp(28px, 5vh, 52px);
+    text-align: center;
 }
 
 .faq-container {
@@ -131,6 +133,8 @@ h4 {
     outline: none;
     transition: 0.4s;
     margin: auto;
+    font-size: clamp(24px, 4.5vh, 48px);
+    text-align: center;
 }
 
 .faq-body {
@@ -155,11 +159,12 @@ h4 {
 
 .faq-page:after {
     content: '\02795';
-    font-size: 3vh;
+    font-size: clamp(20px, 4vh, 40px);
     color: #777;
     float: right;
-    margin-top: 20px;
-    margin-left: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .active:after {
@@ -191,7 +196,7 @@ h4 {
 }
 
 
-@media (max-device-width: 850px) {
+@media (max-device-width: 700px) {
     .secondDivLeft {
         grid-column: 1/5;
     }
