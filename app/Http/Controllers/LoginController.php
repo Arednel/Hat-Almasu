@@ -33,5 +33,7 @@ class LoginController extends Controller
 
             return redirect('Index?message=Вы успешно авторизовались как: ' . Auth::user()->userName);
         }
+
+        return redirect('Login?error=Неверный логин или пароль');
     }
 }

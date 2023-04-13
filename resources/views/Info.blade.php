@@ -37,8 +37,8 @@
     <br>
     <a href="/">← На главную</a>
 
-    <p>version 1.1.0.1 / 2023.04.13</p>
-    <p>Small fix</p>
+    <p>version 1.1.0.2 / 2023.04.13</p>
+    <p>Show error on wrong login credentials</p>
     <p>Made by Evtifeev Artyom Vladislavovich / Arednel</p>
     <p>2022-2023 &#169 Test Center</p>
 </body>
