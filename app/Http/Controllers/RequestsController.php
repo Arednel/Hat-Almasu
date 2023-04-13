@@ -6,15 +6,17 @@ use App\Models\Options;
 use App\Models\Requests;
 use App\Models\SiteSettings;
 
-use Illuminate\Http\Request;
-
-use Maatwebsite\Excel\Facades\Excel;
 use App\Exports\RequestsExport;
+
+use Illuminate\Http\Request;
 
 use Illuminate\Validation\Rule;
 
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
+
+use Maatwebsite\Excel\Facades\Excel;
 
 class RequestsController extends Controller
 {
@@ -22,10 +24,6 @@ class RequestsController extends Controller
 
     public function page($statusType, $currentPage)
     {
-        if (!(in_array(Session::get('userPrivilege'), ['Admin', 'Support', 'Viewer']))) {
-            return redirect('/Index?error=У вас недостаточный уровень доступа!');
-        }
-
         $requestsTitle = array("new" => "Новые заявки", "approved" => "Одобренные заявки", "rejected" => "Отклонённые заявки");
 
         $perPage = $this->perPagePrivate;
@@ -68,7 +66,7 @@ class RequestsController extends Controller
             $html .= '<td>' . $value->reason . '</td>';
             $html .= '<td>' . $value->examType . '</td>';
             $html .= '<td><button type="button" target="_blank" onclick="window.open(&#39/Requests/Image/' . $value->requestID . '&#39)" class="button-image-view">Перейти</button></td>';
-            if (in_array(Session::get('userPrivilege'), ['Admin', 'Support'])) {
+            if (in_array(Auth::user()->userPrivilege, ['Admin', 'Support'])) {
                 $html .= '<td>';
                 if (in_array($request->statusType, ['new', 'rejected'])) {
                     $html .= '<button type="button" target="_blank" onclick="window.location=(&#39/Requests/ChangeStatus/' .
@@ -88,10 +86,6 @@ class RequestsController extends Controller
 
     public function changeStatus(int $requestID, int $requestStatus)
     {
-        if (!(in_array(Session::get('userPrivilege'), ['Admin', 'Support']))) {
-            return redirect('/Index?error=У вас недостаточный уровень доступа!');
-        }
-
         $dbRequestStatus = Requests::requestStatus($requestID);
 
         if ($dbRequestStatus->requestStatus == 2) {
@@ -175,10 +169,6 @@ class RequestsController extends Controller
 
     public function image(int $requestID)
     {
-        if (!(in_array(Session::get('userPrivilege'), ['Admin', 'Support', 'Viewer']))) {
-            return redirect('/Index?error=У вас недостаточный уровень доступа!');
-        }
-
         return view('RequestImage', ['image' => Requests::image($requestID)]);
     }
 
@@ -194,10 +184,6 @@ class RequestsController extends Controller
 
     public function excelExportAll(string $statusType)
     {
-        if (!(in_array(Session::get('userPrivilege'), ['Admin', 'Support', 'Viewer']))) {
-            return redirect('/Index?error=У вас недостаточный уровень доступа!');
-        }
-
         $data = [[
             "ID заявки", "ID теста", "Институт", "ФИО", "Специальность", "Курс",
             "Отделение", "Дисциплина", "Email", "Телефон", "Причина", "Вид Экзамена"
@@ -231,10 +217,6 @@ class RequestsController extends Controller
 
     public function excelExport(string $statusType, int $currentPage)
     {
-        if (!(in_array(Session::get('userPrivilege'), ['Admin', 'Support', 'Viewer']))) {
-            return redirect('/Index?error=У вас недостаточный уровень доступа!');
-        }
-
         $perPage = $this->perPagePrivate;
 
         $data = [[

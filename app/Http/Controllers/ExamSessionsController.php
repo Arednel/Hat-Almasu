@@ -9,7 +9,6 @@ use App\Models\ExamSessions;
 use App\Models\SiteSettings;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Session;
 
 class ExamSessionsController extends Controller
 {
@@ -24,10 +23,6 @@ class ExamSessionsController extends Controller
 
     public function page(int $currentPage)
     {
-        if (!(in_array(Session::get('userPrivilege'), ['Admin']))) {
-            return redirect('/Index?error=У вас недостаточный уровень доступа!');
-        }
-
         $perPage = $this->perPagePrivate;
 
         $offSet = $currentPage * $perPage;
@@ -54,10 +49,6 @@ class ExamSessionsController extends Controller
 
     public function insert()
     {
-        if (!(in_array(Session::get('userPrivilege'), ['Admin']))) {
-            return redirect('/Index?error=У вас недостаточный уровень доступа!');
-        }
-
         ExamSessions::insert();
 
         return redirect()->back();
@@ -65,10 +56,6 @@ class ExamSessionsController extends Controller
 
     public function delete(Request $request)
     {
-        if (!(in_array(Session::get('userPrivilege'), ['Admin']))) {
-            return redirect('/Index?error=У вас недостаточный уровень доступа!');
-        }
-
         $request->validate(
             [
                 'examSessionID' => 'required'
@@ -82,10 +69,6 @@ class ExamSessionsController extends Controller
 
     public function changeCurrent(Request $request)
     {
-        if (!(in_array(Session::get('userPrivilege'), ['Admin']))) {
-            return redirect('/Index?error=У вас недостаточный уровень доступа!');
-        }
-
         $request->validate(
             [
                 'examSessionID' => 'required'

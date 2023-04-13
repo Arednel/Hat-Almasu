@@ -8,7 +8,6 @@ use App\Models\SiteSettings;
 use Illuminate\Http\Request;
 
 use Illuminate\Validation\Rule;
-use Illuminate\Support\Facades\Session;
 
 class DatesController extends Controller
 {
@@ -16,10 +15,6 @@ class DatesController extends Controller
 
     public function page(int $currentPage)
     {
-        if (!(in_array(Session::get('userPrivilege'), ['Admin']))) {
-            return redirect('/Index?error=У вас недостаточный уровень доступа!');
-        }
-
         $perPage = $this->perPagePrivate;
 
         $offSet = $currentPage * $perPage;
@@ -36,10 +31,6 @@ class DatesController extends Controller
 
     public function insert(Request $request)
     {
-        if (!(in_array(Session::get('userPrivilege'), ['Admin']))) {
-            return redirect('/Index?error=У вас недостаточный уровень доступа!');
-        }
-
         $request->validate(
             [
                 'date' => [
@@ -73,10 +64,6 @@ class DatesController extends Controller
 
     public function delete(Request $request)
     {
-        if (!(in_array(Session::get('userPrivilege'), ['Admin']))) {
-            return redirect('/Index?error=У вас недостаточный уровень доступа!');
-        }
-
         $request->validate(
             [
                 'date' => [

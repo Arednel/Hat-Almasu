@@ -24,7 +24,7 @@
         <input type="text" name="userName" placeholder="User Name" required><br>
 
         <label>Пароль</label>
-        <input type="password" name="userPassword" placeholder="Password" required><br>
+        <input type="password" name="password" placeholder="Password" required><br>
 
         <a href="/" class="buttonLink">На главную</a>
 

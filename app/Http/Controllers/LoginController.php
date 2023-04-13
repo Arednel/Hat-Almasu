@@ -4,56 +4,34 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Auth;
 
 class LoginController extends Controller
 {
+    public function logout(Request $request)
+    {
+        Auth::logout();
+
+        $request->session()->invalidate();
+
+        $request->session()->regenerateToken();
+
+        return redirect('/');
+    }
+
     public function login(Request $request)
     {
-        //Validation of user input
-        $request->validate(
+        $credentials = $request->validate(
             [
                 'userName' => 'required',
-                'userPassword' => 'required'
+                'password' => 'required'
             ]
         );
 
-        function validateData($data)
-        {
-            $data = trim($data);
-            $data = stripslashes($data);
-            $data = htmlspecialchars($data);
+        if (Auth::attempt($credentials)) {
+            $request->session()->regenerate();
 
-            return $data;
+            return redirect('Index?message=Вы успешно авторизовались как: ' . Auth::user()->userName);
         }
-        $userName = validateData($request->input('userName'));
-        $inputedPassword = validateData($request->input('userPassword'));
-
-        //Validation from Database
-        if ($dbPassword = DB::table('users')->where('userName', $userName)->value('userPassword')) {
-            if ($inputedPassword == $dbPassword) {
-                $result = DB::table('users')->where('userName', $userName)
-                    ->select(array('userID', 'userPrivilege'))
-                    ->get()
-                    ->first();
-
-                Session::put('userID', $result->userID);
-                Session::put('userPrivilege', $result->userPrivilege);
-
-                return redirect('Index?message=Вы успешно авторизовались как: ' . $userName);
-            } else {
-                return redirect('Login?error=Неверный логин или пароль');
-            }
-        } else {
-            return redirect('Login?error=Неверный логин или пароль');
-        }
-    }
-
-    public function logout()
-    {
-        Session::forget(['userID', 'userPrivilege']);
-
-        return redirect('/');
     }
 }

@@ -6,18 +6,20 @@
         <a href="/Register">{!! __('Статус заявки') !!}</a>
         <a href="/RequestNew" class="red">{!! __('Подать заявку') !!}</a>
 
-        @if (Session::get('userID'))
+        @if (Auth::check())
             <link rel="stylesheet" href="{{ asset('css/adminS.css') }}">
 
-            <div class="DropDown">
-                <button class="dropbtn">{!! __('Управление') !!}</button>
-                <div class="DropDown-content">
-                    <a href="/Manage/Dates/0">{!! __('Доступными датами') !!}</a>
-                    <a href="/Manage/Rooms/0">{!! __('Доступными аудиториями') !!}</a>
-                    <a href="/Manage/Users/0">{!! __('Пользователями') !!}</a>
-                    <a href="/Manage/ExamSessions/0">{!! __('Сессиями') !!}</a>
+            @can('admin')
+                <div class="DropDown">
+                    <button class="dropbtn">{!! __('Управление') !!}</button>
+                    <div class="DropDown-content">
+                        <a href="/Manage/Dates/0">{!! __('Доступными датами') !!}</a>
+                        <a href="/Manage/Rooms/0">{!! __('Доступными аудиториями') !!}</a>
+                        <a href="/Manage/Users/0">{!! __('Пользователями') !!}</a>
+                        <a href="/Manage/ExamSessions/0">{!! __('Сессиями') !!}</a>
+                    </div>
                 </div>
-            </div>
+            @endcan
             <a href="/Occupancy/Date">{!! __('Заполненность') !!}</a>
             <div class="DropDown">
                 <button class="dropbtn">{!! __('Заявки') !!}</button>

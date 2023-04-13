@@ -22,7 +22,9 @@
                 <col span="4" style="width: 4%" />
                 <col span="8" />
                 <col style="width: 6%" />
-                <col style="width: 4%" />
+                @can('support')
+                    <col style="width: 4%" />
+                @endcan
             </colgroup>
 
             <thead>
@@ -40,7 +42,9 @@
                     <th>Причина</th>
                     <th>Вид Экзамена</th>
                     <th>Файл</th>
-                    <th>Решение</th>
+                    @can('support')
+                        <th>Решение</th>
+                    @endcan
             </thead>
             <tbody>
                 @foreach ($result as $record)
@@ -64,7 +68,7 @@
                                 Перейти
                             </button>
                         </td>
-                        @if (in_array(Session::get('userPrivilege'), ['Admin', 'Support']))
+                        @can('support')
                             <td>
                                 @if (in_array($statusType, ['new', 'rejected']))
                                     <button type="button" target="_blank"
@@ -81,7 +85,7 @@
                                     </button>
                                 @endif
                             </td>
-                        @endif
+                        @endcan
                     </tr>
                 @endforeach
             </tbody>

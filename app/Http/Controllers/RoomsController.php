@@ -6,7 +6,6 @@ use App\Models\Rooms;
 use App\Models\SiteSettings;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Session;
 
 class RoomsController extends Controller
 {
@@ -21,10 +20,6 @@ class RoomsController extends Controller
 
     public function page(int $currentPage)
     {
-        if (!(in_array(Session::get('userPrivilege'), ['Admin']))) {
-            return redirect('/Index?error=У вас недостаточный уровень доступа!');
-        }
-
         $perPage = $this->perPagePrivate;
 
         $offSet = $currentPage * $perPage;
@@ -41,10 +36,6 @@ class RoomsController extends Controller
 
     public function insert(Request $request)
     {
-        if (!(in_array(Session::get('userPrivilege'), ['Admin']))) {
-            return redirect('/Index?error=У вас недостаточный уровень доступа!');
-        }
-
         $request->validate(
             [
                 'roomName' => 'required',
@@ -66,10 +57,6 @@ class RoomsController extends Controller
 
     public function update(Request $request)
     {
-        if (!(in_array(Session::get('userPrivilege'), ['Admin']))) {
-            return redirect('/Index?error=У вас недостаточный уровень доступа!');
-        }
-
         $request->validate(
             [
                 'roomID' => 'required'
@@ -92,10 +79,6 @@ class RoomsController extends Controller
 
     public function delete(Request $request)
     {
-        if (!(in_array(Session::get('userPrivilege'), ['Admin']))) {
-            return redirect('/Index?error=У вас недостаточный уровень доступа!');
-        }
-
         $request->validate(
             [
                 'roomID' => 'required'

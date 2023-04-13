@@ -2,43 +2,67 @@
 
 namespace App\Models;
 
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Notifications\Notifiable;
-use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable
 {
-    use HasApiTokens, HasFactory, Notifiable;
+    use HasFactory;
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array<int, string>
-     */
-    protected $fillable = [
-        'name',
-        'email',
-        'password',
-    ];
+    public static function page(int $perPage, int $currentPage)
+    {
+        $offSet = $currentPage * $perPage;
 
-    /**
-     * The attributes that should be hidden for serialization.
-     *
-     * @var array<int, string>
-     */
-    protected $hidden = [
-        'password',
-        'remember_token',
-    ];
+        $result = DB::table('users')
+            ->limit($perPage)
+            ->offset($offSet)
+            ->get();
 
-    /**
-     * The attributes that should be cast.
-     *
-     * @var array<string, string>
-     */
-    protected $casts = [
-        'email_verified_at' => 'datetime',
-    ];
+        return $result;
+    }
+
+    public static function insert($data)
+    {
+        DB::table('users')->insert($data);
+    }
+
+    public static function updateUserName($id, $userName)
+    {
+
+        DB::table('users')
+            ->where('id', $id)
+            ->update([
+                'userName' => $userName,
+                'updated_at' => now()
+            ]);
+    }
+
+    public static function updatePassword($id, $password)
+    {
+        DB::table('users')
+            ->where('id', $id)
+            ->update([
+                'password' => $password,
+                'updated_at' => now()
+            ]);
+    }
+
+    public static function updateUserPrivilege($id, $userPrivilege)
+    {
+
+        DB::table('users')
+            ->where('id', $id)
+            ->update([
+                'userPrivilege' => $userPrivilege,
+                'updated_at' => now()
+            ]);
+    }
+
+    public static function deleteUser($id)
+    {
+        DB::table('users')
+            ->where('id', $id)
+            ->delete();
+    }
 }

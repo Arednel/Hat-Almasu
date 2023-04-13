@@ -23,16 +23,14 @@
                 <tr>
                     <th>ID</th>
                     <th>Логин</th>
-                    <th>Пароль</th>
                     <th>Уровень доступа</th>
                 </tr>
             </thead>
             <tbody class="table-body">
                 @foreach ($result as $record)
                     <tr>
-                        <td>{{ $record->userID }}</td>
+                        <td>{{ $record->id }}</td>
                         <td>{{ $record->userName }}</td>
-                        <td>{{ $record->userPassword }}</td>
                         <td>{{ $record->userPrivilege }}</td>
                     </tr>
                 @endforeach
@@ -51,7 +49,7 @@
                     <label>Логин</label>
                     <input type="text" name="userName" required />
                     <label>Пароль</label>
-                    <input type="text" name="userPassword" required />
+                    <input type="text" name="password" required />
                     <label>Разрешения</label>
                     <select name="userPrivilege">
                         <option value="Admin">Admin / Администратор</option>
@@ -69,7 +67,7 @@
                     <label>Логин</label>
                     <input type="text" name="userName" />
                     <label>Пароль</label>
-                    <input type="text" name="userPassword" />
+                    <input type="text" name="password" />
                     <label>Разрешения</label>
                     <select name="userPrivilege">
                         <option></option>
@@ -78,10 +76,10 @@
                         <option value="Viewer">Viewer / Просмотр</option>
                     </select>
                     <label>Пользователь</label>
-                    <select name="userID">
+                    <select name="id">
                         @foreach ($result as $record)
-                            <option value="{{ $record->userID }}">
-                                {{ $record->userName }} &#40 ID: {{ $record->userID }} &#41
+                            <option value="{{ $record->id }}">
+                                {{ $record->userName }} &#40 ID: {{ $record->id }} &#41
                             </option>
                         @endforeach
                     </select>
@@ -94,10 +92,10 @@
                     @csrf
 
                     <label>Пользователь</label>
-                    <select name="userID">
+                    <select name="id">
                         @foreach ($result as $record)
-                            <option value="{{ $record->userID }}">
-                                {{ $record->userName }} &#40 ID: {{ $record->userID }} &#41
+                            <option value="{{ $record->id }}">
+                                {{ $record->userName }} &#40 ID: {{ $record->id }} &#41
                             </option>
                         @endforeach
                     </select>

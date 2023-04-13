@@ -8,7 +8,6 @@ use App\Models\Booking;
 use App\Models\Requests;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Session;
 
 class OccupancyController extends Controller
 {
@@ -26,11 +25,8 @@ class OccupancyController extends Controller
     }
 
     public function dates()
-    {
-        if (!(in_array(Session::get('userPrivilege'), ['Admin', 'Support', 'Viewer']))) {
-            return redirect('/Index?error=У вас недостаточный уровень доступа!');
-        }
 
+    {
         $availabledates = Dates::all();
 
         return view('Occupancy', ['availabledates' => $availabledates]);
@@ -38,10 +34,6 @@ class OccupancyController extends Controller
 
     public function chooseRoom(Request $request)
     {
-        if (!(in_array(Session::get('userPrivilege'), ['Admin', 'Support', 'Viewer']))) {
-            return redirect('/Index?error=У вас недостаточный уровень доступа!');
-        }
-
         $isOnline = Dates::isOnline($request->chosenDate);
 
         if ($isOnline->isOnline) {
@@ -60,10 +52,6 @@ class OccupancyController extends Controller
 
     public function chooseHour(Request $request)
     {
-        if (!(in_array(Session::get('userPrivilege'), ['Admin', 'Support', 'Viewer']))) {
-            return redirect('/Index?error=У вас недостаточный уровень доступа!');
-        }
-
         $hours = Dates::hours($request->chosenDate);
 
         $html = '';
@@ -83,10 +71,6 @@ class OccupancyController extends Controller
 
     public function view(Request $request)
     {
-        if (!(in_array(Session::get('userPrivilege'), ['Admin', 'Support', 'Viewer']))) {
-            return redirect('/Index?error=У вас недостаточный уровень доступа!');
-        }
-
         if ($request->roomID == 'isOnline') {
             $result = Booking::selectWhereOnline($request->chosenDate);
 
