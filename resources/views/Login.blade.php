@@ -1,24 +1,24 @@
 <!DOCTYPE html>
+
 <html>
 
 <head>
     <title>Авторизация</title>
 
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
     <link rel="stylesheet" href="{{ asset('css/LoginForm.css') }}">
 </head>
 
 <body>
-
     <form method="POST" action="LoginLogic" method="post">
         <h2>Авторизация</h2>
 
         @csrf
 
-        @php
-            if (isset($_GET['error'])) {
-                echo '<p class="message">' . $_GET['error'] . '</p>';
-            }
-        @endphp
+        @if (isset($_GET['error']))
+            <p class="message">{{ $_GET['error'] }}</p>
+        @endif
 
         <label>Логин</label>
         <input type="text" name="userName" placeholder="User Name" required><br>
@@ -30,7 +30,6 @@
 
         <button type="submit">Войти</button>
     </form>
-
 </body>
 
 </html>
