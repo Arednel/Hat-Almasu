@@ -20,7 +20,7 @@ class CreateExamsessionsTable extends Migration
 
         DB::table('examsessions')->insert(
             array(
-                'examSessionID' => 0
+                'examSessionID' => 1
             )
         );
     }

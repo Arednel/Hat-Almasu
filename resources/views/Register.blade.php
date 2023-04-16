@@ -3,10 +3,10 @@
 <html>
 
 <head>
-    <title>{!! __('Подача заявки') !!}</title>
+    <title>{!! __('Статус заявки') !!}</title>
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
+
     <link rel="stylesheet" href="{{ asset('css/StandardForm.css') }}">
     <link rel="stylesheet" href="{{ asset('css/StandardButtons.css') }}">
 </head>
