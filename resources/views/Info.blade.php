@@ -39,8 +39,8 @@
     <br>
     <a href="/">← На главную</a>
 
-    <p>version 1.1.1.5 / 2023.04.16</p>
-    <p>ExamSessions migration fix</p>
+    <p>version 1.1.1.6 / 2023.04.16</p>
+    <p>Case insensetive for linux</p>
     <p>Made by Evtifeev Artyom Vladislavovich / Arednel</p>
     <p>2022-2023 &#169 Test Center</p>
 </body>
