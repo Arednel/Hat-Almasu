@@ -95,16 +95,21 @@ class RegisterController extends Controller
 
         $html = '';
         for ($currentHour = $hours->startHour; $currentHour < $hours->endHour; $currentHour++) {
-
+            //Check if space left
             $bookingRecordsAmount = Booking::bookingRecordsAmount($request->chosenDate, $request->roomID, $currentHour);
 
             $roomSpace = Rooms::roomSpace($request->roomID);
 
             $leftSpace = $roomSpace->roomSpace - $bookingRecordsAmount;
 
-            $html .= '<option value="' . $currentHour . '">' . __('C') . ' ' . $currentHour . ':00 ' . __('до') . ' ' .
-                ($currentHour + 1) . ':00 (' . __('Осталось') . ' ' .
-                $leftSpace . ' ' . __('мест') . ' )</option>';
+            if ($leftSpace < 1) {
+                $html .= '<option value="" disabled>'  . __('C') . ' ' . $currentHour . ':00 ' . __('до') . ' ' .
+                    ($currentHour + 1) . ':00 (' . __('Все места заняты') . ')</option>';
+            } else {
+                $html .= '<option value="' . $currentHour . '">' . __('C') . ' ' . $currentHour . ':00 ' . __('до') . ' ' .
+                    ($currentHour + 1) . ':00 (' . __('Осталось') . ' ' .
+                    $leftSpace . ' ' . __('мест') . ')</option>';
+            }
         }
 
         return $html;
@@ -137,6 +142,17 @@ class RegisterController extends Controller
                 'startHour' => $request->startHour,
                 'roomID' => $request->roomID,
             );
+
+            //Check if space left
+            $bookingRecordsAmount = Booking::bookingRecordsAmount($request->chosenDate, $request->roomID, $request->startHour);
+
+            $roomSpace = Rooms::roomSpace($request->roomID);
+
+            $leftSpace = $roomSpace->roomSpace - $bookingRecordsAmount;
+
+            if ($leftSpace < 1) {
+                return redirect('/Index?error=' . __('Свободных мест не осталось') . '');
+            }
 
             Booking::insert($data);
             Requests::updateTo($request->requestID, 2);

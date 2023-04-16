@@ -39,8 +39,8 @@
     <br>
     <a href="/">← На главную</a>
 
-    <p>version 1.1.1.1 / 2023.04.16</p>
-    <p>Fixes for server</p>
+    <p>version 1.1.1.2 / 2023.04.16</p>
+    <p>Register fix</p>
     <p>Made by Evtifeev Artyom Vladislavovich / Arednel</p>
     <p>2022-2023 &#169 Test Center</p>
 </body>
