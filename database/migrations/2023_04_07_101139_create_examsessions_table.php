@@ -15,14 +15,10 @@ class CreateExamsessionsTable extends Migration
     public function up()
     {
         Schema::create('examsessions', function (Blueprint $table) {
-            $table->integer('examSessionID')->primary();
+            $table->increments('examSessionID');
         });
 
-        DB::table('examsessions')->insert(
-            array(
-                'examSessionID' => 1
-            )
-        );
+        DB::table('examsessions')->insert(array('examSessionID' => null));
     }
 
     /**

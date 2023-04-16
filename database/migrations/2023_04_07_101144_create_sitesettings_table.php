@@ -24,7 +24,7 @@ class CreateSitesettingsTable extends Migration
             ->insert(
                 array(
                     'id' => '1',
-                    'currentExamSessionID' => '0',
+                    'currentExamSessionID' => '1',
                     'canSendRequests' => '1'
                 )
             );
