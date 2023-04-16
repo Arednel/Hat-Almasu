@@ -16,7 +16,7 @@ class CreateSitesettingsTable extends Migration
     {
         Schema::create('sitesettings', function (Blueprint $table) {
             $table->enum('id', ['1'])->primary();
-            $table->bigInteger('currentExamSessionID')->default(0);
+            $table->bigInteger('currentExamSessionID')->default(1);
             $table->boolean('canSendRequests')->default(1);
         });
 
