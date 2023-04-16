@@ -19,9 +19,9 @@ class UserFactory extends Factory
     public function definition()
     {
         return [
-            'userName' => 'Admin' . Str::random(2),
+            'username' => 'Admin' . Str::random(2),
             'password' => Hash::make('password'),
-            'userPrivilege' => 'Admin',
+            'user_privilege' => 'Admin',
         ];
     }
 }

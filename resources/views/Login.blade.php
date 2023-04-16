@@ -6,7 +6,7 @@
     <title>Авторизация</title>
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
+
     <link rel="stylesheet" href="{{ asset('css/LoginForm.css') }}">
 </head>
 
@@ -21,7 +21,7 @@
         @endif
 
         <label>Логин</label>
-        <input type="text" name="userName" placeholder="User Name" required><br>
+        <input type="text" name="username" placeholder="User Name" required><br>
 
         <label>Пароль</label>
         <input type="password" name="password" placeholder="Password" required><br>

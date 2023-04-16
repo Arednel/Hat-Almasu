@@ -33,11 +33,11 @@ class AppServiceProvider extends ServiceProvider
         }
 
         Gate::define('admin', function () {
-            return Auth::user()->userPrivilege == 'Admin';
+            return Auth::user()->user_privilege == 'Admin';
         });
 
         Gate::define('support', function () {
-            if (in_array(Auth::user()->userPrivilege, ['Admin', 'Support'])) {
+            if (in_array(Auth::user()->user_privilege, ['Admin', 'Support'])) {
                 return true;
             } else {
                 return false;
@@ -45,7 +45,7 @@ class AppServiceProvider extends ServiceProvider
         });
 
         Gate::define('viewer', function () {
-            if (in_array(Auth::user()->userPrivilege, ['Admin', 'Support', 'Viewer'])) {
+            if (in_array(Auth::user()->user_privilege, ['Admin', 'Support', 'Viewer'])) {
                 return true;
             } else {
                 return false;

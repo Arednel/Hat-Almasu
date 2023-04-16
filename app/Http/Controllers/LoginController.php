@@ -23,7 +23,7 @@ class LoginController extends Controller
     {
         $credentials = $request->validate(
             [
-                'userName' => 'required',
+                'username' => 'required',
                 'password' => 'required'
             ]
         );
@@ -31,7 +31,7 @@ class LoginController extends Controller
         if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
 
-            return redirect('Index?message=Вы успешно авторизовались как: ' . Auth::user()->userName);
+            return redirect('Index?message=Вы успешно авторизовались как: ' . Auth::user()->username);
         }
 
         return redirect('Login?error=Неверный логин или пароль');

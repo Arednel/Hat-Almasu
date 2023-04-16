@@ -27,13 +27,13 @@ class User extends Authenticatable
         DB::table('users')->insert($data);
     }
 
-    public static function updateUserName($id, $userName)
+    public static function updateUserName($id, $username)
     {
 
         DB::table('users')
             ->where('id', $id)
             ->update([
-                'userName' => $userName,
+                'username' => $username,
                 'updated_at' => now()
             ]);
     }
@@ -48,13 +48,13 @@ class User extends Authenticatable
             ]);
     }
 
-    public static function updateUserPrivilege($id, $userPrivilege)
+    public static function updateUserPrivilege($id, $user_privilege)
     {
 
         DB::table('users')
             ->where('id', $id)
             ->update([
-                'userPrivilege' => $userPrivilege,
+                'user_privilege' => $user_privilege,
                 'updated_at' => now()
             ]);
     }

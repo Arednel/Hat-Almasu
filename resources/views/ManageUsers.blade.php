@@ -6,7 +6,7 @@
     <title>Пользователи</title>
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
+
     <link rel="stylesheet" href="{{ asset('css/StandardTable.css') }}">
     <link rel="stylesheet" href="{{ asset('css/Modal.css') }}">
 </head>
@@ -32,8 +32,8 @@
                 @foreach ($result as $record)
                     <tr>
                         <td>{{ $record->id }}</td>
-                        <td>{{ $record->userName }}</td>
-                        <td>{{ $record->userPrivilege }}</td>
+                        <td>{{ $record->username }}</td>
+                        <td>{{ $record->user_privilege }}</td>
                     </tr>
                 @endforeach
             </tbody>
@@ -49,11 +49,11 @@
                     @csrf
 
                     <label>Логин</label>
-                    <input type="text" name="userName" required />
+                    <input type="text" name="username" required />
                     <label>Пароль</label>
                     <input type="text" name="password" required />
                     <label>Разрешения</label>
-                    <select name="userPrivilege">
+                    <select name="user_privilege">
                         <option value="Admin">Admin / Администратор</option>
                         <option value="Support" selected>Support / Поддержка</option>
                         <option value="Viewer" selected>Viewer / Просмотр</option>
@@ -67,11 +67,11 @@
                     @csrf
 
                     <label>Логин</label>
-                    <input type="text" name="userName" />
+                    <input type="text" name="username" />
                     <label>Пароль</label>
                     <input type="text" name="password" />
                     <label>Разрешения</label>
-                    <select name="userPrivilege">
+                    <select name="user_privilege">
                         <option></option>
                         <option value="Admin">Admin / Администратор</option>
                         <option value="Support">Support / Поддержка</option>
@@ -81,7 +81,7 @@
                     <select name="id">
                         @foreach ($result as $record)
                             <option value="{{ $record->id }}">
-                                {{ $record->userName }} &#40 ID: {{ $record->id }} &#41
+                                {{ $record->username }} &#40 ID: {{ $record->id }} &#41
                             </option>
                         @endforeach
                     </select>
@@ -97,7 +97,7 @@
                     <select name="id">
                         @foreach ($result as $record)
                             <option value="{{ $record->id }}">
-                                {{ $record->userName }} &#40 ID: {{ $record->id }} &#41
+                                {{ $record->username }} &#40 ID: {{ $record->id }} &#41
                             </option>
                         @endforeach
                     </select>

@@ -35,19 +35,19 @@ class userController extends Controller
     {
         $request->validate(
             [
-                'userName' => 'required',
+                'username' => 'required',
                 'password' => 'required',
-                'userPrivilege' => 'required'
+                'user_privilege' => 'required'
             ]
         );
 
-        $userName = $request->input('userName');
+        $username = $request->input('username');
         $password = Hash::make($request->input('password'));
-        $userPrivilege = $request->input('userPrivilege');
+        $user_privilege = $request->input('user_privilege');
 
         $data = array(
-            'userName' => $userName, 'password' => $password,
-            'userPrivilege' => $userPrivilege, 'password' => $password
+            'username' => $username, 'password' => $password,
+            'user_privilege' => $user_privilege, 'password' => $password
         );
 
         user::insert($data);
@@ -64,25 +64,25 @@ class userController extends Controller
         );
 
         $id = $request->input('id');
-        $userName = $request->input('userName');
+        $username = $request->input('username');
         $password = $request->input('password');
 
-        $userPrivilege = $request->input('userPrivilege');
+        $user_privilege = $request->input('user_privilege');
 
-        if ($userName != null) {
+        if ($username != null) {
             $request->validate(
                 [
-                    'userName' => Rule::unique('users', 'userName'),
+                    'username' => Rule::unique('users', 'username'),
                 ]
             );
-            user::updateUserName($id, $userName);
+            user::updateUserName($id, $username);
         }
         if ($password != null) {
             $passwordHash = Hash::make($password);
             user::updatePassword($id, $passwordHash);
         }
-        if ($userPrivilege != null) {
-            user::updateUserPrivilege($id, $userPrivilege);
+        if ($user_privilege != null) {
+            user::updateUserPrivilege($id, $user_privilege);
         }
 
         return redirect()->back();

@@ -66,7 +66,7 @@ class RequestsController extends Controller
             $html .= '<td>' . $value->reason . '</td>';
             $html .= '<td>' . $value->examType . '</td>';
             $html .= '<td><button type="button" target="_blank" onclick="window.open(&#39/Requests/Image/' . $value->requestID . '&#39)" class="button-image-view">Перейти</button></td>';
-            if (in_array(Auth::user()->userPrivilege, ['Admin', 'Support'])) {
+            if (in_array(Auth::user()->user_privilege, ['Admin', 'Support'])) {
                 $html .= '<td>';
                 if (in_array($request->statusType, ['new', 'rejected'])) {
                     $html .= '<button type="button" target="_blank" onclick="window.location=(&#39/Requests/ChangeStatus/' .
