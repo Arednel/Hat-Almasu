@@ -55,7 +55,7 @@
                     <label>Разрешения</label>
                     <select name="user_privilege">
                         <option value="Admin">Admin / Администратор</option>
-                        <option value="Support" selected>Support / Поддержка</option>
+                        <option value="Support">Support / Поддержка</option>
                         <option value="Viewer" selected>Viewer / Просмотр</option>
                     </select>
 

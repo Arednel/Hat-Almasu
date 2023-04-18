@@ -28,7 +28,7 @@
                     <a href="/Requests/View/approved/0">{!! __('Одобренные') !!}</a>
                     <a href="/Requests/View/rejected/0">{!! __('Отклонённые') !!}</a>
                 </div>
-            </div><a href="/Logout"> {!! __('Выйти') !!}</a>
+            </div><a href="/Logout">{!! __('Выйти') !!}</a>
         @endif
     </div>
     <div class="nav-bar-right">
