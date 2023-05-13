@@ -50,7 +50,7 @@ class userController extends Controller
             'user_privilege' => $user_privilege, 'password' => $password
         );
 
-        user::insert($data);
+        User::insert($data);
 
         return redirect()->back();
     }
@@ -75,14 +75,14 @@ class userController extends Controller
                     'username' => Rule::unique('users', 'username'),
                 ]
             );
-            user::updateUserName($id, $username);
+            User::updateUserName($id, $username);
         }
         if ($password != null) {
             $passwordHash = Hash::make($password);
-            user::updatePassword($id, $passwordHash);
+            User::updatePassword($id, $passwordHash);
         }
         if ($user_privilege != null) {
-            user::updateUserPrivilege($id, $user_privilege);
+            User::updateUserPrivilege($id, $user_privilege);
         }
 
         return redirect()->back();
@@ -100,7 +100,7 @@ class userController extends Controller
             return redirect('Index?error=Вы патаетесь удалить своего пользователя!');
         }
 
-        user::deleteUser($request->input('id'));
+        User::deleteUser($request->input('id'));
 
         return redirect()->back();
     }

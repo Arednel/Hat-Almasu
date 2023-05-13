@@ -114,9 +114,7 @@ class RequestsController extends Controller
         $request->validate(
             [
                 'fullName' => 'required',
-                'idOfTest' => [
-                    'required', Rule::unique('requests', 'idOfTest')
-                ],
+                'idOfTest' => 'required',
                 'course' => 'required',
                 'faculty' => 'required',
                 'department' => 'required',
