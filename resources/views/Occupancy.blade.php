@@ -5,7 +5,7 @@
     <title>Статус заявки</title>
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
+
     <link rel="stylesheet" href="{{ asset('css/StandardForm.css') }}">
     <link rel="stylesheet" href="{{ asset('css/StandardButtons.css') }}">
 </head>
@@ -53,7 +53,8 @@
     </div>
 </body>
 
-<script src="{{ asset('scripts/jquery-3.6.4.min.js') }}"></script>
+<script src="https://code.jquery.com/jquery-3.7.0.min.js"
+    integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
 <script>
     var chosenDate;
 

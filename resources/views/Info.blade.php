@@ -39,8 +39,8 @@
     <br>
     <a href="/">← На главную</a>
 
-    <p>version 1.1.2 / 2023.05.22</p>
-    <p>Form update and gates moved</p>
+    <p>version 1.1.2.1 / 2023.05.22</p>
+    <p>Moved jquery and inputmask to cdn</p>
     <p>Made by Evtifeev Artyom Vladislavovich / Arednel</p>
     <p>2022-2023 &#169 Test Center</p>
 </body>
