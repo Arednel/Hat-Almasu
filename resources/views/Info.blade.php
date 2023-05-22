@@ -39,8 +39,8 @@
     <br>
     <a href="/">← На главную</a>
 
-    <p>version 1.1.1.8 / 2023.05.13</p>
-    <p>Removed unique Test ID requirement</p>
+    <p>version 1.1.1.9 / 2023.05.22</p>
+    <p>Excel auto cell width</p>
     <p>Made by Evtifeev Artyom Vladislavovich / Arednel</p>
     <p>2022-2023 &#169 Test Center</p>
 </body>
