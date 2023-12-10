@@ -81,10 +81,6 @@
                         </div>
                     </section>
                     <br>
-                    <div style="text-align:center">{!! __('Бесплатный сайт для добавления заданий') !!}
-                        <a href="https://learningapps.org/" class="learningapps">LearningApps.org</a>
-                    </div>
-                    <br>
             </div>
         </div>
 

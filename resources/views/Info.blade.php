@@ -39,10 +39,10 @@
     <br>
     <a href="/">← На главную</a>
 
-    <p>version 1.1.2.2 / 2023.08.30</p>
-    <p>Added link to learningapps.org</p>
+    <p>version 1.1.2.2 / 2023.12.10</p>
+    <p>Changes for AlmaU</p>
     <p>Made by Evtifeev Artyom Vladislavovich / Arednel</p>
-    <p>2022-2023 &#169 Test Center</p>
+    <p>2022-2023 &#169</p>
 </body>
 
 </html>
