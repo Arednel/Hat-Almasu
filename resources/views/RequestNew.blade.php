@@ -54,14 +54,15 @@
             @enderror
             <select id="faculty" name="faculty" required>
                 <option value="" disabled selected>{!! __('Школа (Факультет)') !!}</option>
-                <option value="Институт Сорбонна-Казахстан">Институт Сорбонна-Казахстан</option>
-                <option value="Институт математики, физики и информатики">Институт математики, физики и информатики
-                </option>
-                <option value="Институт педагогики и психологии">Институт педагогики и психологии</option>
-                <option value="Институт Филологии">Институт Филологии</option>
-                <option value="Институт естествознания и географии">Институт естествознания и географии</option>
-                <option value="Институт искусств, культуры и спорта">Институт искусств, культуры и спорта</option>
-                <option value="Институт истории и права">Институт истории и права</option>
+                <option value="Школа Менеджмента">Школа Менеджмента</option>
+                <option value="Школа Экономики и Финансов">Школа Экономики и Финансов</option>
+                <option value="Школа Предпринимательства и Инноваций">Школа Предпринимательства и Инноваций</option>
+                <option value="Школа Цифровых Технологий">Школа Цифровых Технологий</option>
+                <option value="Школа Политики и Права">Школа Политики и Права</option>
+                <option value="Школа Гостеприимства и туризма">Школа Гостеприимства и туризма</option>
+                <option value="Школа Медиа и Кино">Школа Медиа и Кино</option>
+                <option value="Школа Transformative Humanities">Школа Transformative Humanities</option>
+                <option value="Школа Урбанистики">Школа Урбанистики</option>
             </select>
 
             @error('speciality')
@@ -69,6 +70,29 @@
             @enderror
             <select id="speciality" name="speciality" required>
                 <option value="" disabled selected>{!! __('Специальность') !!}</option>
+                <option value="Менеджмент">Менеджмент</option>
+                <option value="Маркетинг">Маркетинг</option>
+                <option value="Бизнес администрирование в области предпринимательства">Бизнес администрирование в
+                    области предпринимательства</option>
+                <option value="Урбанистика и сити-менеджмент">Урбанистика и сити-менеджмент</option>
+                <option value="Global Management">Global Management</option>
+                <option value="Финансы">Финансы</option>
+                <option value="Бизнес аналитика и экономика">Бизнес аналитика и экономика</option>
+                <option value="International Trade">International Trade</option>
+                <option value="Учет и аудит">Учет и аудит</option>
+                <option value="Юриспруденция">Юриспруденция</option>
+                <option value="Спортивная психология">Спортивная психология</option>
+                <option value="Психология образования">Психология образования</option>
+                <option value="Ресторанное дело и гостиничный бизнес">Ресторанное дело и гостиничный бизнес</option>
+                <option value="Туризм и ивент-менеджмент">Туризм и ивент-менеджмент</option>
+                <option value="Логистика">Логистика</option>
+                <option value="Информационные системы">Информационные системы</option>
+                <option value="New Media">New Media</option>
+                <option value="Digital Film Making">Digital Film Making</option>
+                <option value="Software Engineering">Software Engineering</option>
+                <option value="Data Science">Data Science</option>
+                <option value="Product Management">Product Management</option>
+                <option value="Business Analytics and Big Data">Business Analytics and Big Data</option>
             </select>
 
             @error('subject')
@@ -126,7 +150,9 @@
 
 <script src="https://code.jquery.com/jquery-3.7.0.min.js"
     integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
-<script>
+
+{{-- Removed for AlmaU --}}
+{{-- <script>
     var options = @json($options);
 
     $('#faculty').change(function() {
@@ -138,7 +164,7 @@
 
         $('#speciality').append(options[chosenOption]);
     });
-</script>
+</script> --}}
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.inputmask/5.0.8/jquery.inputmask.min.js"
     integrity="sha512-efAcjYoYT0sXxQRtxGY37CKYmqsFVOIwMApaEbrxJr4RwqVVGw8o+Lfh/+59TU07+suZn1BWq4fDl5fdgyCNkw=="
