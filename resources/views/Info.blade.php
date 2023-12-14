@@ -39,8 +39,8 @@
     <br>
     <a href="/">← На главную</a>
 
-    <p>version 1.1.2.2 / 2023.12.10</p>
-    <p>Changes for AlmaU</p>
+    <p>version 1.1.3 / 2023.12.14</p>
+    <p>Changes for AlmaU and User Factory</p>
     <p>Made by Evtifeev Artyom Vladislavovich / Arednel</p>
     <p>2022-2023 &#169</p>
 </body>

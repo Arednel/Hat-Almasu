@@ -53,7 +53,7 @@
                 <p>{{ $message }}</p>
             @enderror
             <select id="faculty" name="faculty" required>
-                <option value="" disabled selected>{!! __('Институт (Факультет)') !!}</option>
+                <option value="" disabled selected>{!! __('Школа (Факультет)') !!}</option>
                 <option value="Институт Сорбонна-Казахстан">Институт Сорбонна-Казахстан</option>
                 <option value="Институт математики, физики и информатики">Институт математики, физики и информатики
                 </option>
