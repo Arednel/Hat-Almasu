@@ -117,7 +117,6 @@
             <select name="reason">
                 <optgroup label="{!! __('Причина') !!}">
                     <option value="Технический сбой">{!! __('Технический сбой') !!}</option>
-                    <option value="По оплате">{!! __('По оплате') !!}</option>
                 </optgroup>
             </select>
 
