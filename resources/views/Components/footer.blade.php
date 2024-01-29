@@ -4,7 +4,7 @@
     <div class="footerColumnTwo">
         <hr style="visibility:hidden;" />
         <img src="{{ asset('images/logo.png') }}" class="footerLogo">
-        <p class="footerTextWhite">2022-2023 &#169</p>
+        <p class="footerTextWhite">2022-2024 &#169</p>
     </div>
 
     <div class="footerColumnFour">
