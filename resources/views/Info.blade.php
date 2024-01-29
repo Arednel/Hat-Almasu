@@ -39,8 +39,8 @@
     <br>
     <a href="/">← На главную</a>
 
-    <p>version 1.1.4.2 / 2024.01.29</p>
-    <p>Year fix</p>
+    <p>version 1.1.4.3 / 2024.01.29</p>
+    <p>Reasons change</p>
     <p>Made by Evtifeev Artyom Vladislavovich / Arednel</p>
     <p>2022-2024 &#169</p>
 </body>

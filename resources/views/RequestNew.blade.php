@@ -116,7 +116,8 @@
             @enderror
             <select name="reason">
                 <optgroup label="{!! __('Причина') !!}">
-                    <option value="Технический сбой">{!! __('Технический сбой') !!}</option>
+                    <option value="Апелляция">{!! __('Апелляция') !!}</option>
+                    <option value="Техническая ошибка">{!! __('Техническая ошибка') !!}</option>
                 </optgroup>
             </select>
 
@@ -124,10 +125,7 @@
                 <p>{{ $message }}</p>
             @enderror
             <select name="examType">
-                <optgroup label="{!! __('Тип теста') !!}">
-                    <option value="Тестирование">{!! __('Тестирование') !!}</option>
-                    <option value="Письменно">{!! __('Письменно') !!}</option>
-                </optgroup>
+                <option value="Тестирование">{!! __('Тестирование') !!}</option>
             </select>
 
             <div style="text-align:center">
