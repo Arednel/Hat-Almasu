@@ -2,67 +2,43 @@
 
 namespace App\Models;
 
-use Illuminate\Support\Facades\DB;
+// use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Notifications\Notifiable;
+use Laravel\Sanctum\HasApiTokens;
 
-class User extends Authenticatable
+class User extends \TCG\Voyager\Models\User
 {
-    use HasFactory;
+    use HasApiTokens, HasFactory, Notifiable;
 
-    public static function page(int $perPage, int $currentPage)
-    {
-        $offSet = $currentPage * $perPage;
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array<int, string>
+     */
+    protected $fillable = [
+        'name',
+        'email',
+        'password',
+    ];
 
-        $result = DB::table('users')
-            ->limit($perPage)
-            ->offset($offSet)
-            ->get();
+    /**
+     * The attributes that should be hidden for serialization.
+     *
+     * @var array<int, string>
+     */
+    protected $hidden = [
+        'password',
+        'remember_token',
+    ];
 
-        return $result;
-    }
-
-    public static function insert($data)
-    {
-        DB::table('users')->insert($data);
-    }
-
-    public static function updateUserName($id, $username)
-    {
-
-        DB::table('users')
-            ->where('id', $id)
-            ->update([
-                'username' => $username,
-                'updated_at' => now()
-            ]);
-    }
-
-    public static function updatePassword($id, $password)
-    {
-        DB::table('users')
-            ->where('id', $id)
-            ->update([
-                'password' => $password,
-                'updated_at' => now()
-            ]);
-    }
-
-    public static function updateUserPrivilege($id, $user_privilege)
-    {
-
-        DB::table('users')
-            ->where('id', $id)
-            ->update([
-                'user_privilege' => $user_privilege,
-                'updated_at' => now()
-            ]);
-    }
-
-    public static function deleteUser($id)
-    {
-        DB::table('users')
-            ->where('id', $id)
-            ->delete();
-    }
+    /**
+     * The attributes that should be cast.
+     *
+     * @var array<string, string>
+     */
+    protected $casts = [
+        'email_verified_at' => 'datetime',
+    ];
 }

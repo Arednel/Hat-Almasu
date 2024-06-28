@@ -39,10 +39,10 @@
     <br>
     <a href="/">← На главную</a>
 
-    <p>version 1.1.4 / 2023.12.14</p>
-    <p>Faculties and Specialities for AlmaU</p>
+    <p>version 1.1.5 / 2024.06.28</p>
+    <p>Laravel voyager</p>
     <p>Made by Evtifeev Artyom Vladislavovich / Arednel</p>
-    <p>2022-2023 &#169</p>
+    <p>2022-2024 &#169</p>
 </body>
 
 </html>

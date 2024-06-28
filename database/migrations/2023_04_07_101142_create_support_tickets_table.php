@@ -5,7 +5,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateRequestsTable extends Migration
+class CreateSupportTicketsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -14,26 +14,20 @@ class CreateRequestsTable extends Migration
      */
     public function up()
     {
-        Schema::create('requests', function (Blueprint $table) {
-            $table->bigIncrements('requestID');
+        Schema::create('supportTickets', function (Blueprint $table) {
+            $table->bigIncrements('id');
             $table->string('fullName', 150);
-            $table->integer('idOfTest');
-            $table->string('faculty', 150);
-            $table->string('speciality', 150);
+            $table->string('testType', 150);
             $table->tinyInteger('course');
             $table->string('department', 150);
             $table->string('subject', 150);
             $table->string('mail', 150);
             $table->string('phoneNumber', 150);
             $table->string('reason', 30);
-            $table->string('examType', 30);
-            $table->binary('confirmationFile');
+            $table->string('confirmationFile');
             $table->boolean('requestStatus')->default(0);
-            $table->integer('examSessionID');
-            $table->dateTime('created_at')->useCurrent();
+            $table->timestamps();
         });
-
-        DB::statement("ALTER TABLE `requests` MODIFY `confirmationFile` MEDIUMBLOB");
     }
 
     /**
@@ -43,6 +37,6 @@ class CreateRequestsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('requests');
+        Schema::dropIfExists('supportTickets');
     }
 }
