@@ -3,7 +3,7 @@
 <header class="nav-bar">
     <a href="/"><img src="{{ asset('images/logo.png') }}" class="topLogo"></a>
     <div class="nav-bar-center">
-        <a href="/Register">{!! __('Статус заявки') !!}</a>
+        <a href="/RequestStatus">{!! __('Статус заявки') !!}</a>
         <a href="/RequestNew" class="red">{!! __('Подать заявку') !!}</a>
     </div>
     <div class="nav-bar-right">

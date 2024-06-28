@@ -39,8 +39,8 @@
     <br>
     <a href="/">← На главную</a>
 
-    <p>version 1.1.5 / 2024.06.28</p>
-    <p>Laravel voyager</p>
+    <p>version 1.1.6 / 2024.06.28</p>
+    <p>Images upload</p>
     <p>Made by Evtifeev Artyom Vladislavovich / Arednel</p>
     <p>2022-2024 &#169</p>
 </body>

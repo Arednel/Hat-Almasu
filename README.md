@@ -1,6 +1,6 @@
 <h2 align="center">Site for creating support tickets</h2>
 
-## Version 0.2.7
+## Version 1.1.5
 
 ## Installation process
 #### from project folder

@@ -142,8 +142,8 @@ class SupportTicketsBreadSeeder extends Seeder
                 'details'      => '',
                 'order'        => 9,
             ],
-            'confirmationFile' => [
-                'type'         => 'text',
+            'confirmationImages' => [
+                'type'         => 'multiple_images',
                 'display_name' => 'Файл подтверждения',
                 'required'     => 1,
                 'browse'       => 1,

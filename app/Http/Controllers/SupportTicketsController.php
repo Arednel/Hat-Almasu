@@ -17,6 +17,9 @@ use Illuminate\Support\Facades\Session;
 
 use Maatwebsite\Excel\Facades\Excel;
 
+use Carbon\Carbon;
+use Illuminate\Support\Facades\Storage;
+
 class SupportTicketsController extends Controller
 {
     public function insert(Request $request)
@@ -43,7 +46,8 @@ class SupportTicketsController extends Controller
                 'mail' => ['required', 'email'],
                 'phoneNumber' => 'required',
                 'reason' => 'required',
-                'confirmationFile' => 'required'
+                'confirmationImage.*' => 'max:12000',
+                'confirmationImage' => 'max:5',
             ]
         );
 
@@ -55,16 +59,32 @@ class SupportTicketsController extends Controller
         $mail = $request->input('mail');
         $phoneNumber = $request->input('phoneNumber');
         $reason = $request->input('reason');
-        $fileName = $request->file('confirmationFile')->getClientOriginalName();
 
-        //Image save and checking size (Currently 10MB)
-        $uploadedFile = $request->file('confirmationFile')->getRealPath();
-        if (filesize($uploadedFile) > 10485760) {
-            return redirect('Index?error=Файл слишком большой');
+        if ($request->hasFile('confirmationImage')) {
+            //Add this to file path, to save images like "June2024" 
+            $currentDate = Carbon::now();
+            $monthAndYear = $currentDate->format('FY');
+
+            //File paths json array
+            $filePaths = [];
+
+            foreach ($request->file('confirmationImage') as $image) {
+
+                $filePath = Storage::put("public/supporttickets/$monthAndYear", $image);
+
+                $filePathWithoutPublic = str_replace('public/', '', $filePath);
+                $filePaths[] = $filePathWithoutPublic;
+                $jsonFilePaths = json_encode($filePaths);
+            }
+            //Image save and checking size (Currently 10MB)
+            // $uploadedFile = $request->file(' ')->getRealPath();
+            // if (filesize($uploadedFile) > 10485760) {
+            //     return redirect('Index?error=Файл слишком большой');
+            // }
+            // clearstatcache();
+            // $bin_string = file_get_contents($image->getRealPath());
+            // $confirmationFile = base64_encode($bin_string);
         }
-        clearstatcache();
-        // $bin_string = file_get_contents($image->getRealPath());
-        // $confirmationFile = base64_encode($bin_string);
 
         $data = array(
             'fullName' => $fullName,
@@ -75,7 +95,7 @@ class SupportTicketsController extends Controller
             'mail' => $mail,
             'phoneNumber' => $phoneNumber,
             'reason' => $reason,
-            'confirmationFile' => $fileName,
+            'confirmationImages' => $jsonFilePaths,
             'created_at' => now(),
         );
         SupportTicket::insert($data);

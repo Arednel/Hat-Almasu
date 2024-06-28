@@ -78,12 +78,15 @@
             </select>
 
             <div style="text-align:center">
-                @error('confirmationFile')
+                @error('confirmationImage.*')
                     <p>{{ $message }}</p>
                 @enderror
-                <label for="file">&nbsp{!! __('Подтверждающий документ (До 8 МБ)') !!}
-                    <input id="file" type="file" accept="image/*" name="confirmationFile"
-                        class="test"required />
+                @error('confirmationImage')
+                    <p>{{ $message }}</p>
+                @enderror
+                <label for="file">&nbsp{!! __('Подтверждающие изображения (До 10 МБ, до 5 изображений)') !!}
+                    <input id="file" type="file" accept="image/*" name="confirmationImage[]" multiple
+                        class="test" required />
                 </label>
             </div>
 
@@ -96,21 +99,6 @@
 
 <script src="https://code.jquery.com/jquery-3.7.0.min.js"
     integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
-
-{{-- Removed for AlmaU --}}
-{{-- <script>
-    var options = @json($options);
-
-    $('#faculty').change(function() {
-        $('#speciality').empty();
-        var chosenOption = $(this).val();
-        $('#speciality').append(
-            '<option value="" disabled selected>{!! __('Специальность') !!}</option>'
-        );
-
-        $('#speciality').append(options[chosenOption]);
-    });
-</script> --}}
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.inputmask/5.0.8/jquery.inputmask.min.js"
     integrity="sha512-efAcjYoYT0sXxQRtxGY37CKYmqsFVOIwMApaEbrxJr4RwqVVGw8o+Lfh/+59TU07+suZn1BWq4fDl5fdgyCNkw=="

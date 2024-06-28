@@ -31,6 +31,7 @@ Route::view('/info', 'Info');
 
 Route::group(['prefix' => 'admin'], function () {
     Voyager::routes();
+    Route::redirect('/', '/admin/supporttickets');
 });
 
 //Requests
@@ -41,31 +42,16 @@ Route::controller(SupportTicketsController::class)->group(function () {
 
     //Requests managing
     Route::middleware(['auth', 'can:viewer'])->group(function () {
-        //Requests view (new, approved and rejected)
-        Route::get('/Requests/View/{statusType}/{currentPage}',  'page')
-            ->whereIn('statusType', ['new', 'approved', 'rejected'])
-            ->whereNumber('currentPage');
-
-        //Requests search
-        Route::get('/Requests/Search', 'search');
-
-        //Request view image
-        Route::get('/Requests/Image/{requestID}', 'image')
-            ->whereNumber('requestID');
-
-        //Request change status (support and up only)
-        Route::get('/Requests/ChangeStatus/{requestID}/{requestStatus}',  'changeStatus')->middleware('auth', 'can:support')
-            ->whereNumber('requestID')
-            ->whereIn('requestStatus', ['1', '3']);
-
         //Request excel export
-        Route::get('/ExcelExportAll/{statusType}', 'excelExportAll')
-            ->whereIn('statusType', ['new', 'approved', 'rejected']);
-        Route::get('/ExcelExport/{statusType}/{currentPage}',  'excelExport')
-            ->whereIn('statusType', ['new', 'approved', 'rejected'])
-            ->whereNumber('currentPage');
+        // Route::get('/ExcelExportAll/{statusType}', 'excelExportAll')
+        //     ->whereIn('statusType', ['new', 'approved', 'rejected']);
+        // Route::get('/ExcelExport/{statusType}/{currentPage}',  'excelExport')
+        //     ->whereIn('statusType', ['new', 'approved', 'rejected'])
+        //     ->whereNumber('currentPage');
     });
 });
+
+Route::view('/RequestStatus', 'RequestStatus');
 
 //Change language
 Route::get('/Language/{locale}', function (string $locale) {

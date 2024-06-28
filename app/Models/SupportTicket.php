@@ -17,6 +17,6 @@ class SupportTicket extends Model
         'mail',
         'phoneNumber',
         'reason',
-        'confirmationFile',
+        'confirmationImages',
     ];
 }

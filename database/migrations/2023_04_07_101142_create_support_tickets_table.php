@@ -24,7 +24,7 @@ class CreateSupportTicketsTable extends Migration
             $table->string('mail', 150);
             $table->string('phoneNumber', 150);
             $table->string('reason', 30);
-            $table->string('confirmationFile');
+            $table->json('confirmationImages');
             $table->boolean('requestStatus')->default(0);
             $table->timestamps();
         });
