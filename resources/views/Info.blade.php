@@ -39,8 +39,8 @@
     <br>
     <a href="/">← На главную</a>
 
-    <p>version 1.1.6 / 2024.06.28</p>
-    <p>Images upload</p>
+    <p>version 1.1.7 / 2024.06.29</p>
+    <p>Approve, Reject and roles</p>
     <p>Made by Evtifeev Artyom Vladislavovich / Arednel</p>
     <p>2022-2024 &#169</p>
 </body>

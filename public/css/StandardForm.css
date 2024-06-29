@@ -28,7 +28,8 @@ form {
 }
 
 input,
-select {
+select,
+textarea {
     width: calc(100% - 5px);
     padding: 8px;
     margin-bottom: 20px;

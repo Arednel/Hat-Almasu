@@ -20,8 +20,9 @@ use Maatwebsite\Excel\Facades\Excel;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Storage;
 
-class SupportTicketsController extends Controller
+class SupportTicketController extends Controller
 {
+
     public function insert(Request $request)
     {
         //Limitation of request amount (one request per 3 minutes)
@@ -43,7 +44,7 @@ class SupportTicketsController extends Controller
                 'course' => 'required',
                 'department' => 'required',
                 'subject' => 'required',
-                'mail' => ['required', 'email'],
+                'email' => ['required', 'email'],
                 'phoneNumber' => 'required',
                 'reason' => 'required',
                 'confirmationImage.*' => 'max:12000',
@@ -56,8 +57,9 @@ class SupportTicketsController extends Controller
         $course = $request->input('course');
         $department = $request->input('department');
         $subject = $request->input('subject');
-        $mail = $request->input('mail');
+        $email = $request->input('email');
         $phoneNumber = $request->input('phoneNumber');
+        $extraTextInfo = $request->input('extraTextInfo');
         $reason = $request->input('reason');
 
         if ($request->hasFile('confirmationImage')) {
@@ -92,8 +94,9 @@ class SupportTicketsController extends Controller
             'course' => $course,
             'department' => $department,
             'subject' => $subject,
-            'mail' => $mail,
+            'email' => $email,
             'phoneNumber' => $phoneNumber,
+            'extraTextInfo' => $extraTextInfo,
             'reason' => $reason,
             'confirmationImages' => $jsonFilePaths,
             'created_at' => now(),
@@ -119,7 +122,28 @@ class SupportTicketsController extends Controller
             return redirect('/Index?error=Сейчас нельзя подавать новые заявки');
         }
 
-        return view('RequestNew');
+        return view('SupportTicketNew');
+    }
+
+    public function showApprovedSupportTickets()
+    {
+        $filteredRows = SupportTicket::get();
+
+        // Pass the rows to a view
+        return view('bread.browse', compact('filteredRows'));
+    }
+
+    public function approveSupportTicket($support_ticket_id)
+    {
+        SupportTicket::where('id', $support_ticket_id)->update(['supportTicketStatus' => 'Одобрена']);
+
+        return back();
+    }
+
+    public function rejectSupportTicket($support_ticket_id)
+    {
+        SupportTicket::where('id', $support_ticket_id)->update(['supportTicketStatus' => 'Отклонена']);
+        return back();
     }
 
     //     public function excelExportAll(string $statusType)

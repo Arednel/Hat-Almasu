@@ -2,6 +2,12 @@
 
 ## Development
 
+* 2024-06-29 -- 1.1.7 - Approve, Reject and roles
+  * Added ability to approve ticket
+  * Added ability to reject ticket
+  * Added roles
+  * Fixes
+
 * 2024-06-28 -- 1.1.6 - Images upload
   * Image upload added
   * Removed unnecessary files

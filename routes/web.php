@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Session;
 
 use TCG\Voyager\Facades\Voyager;
 
-use App\Http\Controllers\SupportTicketsController;
+use App\Http\Controllers\SupportTicketController;
 
 /*
 |--------------------------------------------------------------------------
@@ -31,14 +31,21 @@ Route::view('/info', 'Info');
 
 Route::group(['prefix' => 'admin'], function () {
     Voyager::routes();
+
+    //Redirect to support tickets by default
     Route::redirect('/', '/admin/supporttickets');
+
+    //Approve Support Ticket
+    Route::get('supportticket/approve/{support_ticket_id}', [SupportTicketController::class, 'approveSupportTicket'])->name('approve_support_ticket');
+    //Reject Support Ticket
+    Route::get('supportticket/reject/{support_ticket_id}', [SupportTicketController::class, 'rejectSupportTicket'])->name('reject_support_ticket');
 });
 
 //Requests
-Route::controller(SupportTicketsController::class)->group(function () {
+Route::controller(SupportTicketController::class)->group(function () {
     //Creating new request (as student)
-    Route::get('/RequestNew', 'sendNew');
-    Route::post('/RequestNew', 'insert');
+    Route::get('/SupportTicketNew', 'sendNew');
+    Route::post('/SupportTicketNew', 'insert');
 
     //Requests managing
     Route::middleware(['auth', 'can:viewer'])->group(function () {
@@ -51,7 +58,7 @@ Route::controller(SupportTicketsController::class)->group(function () {
     });
 });
 
-Route::view('/RequestStatus', 'RequestStatus');
+Route::view('/SupportTicketStatus', 'SupportTicketStatus');
 
 //Change language
 Route::get('/Language/{locale}', function (string $locale) {

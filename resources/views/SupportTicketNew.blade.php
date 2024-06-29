@@ -15,7 +15,7 @@
     <div class="main-block">
         <div class="form-image" style="background-image: url('{{ asset('images/3.jpg') }}');"></div>
 
-        <form method="POST" action="/RequestNew" enctype="multipart/form-data">
+        <form method="POST" action="/SupportTicketNew" enctype="multipart/form-data">
             <button onclick="location.href='/'" type="button" class="standard-button">{!! __('← Назад') !!}</button>
             <br><br><br><br>
 
@@ -39,7 +39,7 @@
             @error('course')
                 <p>{{ $message }}</p>
             @enderror
-            <input type="number" name="course" min="1" max="5" placeholder=" {!! __('Курс') !!}"
+            <input type="number" name="course" min="1" max="4" placeholder=" {!! __('Курс') !!}"
                 required />
 
             @error('department')
@@ -57,16 +57,21 @@
             @enderror
             <input type="text" name="subject" placeholder=" {!! __('Дисциплина (предмет)') !!}" required />
 
-            @error('mail')
+            @error('email')
                 <p>{{ $message }}</p>
             @enderror
-            <input id="mail" type="mail" name="mail" placeholder=" {!! __('Почта для связи') !!}" required />
+            <input id="email" type="mail" name="email" placeholder=" {!! __('Почта для связи') !!}" required />
 
             @error('phoneNumber')
                 <p>{{ $message }}</p>
             @enderror
             <input id="phoneNumber" type="text" name="phoneNumber" placeholder=" {!! __('Номер телефона для связи') !!}"
                 required />
+
+            @error('extraTextInfo')
+                <p>{{ $message }}</p>
+            @enderror
+            <textarea id="extraTextInfo" type="textarea" name="extraTextInfo" placeholder="{!! __('Дополнительная информация') !!}" required></textarea>
 
             @error('reason')
                 <p>{{ $message }}</p>
@@ -105,7 +110,7 @@
     crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script>
     // Charater "a" with \\, because it is special character
-    $('#mail').inputmask({
+    $('#email').inputmask({
         mask: "*{1,20}@\\alm\\au.edu.kz",
     });
 
