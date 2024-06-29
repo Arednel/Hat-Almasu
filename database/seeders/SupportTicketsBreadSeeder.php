@@ -59,7 +59,7 @@ class SupportTicketsBreadSeeder extends Seeder
                 'order'        => 2,
             ],
             'testType' => [
-                'type'         => 'text',
+                'type'         => 'select_dropdown',
                 'display_name' => 'Вид теста',
                 'required'     => 1,
                 'browse'       => 1,
@@ -67,7 +67,14 @@ class SupportTicketsBreadSeeder extends Seeder
                 'edit'         => 1,
                 'add'          => 1,
                 'delete'       => 0,
-                'details'      => '',
+                'details'      =>
+                [
+                    'options' => [
+                        'РК1' => 'РК1',
+                        'РК2' => 'РК2',
+                        'Экзамен' => 'Экзамен',
+                    ],
+                ],
                 'order'        => 3,
             ],
             'course' => [
@@ -83,7 +90,7 @@ class SupportTicketsBreadSeeder extends Seeder
                 'order'        => 4,
             ],
             'department' => [
-                'type'         => 'text',
+                'type'         => 'select_dropdown',
                 'display_name' => 'Отделение',
                 'required'     => 1,
                 'browse'       => 1,
@@ -91,7 +98,14 @@ class SupportTicketsBreadSeeder extends Seeder
                 'edit'         => 1,
                 'add'          => 1,
                 'delete'       => 0,
-                'details'      => '',
+                'details'      =>
+                [
+                    'options' => [
+                        'Каз.' => 'Каз.',
+                        'Рус.' => 'Рус.',
+                        'Анг.' => 'Анг.',
+                    ],
+                ],
                 'order'        => 5,
             ],
             'subject' => [
@@ -148,8 +162,8 @@ class SupportTicketsBreadSeeder extends Seeder
                 'required'     => 1,
                 'browse'       => 1,
                 'read'         => 1,
-                'edit'         => 1,
-                'add'          => 1,
+                'edit'         => 0,
+                'add'          => 0,
                 'delete'       => 0,
                 'details'      => '',
                 'order'        => 10,
@@ -167,7 +181,7 @@ class SupportTicketsBreadSeeder extends Seeder
                 'order'        => 11,
             ],
             'supportTicketStatus' => [
-                'type'         => 'number',
+                'type'         => 'select_dropdown',
                 'display_name' => 'Статус заявки',
                 'required'     => 1,
                 'browse'       => 1,
@@ -175,7 +189,14 @@ class SupportTicketsBreadSeeder extends Seeder
                 'edit'         => 1,
                 'add'          => 1,
                 'delete'       => 0,
-                'details'      => '',
+                'details'      =>
+                [
+                    'options' => [
+                        'На рассмотрении' => 'На рассмотрении',
+                        'Одобрена' => 'Одобрена',
+                        'Отклонена' => 'Отклонена',
+                    ],
+                ],
                 'order'        => 12,
             ],
             'created_at' => [

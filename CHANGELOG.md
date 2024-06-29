@@ -2,6 +2,11 @@
 
 ## Development
 
+* 2024-06-29 -- 1.1.8 - Ticket Status Check
+  * Route access restricted
+  * Ability to view ticket status
+  * Fixes
+
 * 2024-06-29 -- 1.1.7 - Approve, Reject and roles
   * Added ability to approve ticket
   * Added ability to reject ticket

@@ -36,29 +36,34 @@ Route::group(['prefix' => 'admin'], function () {
     Route::redirect('/', '/admin/supporttickets');
 
     //Approve Support Ticket
-    Route::get('supportticket/approve/{support_ticket_id}', [SupportTicketController::class, 'approveSupportTicket'])->name('approve_support_ticket');
+    Route::get('supportticket/approve/{support_ticket_id}', [SupportTicketController::class, 'approveSupportTicket'])
+        ->middleware('admin.user')
+        ->name('approve_support_ticket');
     //Reject Support Ticket
-    Route::get('supportticket/reject/{support_ticket_id}', [SupportTicketController::class, 'rejectSupportTicket'])->name('reject_support_ticket');
+    Route::get('supportticket/reject/{support_ticket_id}', [SupportTicketController::class, 'rejectSupportTicket'])
+        ->middleware('admin.user')
+        ->name('reject_support_ticket');
 });
 
 //Requests
 Route::controller(SupportTicketController::class)->group(function () {
-    //Creating new request (as student)
+    //Creating new request (for student student)
     Route::get('/SupportTicketNew', 'sendNew');
     Route::post('/SupportTicketNew', 'insert');
 
     //Requests managing
-    Route::middleware(['auth', 'can:viewer'])->group(function () {
-        //Request excel export
-        // Route::get('/ExcelExportAll/{statusType}', 'excelExportAll')
-        //     ->whereIn('statusType', ['new', 'approved', 'rejected']);
-        // Route::get('/ExcelExport/{statusType}/{currentPage}',  'excelExport')
-        //     ->whereIn('statusType', ['new', 'approved', 'rejected'])
-        //     ->whereNumber('currentPage');
-    });
+    //Route::middleware(['auth', 'can:support'])->group(function () {
+    //Request excel export
+    // Route::get('/ExcelExportAll/{statusType}', 'excelExportAll')
+    //     ->whereIn('statusType', ['new', 'approved', 'rejected']);
+    // Route::get('/ExcelExport/{statusType}/{currentPage}',  'excelExport')
+    //     ->whereIn('statusType', ['new', 'approved', 'rejected'])
+    //     ->whereNumber('currentPage');
+    // });
 });
 
-Route::view('/SupportTicketStatus', 'SupportTicketStatus');
+Route::get('/SupportTicketStatus', [SupportTicketController::class, 'supportTicketStatusCookie']);
+Route::post('/SupportTicketStatus', [SupportTicketController::class, 'supportTicketStatus']);
 
 //Change language
 Route::get('/Language/{locale}', function (string $locale) {

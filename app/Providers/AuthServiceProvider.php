@@ -38,13 +38,5 @@ class AuthServiceProvider extends ServiceProvider
                 return false;
             }
         });
-
-        Gate::define('viewer', function () {
-            if (in_array(Auth::user()->user_privilege, ['Admin', 'Support', 'Viewer'])) {
-                return true;
-            } else {
-                return false;
-            }
-        });
     }
 }

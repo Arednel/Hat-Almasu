@@ -9,16 +9,14 @@ use App\Exports\RequestsExport;
 
 use Illuminate\Http\Request;
 
-use Illuminate\Validation\Rule;
-
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Cookie;
+use Illuminate\Support\Facades\Storage;
 
 use Maatwebsite\Excel\Facades\Excel;
 
 use Carbon\Carbon;
-use Illuminate\Support\Facades\Storage;
 
 class SupportTicketController extends Controller
 {
@@ -74,18 +72,11 @@ class SupportTicketController extends Controller
 
                 $filePath = Storage::put("public/supporttickets/$monthAndYear", $image);
 
-                $filePathWithoutPublic = str_replace('public/', '', $filePath);
-                $filePaths[] = $filePathWithoutPublic;
+                $savedFileName = basename($filePath);
+
+                $filePaths[] = "supporttickets\\$monthAndYear\\$savedFileName";
                 $jsonFilePaths = json_encode($filePaths);
             }
-            //Image save and checking size (Currently 10MB)
-            // $uploadedFile = $request->file(' ')->getRealPath();
-            // if (filesize($uploadedFile) > 10485760) {
-            //     return redirect('Index?error=Файл слишком большой');
-            // }
-            // clearstatcache();
-            // $bin_string = file_get_contents($image->getRealPath());
-            // $confirmationFile = base64_encode($bin_string);
         }
 
         $data = array(
@@ -103,22 +94,21 @@ class SupportTicketController extends Controller
         );
         SupportTicket::insert($data);
 
-        $requestID = DB::getPdo()->lastInsertId();
+        $supportTicketID = DB::getPdo()->lastInsertId();
 
         Session::put('lastRequestTime', date('d-m-Y h:i:s'));
 
-        return redirect('Index?message=' . __('Вы успешно подали заявку, ваш номер заявки: ')  . $requestID . __('. Сохраните этот номер!'));
-    }
+        //Set cookies for later checking support ticket status
+        Cookie::queue(Cookie::forever('email', $email));
+        Cookie::queue(Cookie::forever('supportTicketID', $supportTicketID));
 
-    public function image(int $requestID)
-    {
-        return view('RequestImage', ['image' => SupportTicket::image($requestID)]);
+        return redirect('Index?message=' . __('Вы успешно подали заявку, ваш номер заявки: ')  . $supportTicketID . __('. Сохраните этот номер!'));
     }
 
     public function sendNew()
     {
-        $canSendRequests = SiteSettings::canSendRequests();
-        if (!$canSendRequests) {
+        $canSendSupportTickets = SiteSettings::canSendRequests();
+        if (!$canSendSupportTickets) {
             return redirect('/Index?error=Сейчас нельзя подавать новые заявки');
         }
 
@@ -146,6 +136,64 @@ class SupportTicketController extends Controller
         return back();
     }
 
+    public function supportTicketStatusCookie()
+    {
+        $email = Cookie::get('email');
+        $supportTicketID = Cookie::get('supportTicketID');
+
+        //If cookie is not set, then redirect to manual input
+        if (
+            $email == null
+            || $supportTicketID == null
+        ) {
+            return view('SupportTicketStatus');
+        }
+
+        return $this->supportTicketStatusCheck($email, $supportTicketID);
+    }
+
+    public function supportTicketStatus(Request $request)
+    {
+        $request->validate(
+            [
+                'email' => ['required', 'email'],
+                'supportTicketID' => 'required',
+            ]
+        );
+
+        $email = $request->input('email');
+        $supportTicketID = $request->input('supportTicketID');
+
+        return $this->supportTicketStatusCheck($email, $supportTicketID);
+    }
+
+    private function supportTicketStatusCheck($email, $supportTicketID)
+    {
+        $supportTicket = SupportTicket::where('email', $email)
+            ->where('id', $supportTicketID);
+
+        if ($supportTicket->exists()) {
+            $supportTicketStatus = $supportTicket->first()->supportTicketStatus;
+        } else {
+            return redirect('Index?error=' . __('Заявка не найдена'));
+        }
+
+        switch ($supportTicketStatus) {
+            case 'На рассмотрении':
+                $redirectTo = 'Index?messageokay=' . __('Ваша заявка на рассмотрении');
+                break;
+            case 'Одобрена':
+                $redirectTo = 'Index?message=' . __('Ваша заявка одобрена');
+                break;
+            case 'Отклонена':
+                $redirectTo = 'Index?error=' . __('Ваша заявка отклонена');
+                break;
+            default:
+                return redirect('Index?error=' . __('Заявка не найдена'));
+        }
+
+        return redirect($redirectTo);
+    }
     //     public function excelExportAll(string $statusType)
     //     {
     //         $data = [[

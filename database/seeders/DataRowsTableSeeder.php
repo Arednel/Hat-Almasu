@@ -166,7 +166,7 @@ class DataRowsTableSeeder extends Seeder
         if (!$dataRow->exists) {
             $dataRow->fill([
                 'type'         => 'relationship',
-                'display_name' => __('voyager::seeders.data_rows.roles'),
+                'display_name' => 'Дополнительные роли',
                 'required'     => 0,
                 'browse'       => 1,
                 'read'         => 1,
