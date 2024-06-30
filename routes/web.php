@@ -32,7 +32,7 @@ Route::view('/info', 'Info');
 Route::group(['prefix' => 'admin'], function () {
 
     //Choose tickets by status (should be before voyager routes)
-    Route::get('/supporttickets/{status}', [SupportTicketController::class, 'chooseByStatus']);
+    Route::get('/supporttickets_{status}/', [SupportTicketController::class, 'chooseByStatus']);
 
     Voyager::routes();
 

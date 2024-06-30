@@ -39,8 +39,8 @@
     <br>
     <a href="/">← На главную</a>
 
-    <p>version 1.1.9 / 2024.06.30</p>
-    <p>Voyager fluff</p>
+    <p>version 1.1.9.1 / 2024.06.30</p>
+    <p>Voyager Fixes</p>
     <p>Made by Evtifeev Artyom Vladislavovich / Arednel</p>
     <p>2022-2024 &#169</p>
 </body>

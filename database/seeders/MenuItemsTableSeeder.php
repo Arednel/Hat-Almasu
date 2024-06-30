@@ -100,7 +100,7 @@ class MenuItemsTableSeeder extends Seeder
         $menuItem = MenuItem::firstOrNew([
             'menu_id' => $menu->id,
             'title'   => __('Все'),
-            'url'     => '/admin/supporttickets/all',
+            'url'     => '/admin/supporttickets_all',
             'route'   => null,
         ]);
         if (!$menuItem->exists) {
@@ -116,7 +116,7 @@ class MenuItemsTableSeeder extends Seeder
         $menuItem = MenuItem::firstOrNew([
             'menu_id' => $menu->id,
             'title'   => __('На рассмотрении'),
-            'url'     => '/admin/supporttickets/underReview',
+            'url'     => '/admin/supporttickets_underReview',
             'route'   => null,
         ]);
         if (!$menuItem->exists) {
@@ -132,7 +132,7 @@ class MenuItemsTableSeeder extends Seeder
         $menuItem = MenuItem::firstOrNew([
             'menu_id' => $menu->id,
             'title'   => __('Одобренные'),
-            'url'     => '/admin/supporttickets/approved',
+            'url'     => '/admin/supporttickets_approved',
             'route'   => null,
         ]);
         if (!$menuItem->exists) {
@@ -148,7 +148,7 @@ class MenuItemsTableSeeder extends Seeder
         $menuItem = MenuItem::firstOrNew([
             'menu_id' => $menu->id,
             'title'   => __('Отклонённые'),
-            'url'     => '/admin/supporttickets/rejected',
+            'url'     => '/admin/supporttickets_rejected',
             'route'   => null,
         ]);
         if (!$menuItem->exists) {

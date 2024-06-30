@@ -2,6 +2,10 @@
 
 ## Development
 
+* 2024-06-30 -- 1.1.9.1 - Voyager Fixes
+  * Menu item fix
+  * Table name fix
+
 * 2024-06-30 -- 1.1.9 - Voyager fluff
   * Route menu items
   * Auth changes

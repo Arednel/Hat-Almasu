@@ -5,6 +5,11 @@
 ## Installation process
 #### from project folder
 
+sudo chown -R www-data:www-data /var/www/html/hat_almasu
+sudo chmod -R 775 /var/www/html/hat_almasu
+sudo chmod -R 775 /var/www/html/hat_almasu/storage
+sudo chmod -R 775 /var/www/html/hat_almasu/bootstrap/cache
+
 1. composer install
 2. php artisan key:generate
 3. php artisan voyager:install

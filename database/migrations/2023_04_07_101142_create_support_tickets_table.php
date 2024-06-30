@@ -14,7 +14,7 @@ class CreateSupportTicketsTable extends Migration
      */
     public function up()
     {
-        Schema::create('supportTickets', function (Blueprint $table) {
+        Schema::create('supporttickets', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('fullName', 200);
             $table->string('testType', 200);
@@ -38,6 +38,6 @@ class CreateSupportTicketsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('supportTickets');
+        Schema::dropIfExists('supporttickets');
     }
 }
