@@ -30,21 +30,25 @@ Route::view('/Info', 'Info');
 Route::view('/info', 'Info');
 
 Route::group(['prefix' => 'admin'], function () {
+
+    //Choose tickets by status (should be before voyager routes)
+    Route::get('/supporttickets/{status}', [SupportTicketController::class, 'chooseByStatus']);
+
     Voyager::routes();
 
-    //Redirect to support tickets by default
-    Route::redirect('/', '/admin/supporttickets');
+    Route::middleware(['admin.user'])->group(function () {
+        //Redirect to support tickets by default
+        Route::redirect('/', '/admin/supporttickets');
 
-    //Approve Support Ticket
-    Route::get('supportticket/approve/{support_ticket_id}', [SupportTicketController::class, 'approveSupportTicket'])
-        ->middleware('admin.user')
-        ->name('approve_support_ticket');
-    //Reject Support Ticket
-    Route::get('supportticket/reject/{support_ticket_id}', [SupportTicketController::class, 'rejectSupportTicket'])
-        ->middleware('admin.user')
-        ->name('reject_support_ticket');
+
+        //Approve Support Ticket
+        Route::get('supportticket/approve/{support_ticket_id}', [SupportTicketController::class, 'approveSupportTicket'])
+            ->name('approve_support_ticket');
+        //Reject Support Ticket
+        Route::get('supportticket/reject/{support_ticket_id}', [SupportTicketController::class, 'rejectSupportTicket'])
+            ->name('reject_support_ticket');
+    });
 });
-
 //Requests
 Route::controller(SupportTicketController::class)->group(function () {
     //Creating new request (for student student)

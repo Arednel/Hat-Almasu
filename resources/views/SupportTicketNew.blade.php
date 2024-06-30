@@ -71,7 +71,7 @@
             @error('extraTextInfo')
                 <p>{{ $message }}</p>
             @enderror
-            <textarea id="extraTextInfo" type="textarea" name="extraTextInfo" placeholder="{!! __('Дополнительная информация') !!}" required></textarea>
+            <textarea id="extraTextInfo" type="textarea" name="extraTextInfo" placeholder="{!! __('Дополнительная информация (не обязательно)') !!}"></textarea>
 
             @error('reason')
                 <p>{{ $message }}</p>
