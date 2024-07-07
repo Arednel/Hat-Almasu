@@ -8,6 +8,7 @@ use Illuminate\Support\ServiceProvider;
 use TCG\Voyager\Facades\Voyager;
 
 use App\Actions\ApproveSupportTicket;
+use App\Actions\ExcelExport;
 use App\Actions\RejectSupportTicket;
 
 class AppServiceProvider extends ServiceProvider
@@ -39,5 +40,7 @@ class AppServiceProvider extends ServiceProvider
         Voyager::addAction(RejectSupportTicket::class);
         //Approve Support Ticket
         Voyager::addAction(ApproveSupportTicket::class);
+        //Approve Support Ticket
+        Voyager::addAction(ExcelExport::class);
     }
 }

@@ -36,7 +36,7 @@ class RejectSupportTicket extends AbstractAction
 
     public function shouldActionDisplayOnDataType()
     {
-        return ($this->dataType->slug == 'supporttickets') || ($this->dataType->slug == 'other');
+        return $this->dataType->slug == 'supporttickets';
     }
 
     public function shouldActionDisplayOnRow($row)

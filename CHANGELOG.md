@@ -2,6 +2,9 @@
 
 ## Development
 
+* 2024-07-07 -- 1.2.0 - Excel export
+  * Added excel export for new admin panel
+
 * 2024-06-30 -- 1.1.9.1 - Voyager Fixes
   * Menu item fix
   * Table name fix

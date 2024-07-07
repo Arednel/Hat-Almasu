@@ -32,14 +32,11 @@ Route::view('/info', 'Info');
 Route::group(['prefix' => 'admin'], function () {
 
     //Choose tickets by status (should be before voyager routes)
-    Route::get('/supporttickets_{status}/', [SupportTicketController::class, 'chooseByStatus']);
-
-    Voyager::routes();
+    Route::get('/supporttickets_{status}', [SupportTicketController::class, 'chooseByStatus']);
 
     Route::middleware(['admin.user'])->group(function () {
         //Redirect to support tickets by default
         Route::redirect('/', '/admin/supporttickets');
-
 
         //Approve Support Ticket
         Route::get('supportticket/approve/{support_ticket_id}', [SupportTicketController::class, 'approveSupportTicket'])
@@ -48,22 +45,15 @@ Route::group(['prefix' => 'admin'], function () {
         Route::get('supportticket/reject/{support_ticket_id}', [SupportTicketController::class, 'rejectSupportTicket'])
             ->name('reject_support_ticket');
     });
+
+    Voyager::routes();
 });
+
 //Requests
 Route::controller(SupportTicketController::class)->group(function () {
     //Creating new request (for student student)
     Route::get('/SupportTicketNew', 'sendNew');
     Route::post('/SupportTicketNew', 'insert');
-
-    //Requests managing
-    //Route::middleware(['auth', 'can:support'])->group(function () {
-    //Request excel export
-    // Route::get('/ExcelExportAll/{statusType}', 'excelExportAll')
-    //     ->whereIn('statusType', ['new', 'approved', 'rejected']);
-    // Route::get('/ExcelExport/{statusType}/{currentPage}',  'excelExport')
-    //     ->whereIn('statusType', ['new', 'approved', 'rejected'])
-    //     ->whereNumber('currentPage');
-    // });
 });
 
 Route::get('/SupportTicketStatus', [SupportTicketController::class, 'supportTicketStatusCookie']);

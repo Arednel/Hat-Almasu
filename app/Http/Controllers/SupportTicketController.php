@@ -2,25 +2,26 @@
 
 namespace App\Http\Controllers;
 
-use Carbon\Carbon;
-use App\Models\SiteSettings;
-
 use Illuminate\Http\Request;
 
+use Illuminate\Database\Eloquent\SoftDeletes;
+
+use TCG\Voyager\Http\Controllers\VoyagerBaseController;
+
+use Carbon\Carbon;
+
+use App\Models\SiteSettings;
 use App\Models\SupportTicket;
 
-use App\Exports\RequestsExport;
 use TCG\Voyager\Facades\Voyager;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
-
-use Maatwebsite\Excel\Facades\Excel;
-
 use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Storage;
-use Illuminate\Database\Eloquent\SoftDeletes;
-use TCG\Voyager\Http\Controllers\VoyagerBaseController;
+use Maatwebsite\Excel\Facades\Excel;
+
+use App\Exports\SupportTicketsExport;
 
 class SupportTicketController extends VoyagerBaseController
 {
@@ -317,6 +318,7 @@ class SupportTicketController extends VoyagerBaseController
     public function rejectSupportTicket($support_ticket_id)
     {
         SupportTicket::where('id', $support_ticket_id)->update(['supportTicketStatus' => 'Отклонена']);
+
         return back();
     }
 
@@ -378,75 +380,76 @@ class SupportTicketController extends VoyagerBaseController
                 break;
             default:
                 return redirect('Index?error=' . __('Заявка не найдена'));
+                break;
         }
 
         return redirect($redirectTo);
     }
-    //     public function excelExportAll(string $statusType)
-    //     {
-    //         $data = [[
-    //             "ID заявки", "ID теста", "Институт", "ФИО", "Специальность", "Курс",
-    //             "Отделение", "Дисциплина", "Email", "Телефон", "Причина", "Вид Экзамена"
-    //         ]];
-    // 
-    //         $result = SupportTicket::all($statusType, SiteSettings::currentExamSessionID());
-    // 
-    //         foreach ($result as $item) {
-    //             array_push($data, [
-    //                 $item->requestID,
-    //                 $item->idOfTest,
-    //                 $item->faculty,
-    //                 $item->fullName,
-    //                 $item->speciality,
-    //                 $item->course,
-    //                 $item->department,
-    //                 $item->subject,
-    //                 $item->mail,
-    //                 $item->phoneNumber,
-    //                 $item->reason,
-    //                 $item->examType,
-    //             ]);
-    //         }
-    // 
-    //         $export = new RequestsExport([$data]);
-    // 
-    //         $filename = date('Y-m-d') . '_Requests_' . ucfirst($statusType) . '_All';
-    // 
-    //         return Excel::download($export, $filename . '.xlsx');
-    //     }
-    // 
-    //     public function excelExport(string $statusType, int $currentPage)
-    //     {
-    //         $perPage = $this->perPagePrivate;
-    // 
-    //         $data = [[
-    //             "ID заявки", "ID теста", "Институт", "ФИО", "Специальность", "Курс",
-    //             "Отделение", "Дисциплина", "Email", "Телефон", "Причина", "Вид Экзамена"
-    //         ]];
-    // 
-    //         $result = SupportTicket::page($statusType, $perPage, $currentPage, SiteSettings::currentExamSessionID());
-    // 
-    //         foreach ($result as $item) {
-    //             array_push($data, [
-    //                 $item->requestID,
-    //                 $item->idOfTest,
-    //                 $item->faculty,
-    //                 $item->fullName,
-    //                 $item->speciality,
-    //                 $item->course,
-    //                 $item->department,
-    //                 $item->subject,
-    //                 $item->mail,
-    //                 $item->phoneNumber,
-    //                 $item->reason,
-    //                 $item->examType,
-    //             ]);
-    //         }
-    // 
-    //         $export = new RequestsExport([$data]);
-    // 
-    //         $filename = date('Y-m-d') . '_Requests_' . ucfirst($statusType) . '_Page_' . $currentPage + 1;
-    // 
-    //         return Excel::download($export, $filename . '.xlsx');
-    //     }
+
+    public static function excelExport($comingFrom)
+    {
+        $lastSegment = basename($comingFrom);
+
+        switch ($lastSegment) {
+            case 'supporttickets_underReview':
+                $supportTicketsStatus = 'Заявки_на_рассмотрении';
+
+                $supportTickets = SupportTicket::where('supportTicketStatus', 'На рассмотрении')->get();
+                break;
+            case 'supporttickets_approved':
+                $supportTicketsStatus = 'Одобренные_заявки';
+
+                $supportTickets = SupportTicket::where('supportTicketStatus', 'Одобрена')->get();
+                break;
+            case 'supporttickets_rejected':
+                $supportTicketsStatus = 'Отклонённые_заявки';
+
+                $supportTickets = SupportTicket::where('supportTicketStatus', 'Отклонена')->get();
+                break;
+            default:
+                $supportTicketsStatus = 'Все_заявки';
+
+                $supportTickets = SupportTicket::all();
+                break;
+        }
+
+        // First row values/column names
+        $data = [[
+            "ID заявки",
+            "ФИО",
+            "Вид теста",
+            "Курс",
+            "Отделение",
+            "Дисциплина",
+            "Email",
+            "Телефон",
+            "Дополнительная информация",
+            "Причина",
+            "Статус",
+            "Дата подачи завяки",
+        ]];
+
+        foreach ($supportTickets as $item) {
+            array_push($data, [
+                $item->id,
+                $item->fullName,
+                $item->testType,
+                $item->course,
+                $item->department,
+                $item->subject,
+                $item->email,
+                $item->phoneNumber,
+                $item->extraTextInfo,
+                $item->reason,
+                $item->supportTicketStatus,
+                $item->created_at,
+            ]);
+        }
+
+        $export = new SupportTicketsExport([$data]);
+
+        $filename = date('Y-m-d') . '_HatAlmasu_' . $supportTicketsStatus;
+
+        return Excel::download($export, $filename . '.xlsx');
+    }
 }
