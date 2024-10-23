@@ -39,8 +39,8 @@
     <br>
     <a href="/">← На главную</a>
 
-    <p>version 1.2.0 / 2024.07.07</p>
-    <p>Excel export</p>
+    <p>version 1.2.1 / 2024.10.23</p>
+    <p>Interactive input form</p>
     <p>Made by Evtifeev Artyom Vladislavovich / Arednel</p>
     <p>2022-2024 &#169</p>
 </body>

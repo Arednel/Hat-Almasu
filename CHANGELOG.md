@@ -2,6 +2,11 @@
 
 ## Development
 
+* 2024-10-23 -- 1.2.1 - Interactive input form
+  * Changed required form fields
+  * Added Laravel Livewire
+  * User can choose what data to send using Livewire
+
 * 2024-07-07 -- 1.2.0 - Excel export
   * Added excel export for new admin panel
 

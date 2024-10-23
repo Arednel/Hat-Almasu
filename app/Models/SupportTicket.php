@@ -11,13 +11,16 @@ class SupportTicket extends Model
 
     protected $fillable = [
         'fullName',
-        'testType',
         'course',
         'department',
-        'subject',
         'mail',
         'phoneNumber',
         'reason',
+        'student_login',
+        'student_password',
+        'subjects_to_add',
+        'subjects_to_remove',
+        'stuff_comment',
         'confirmationImages',
     ];
 }

@@ -30,9 +30,8 @@ class BreadPermissionsSeeder extends Seeder
 
         $permissionIDs[0] = Permission::where('key', 'browse_admin')->first()->id;
         $permissionIDs[1] = Permission::where('key', 'browse_media')->first()->id;
-        $permissionIDs[2] = Permission::where('key', 'browse_menus')->first()->id;
-        $permissionIDs[3] = Permission::where('key', 'browse_supporttickets')->first()->id;
-        $permissionIDs[4] = Permission::where('key', 'read_supporttickets')->first()->id;
+        $permissionIDs[2] = Permission::where('key', 'browse_supporttickets')->first()->id;
+        $permissionIDs[3] = Permission::where('key', 'read_supporttickets')->first()->id;
 
         foreach ($permissionIDs as $permissionID) {
             $data = array(

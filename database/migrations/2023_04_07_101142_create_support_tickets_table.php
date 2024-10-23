@@ -17,15 +17,18 @@ class CreateSupportTicketsTable extends Migration
         Schema::create('supporttickets', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('fullName', 200);
-            $table->string('testType', 200);
             $table->tinyInteger('course');
             $table->string('department', 200);
-            $table->string('subject', 200);
             $table->string('email', 200);
             $table->string('phoneNumber', 200);
             $table->text('extraTextInfo')->nullable();
             $table->string('reason', 200);
-            $table->json('confirmationImages');
+            $table->string('student_login', 200)->nullable();
+            $table->string('student_password', 200)->nullable();
+            $table->text('subjects_to_add')->nullable();
+            $table->text('subjects_to_remove')->nullable();
+            $table->text('stuff_comment')->nullable();
+            $table->json('confirmationImages')->nullable();
             $table->string('supportTicketStatus')->default('На рассмотрении');
             $table->timestamps();
         });

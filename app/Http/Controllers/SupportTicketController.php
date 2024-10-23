@@ -37,32 +37,31 @@ class SupportTicketController extends VoyagerBaseController
                 return redirect('Index?error=' . __('Подождите 3 минуты, перед подачей следующей заявки'));
             }
         }
-
         //Data validation
         $request->validate(
             [
                 'fullName' => 'required',
-                'testType' => 'required',
                 'course' => 'required',
                 'department' => 'required',
-                'subject' => 'required',
                 'email' => ['required', 'email'],
                 'phoneNumber' => 'required',
                 'reason' => 'required',
+                'student_login' => 'required',
                 'confirmationImage.*' => 'max:12000',
                 'confirmationImage' => 'max:5',
             ]
         );
-
         $fullName = $request->input('fullName');
-        $testType = $request->input('testType');
         $course = $request->input('course');
         $department = $request->input('department');
-        $subject = $request->input('subject');
         $email = $request->input('email');
         $phoneNumber = $request->input('phoneNumber');
         $extraTextInfo = $request->input('extraTextInfo');
         $reason = $request->input('reason');
+        $student_login = $request->input('student_login');
+        $student_password = $request->input('student_password');
+        $subjects_to_add = $request->input('subjects_to_add');
+        $subjects_to_remove = $request->input('subjects_to_remove');
 
         if ($request->hasFile('confirmationImage')) {
             //Add this to file path, to save images like "June2024" 
@@ -81,18 +80,23 @@ class SupportTicketController extends VoyagerBaseController
                 $filePaths[] = "supporttickets\\$monthAndYear\\$savedFileName";
                 $jsonFilePaths = json_encode($filePaths);
             }
+        } else {
+            # If user doesn't added any images
+            $jsonFilePaths = null;
         }
 
         $data = array(
             'fullName' => $fullName,
-            'testType' => $testType,
             'course' => $course,
             'department' => $department,
-            'subject' => $subject,
             'email' => $email,
             'phoneNumber' => $phoneNumber,
             'extraTextInfo' => $extraTextInfo,
             'reason' => $reason,
+            'student_login' => $student_login,
+            'student_password' => $student_password,
+            'subjects_to_add' => $subjects_to_add,
+            'subjects_to_remove' => $subjects_to_remove,
             'confirmationImages' => $jsonFilePaths,
             'created_at' => now(),
         );
@@ -433,10 +437,8 @@ class SupportTicketController extends VoyagerBaseController
             array_push($data, [
                 $item->id,
                 $item->fullName,
-                $item->testType,
                 $item->course,
                 $item->department,
-                $item->subject,
                 $item->email,
                 $item->phoneNumber,
                 $item->extraTextInfo,
