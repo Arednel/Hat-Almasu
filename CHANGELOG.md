@@ -2,6 +2,9 @@
 
 ## Development
 
+* 2024-10-28 -- 1.2.1.1 - Livewire fix
+  * Livewire fix
+
 * 2024-10-23 -- 1.2.1 - Interactive input form
   * Changed required form fields
   * Added Laravel Livewire

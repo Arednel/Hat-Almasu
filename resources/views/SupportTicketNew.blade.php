@@ -11,11 +11,12 @@
     <link rel="stylesheet" href="{{ asset('css/StandardButtons.css') }}">
 
     @livewireStyles
-    @livewireScripts
 </head>
 
 <body>
     @livewire('reason-form-switcher')
+
+    @livewireScripts
 </body>
 
 <script src="https://code.jquery.com/jquery-3.7.0.min.js"
