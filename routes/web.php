@@ -58,11 +58,11 @@ Route::controller(SupportTicketController::class)->group(function () {
 });
 
 //Dormitory Requests
-Route::controller(DormitoryTicket::class)->group(function () {
-    //Creating new request (for student student)
-    Route::get('/DormitoryTicketNew', 'sendNew');
-    Route::post('/DormitoryTicketNew', 'inProgress');
-});
+// Route::controller(DormitoryTicket::class)->group(function () {
+//     //Creating new request (for student student)
+//     Route::get('/DormitoryTicketNew', 'sendNew');
+//     Route::post('/DormitoryTicketNew', 'inProgress');
+// });
 
 Route::get('/SupportTicketStatus', [SupportTicketController::class, 'supportTicketStatusCookie']);
 Route::post('/SupportTicketStatus', [SupportTicketController::class, 'supportTicketStatus']);

@@ -2,6 +2,9 @@
 
 ## Development
 
+* 2024-12-05 -- 1.2.2.1 - Dormitory removed
+  * Dormitory removed
+
 * 2024-12-05 -- 1.2.2 - Dormitory
   * Added dormitory form
   * Kaz language fixes

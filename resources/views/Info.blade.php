@@ -39,8 +39,8 @@
     <br>
     <a href="/">← На главную</a>
 
-    <p>version 1.2.2 / 2024.12.05</p>
-    <p>Dormitory</p>
+    <p>version 1.2.2.1 / 2024.12.05</p>
+    <p>Dormitory removed</p>
     <p>Made by Evtifeev Artyom Vladislavovich / Arednel</p>
     <p>2022-2024 &#169</p>
 </body>
