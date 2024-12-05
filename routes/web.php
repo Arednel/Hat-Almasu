@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Session;
 use TCG\Voyager\Facades\Voyager;
 
 use App\Http\Controllers\SupportTicketController;
+use App\Http\Controllers\DormitoryTicket;
 
 /*
 |--------------------------------------------------------------------------
@@ -49,11 +50,18 @@ Route::group(['prefix' => 'admin'], function () {
     Voyager::routes();
 });
 
-//Requests
+//Moodle Requests
 Route::controller(SupportTicketController::class)->group(function () {
     //Creating new request (for student student)
     Route::get('/SupportTicketNew', 'sendNew');
     Route::post('/SupportTicketNew', 'insert');
+});
+
+//Dormitory Requests
+Route::controller(DormitoryTicket::class)->group(function () {
+    //Creating new request (for student student)
+    Route::get('/DormitoryTicketNew', 'sendNew');
+    Route::post('/DormitoryTicketNew', 'inProgress');
 });
 
 Route::get('/SupportTicketStatus', [SupportTicketController::class, 'supportTicketStatusCookie']);

@@ -2,6 +2,12 @@
 
 ## Development
 
+* 2024-12-05 -- 1.2.2 - Dormitory
+  * Added dormitory form
+  * Kaz language fixes
+  * Changed copyright date
+  * Changed contact email
+
 * 2024-10-28 -- 1.2.1.1 - Livewire fix
   * Livewire fix
 

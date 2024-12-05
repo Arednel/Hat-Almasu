@@ -38,13 +38,11 @@
                 <p>{{ $message }}</p>
             @enderror
             <optgroup label="Ошибка">
-                <option disabled selected value hidden style="red-text-color">Выберите вашу ошибку</option>
-                <option value="Неверный пароль">Неверный пароль / необходимо сбросить пароль</option>
-                <option value="Добавление на дисциплину">Добавление на дисциплину - необходимо добавить вас на
-                    дисциплину</option>
-                <option value="Удаление с дисциплины">Удаление с дисциплины - необходимо удалить вас с дисциплины
-                </option>
-                <option value="Другая ошибка">Другая ошибка</option>
+                <option disabled selected value hidden style="red-text-color">{!! __('Выберите вашу ошибку') !!}</option>
+                <option value="Неверный пароль">{!! __('Неверный пароль / необходимо сбросить пароль') !!}</option>
+                <option value="Добавление на дисциплину">{!! __('Добавление на дисциплину - необходимо добавить вас на дисциплину') !!}</option>
+                <option value="Удаление с дисциплины">{!! __('Удаление с дисциплины - необходимо удалить вас с дисциплины') !!}</option>
+                <option value="Другая ошибка">{!! __('Другая ошибка') !!}</option>
             </optgroup>
         </select>
 
@@ -52,19 +50,17 @@
             @error('student_password')
                 <p>{{ $message }}</p>
             @enderror
-            <input type="text" name="student_password" placeholder=" Введите пароль" required />
+            <input type="text" name="student_password" placeholder=" {!! __('Введите пароль') !!}" required />
         @elseif($selectedReason === 'Добавление на дисциплину')
             @error('subjects_to_add')
                 <p>{{ $message }}</p>
             @enderror
-            <input type="text" name="subjects_to_add"
-                placeholder=" Введите название дисциплины/дисциплин через запятую" required />
+            <input type="text" name="subjects_to_add" placeholder=" {!! __('Введите название дисциплины/дисциплин через запятую') !!}" required />
         @elseif($selectedReason === 'Удаление с дисциплины')
             @error('subjects_to_remove')
                 <p>{{ $message }}</p>
             @enderror
-            <input type="text" name="subjects_to_remove"
-                placeholder=" Введите название дисциплины/дисциплин через запятую" required />
+            <input type="text" name="subjects_to_remove" placeholder=" {!! __('Введите название дисциплины/дисциплин через запятую') !!}" required />
         @endif
 
         @error('extraTextInfo')
