@@ -21,6 +21,10 @@ use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Storage;
 use Maatwebsite\Excel\Facades\Excel;
 
+use Illuminate\Support\Facades\Mail;
+use App\Mail\InfoMail;
+use App\Mail\StatusUpdateMail;
+
 use App\Exports\SupportTicketsExport;
 
 class SupportTicketController extends VoyagerBaseController
@@ -109,6 +113,9 @@ class SupportTicketController extends VoyagerBaseController
         //Set cookies for later checking support ticket status
         Cookie::queue(Cookie::forever('email', $email));
         Cookie::queue(Cookie::forever('supportTicketID', $supportTicketID));
+
+        //Send mail to user
+        Mail::to($email)->queue(new InfoMail($supportTicketID));
 
         return redirect('Index?message=' . __('Вы успешно подали заявку, ваш номер заявки: ')  . $supportTicketID . __('. Сохраните этот номер!'));
     }
@@ -316,12 +323,26 @@ class SupportTicketController extends VoyagerBaseController
     {
         SupportTicket::where('id', $support_ticket_id)->update(['supportTicketStatus' => 'Одобрена']);
 
+        $supportTicketStatus = 'Одобрена';
+        $email = SupportTicket::where('id', $support_ticket_id)->get(['email'])->first();
+        $comment = 'placeholder';
+
+        //Send mail to user
+        Mail::to($email)->queue(new StatusUpdateMail($supportTicketStatus, $comment, $support_ticket_id));
+
         return back();
     }
 
     public function rejectSupportTicket($support_ticket_id)
     {
         SupportTicket::where('id', $support_ticket_id)->update(['supportTicketStatus' => 'Отклонена']);
+
+        $supportTicketStatus = 'Отклонена';
+        $email = SupportTicket::where('id', $support_ticket_id)->get(['email'])->first();
+        $comment = 'placeholder';
+
+        //Send mail to user
+        Mail::to($email)->queue(new StatusUpdateMail($supportTicketStatus, $comment, $support_ticket_id));
 
         return back();
     }

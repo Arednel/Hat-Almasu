@@ -39,10 +39,10 @@
     <br>
     <a href="/">← На главную</a>
 
-    <p>version 1.2.2.1 / 2024.12.05</p>
-    <p>Dormitory removed</p>
+    <p>version 1.2.3 / 2025.02.06</p>
+    <p>Mail</p>
     <p>Made by Evtifeev Artyom Vladislavovich / Arednel</p>
-    <p>2022-2024 &#169</p>
+    <p>2022-2025 &#169</p>
 </body>
 
 </html>

@@ -2,6 +2,10 @@
 
 ## Development
 
+* 2025-02-06 -- 1.2.3 - Mail
+  * Added mail about request status
+  * Dormitory removed completly
+
 * 2024-12-05 -- 1.2.2.1 - Dormitory removed
   * Dormitory removed
 
