@@ -39,8 +39,8 @@
     <br>
     <a href="/">← На главную</a>
 
-    <p>version 1.2.3 / 2025.02.06</p>
-    <p>Mail</p>
+    <p>version 1.2.3.1 / 2025.02.10</p>
+    <p>Excel Export</p>
     <p>Made by Evtifeev Artyom Vladislavovich / Arednel</p>
     <p>2022-2025 &#169</p>
 </body>

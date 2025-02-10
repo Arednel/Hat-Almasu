@@ -325,10 +325,10 @@ class SupportTicketController extends VoyagerBaseController
 
         $supportTicketStatus = 'Одобрена';
         $email = SupportTicket::where('id', $support_ticket_id)->get(['email'])->first();
-        $comment = 'placeholder';
+        $stuff_comment = 'placeholder';
 
         //Send mail to user
-        Mail::to($email)->queue(new StatusUpdateMail($supportTicketStatus, $comment, $support_ticket_id));
+        Mail::to($email)->queue(new StatusUpdateMail($supportTicketStatus, $stuff_comment, $support_ticket_id));
 
         return back();
     }
@@ -339,10 +339,10 @@ class SupportTicketController extends VoyagerBaseController
 
         $supportTicketStatus = 'Отклонена';
         $email = SupportTicket::where('id', $support_ticket_id)->get(['email'])->first();
-        $comment = 'placeholder';
+        $stuff_comment = 'placeholder';
 
         //Send mail to user
-        Mail::to($email)->queue(new StatusUpdateMail($supportTicketStatus, $comment, $support_ticket_id));
+        Mail::to($email)->queue(new StatusUpdateMail($supportTicketStatus, $stuff_comment, $support_ticket_id));
 
         return back();
     }
@@ -442,14 +442,13 @@ class SupportTicketController extends VoyagerBaseController
         $data = [[
             "ID заявки",
             "ФИО",
-            "Вид теста",
             "Курс",
             "Отделение",
-            "Дисциплина",
             "Email",
             "Телефон",
-            "Дополнительная информация",
             "Причина",
+            "Дополнительная информация",
+            "Комментарий",
             "Статус",
             "Дата подачи завяки",
         ]];
@@ -462,8 +461,9 @@ class SupportTicketController extends VoyagerBaseController
                 $item->department,
                 $item->email,
                 $item->phoneNumber,
-                $item->extraTextInfo,
                 $item->reason,
+                $item->extraTextInfo,
+                $item->stuff_comment,
                 $item->supportTicketStatus,
                 $item->created_at,
             ]);

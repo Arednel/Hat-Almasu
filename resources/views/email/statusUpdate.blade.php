@@ -8,7 +8,7 @@
 
     <p>Ваша заявка <b>{{ $supportTicketStatus }}</b></p>
 
-    <p>{{ $comment }}</p>
+    <p>{{ $stuff_comment }}</p>
 
     <p>Ваш номер заявки: <b>{{ $supportTicketID }}</b></p>
 

@@ -16,3 +16,7 @@
 2. sudo chmod -R 775 /var/www/html/hat_almasu
 3. sudo chmod -R 775 /var/www/html/hat_almasu/storage
 4. sudo chmod -R 775 /var/www/html/hat_almasu/bootstrap/cache
+
+## Background jobs (mail)
+#### 
+1. php artisan queue:work

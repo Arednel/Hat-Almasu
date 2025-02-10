@@ -14,7 +14,7 @@ class StatusUpdateMail extends Mailable implements ShouldQueue
     use Queueable, SerializesModels;
 
     public $supportTicketStatus;
-    public $comment;
+    public $stuff_comment;
     public $supportTicketID;
 
     /**
@@ -22,10 +22,10 @@ class StatusUpdateMail extends Mailable implements ShouldQueue
      *
      * @return void
      */
-    public function __construct($supportTicketStatus, $comment, $supportTicketID)
+    public function __construct($supportTicketStatus, $stuff_comment, $supportTicketID)
     {
         $this->supportTicketStatus = $supportTicketStatus;
-        $this->comment = $comment;
+        $this->stuff_comment = $stuff_comment;
         $this->supportTicketID = $supportTicketID;
     }
 
@@ -52,7 +52,7 @@ class StatusUpdateMail extends Mailable implements ShouldQueue
             view: 'email.statusUpdate',
             with: [
                 'supportTicketStatus' => $this->supportTicketStatus,
-                'comment' => $this->comment,
+                'stuff_comment' => $this->stuff_comment,
                 'supportTicketID' => $this->supportTicketID,
             ],
         );

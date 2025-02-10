@@ -2,6 +2,11 @@
 
 ## Development
 
+* 2025-02-06 -- 1.2.3.1 - Excel Export
+  * Fixed Excel Export
+  * Added info to README
+  * Minor fix to stuff comment
+
 * 2025-02-06 -- 1.2.3 - Mail
   * Added mail about request status
   * Dormitory removed completly
